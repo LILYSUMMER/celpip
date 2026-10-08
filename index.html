@@ -244,7 +244,8 @@ var TASKS=[
 var KEY='celpip_speak_v1';
 var cur=null, hist=[];
 var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-var st={rec:null,stream:null,ac:null,an:null,raf:0,timer:0,t0:0,final:'',interim:'',
+var st={rec:null,stream:null,ac:null,an:null,raf:0,timer:0,t0:0,
+        committed:'',sessionFinal:'',final:'',interim:'',
         frames:[],gaps:[],speaking:false,lastOn:0,silStart:0};
 
 var $=function(i){return document.getElementById(i)};
@@ -290,7 +291,8 @@ function prep(n){
 
 function go(){
   $('trans').hidden=false; $('trans').innerHTML=''; $('stats').hidden=false; $('msg').innerHTML='';
-  st.final=''; st.interim=''; st.frames=[]; st.gaps=[]; st.speaking=false; st.silStart=0;
+  st.committed=''; st.sessionFinal=''; st.final=''; st.interim='';
+  st.frames=[]; st.gaps=[]; st.speaking=false; st.silStart=0;
   var N=cur.task.sec, left=N;
   $('phase').textContent='말하는 중 — 멈추지 마';
   $('bigt').className='bigt live'; $('bigt').textContent=fmt(left); $('ring').style.width='100%';
@@ -342,17 +344,25 @@ function startSR(){
     rec.lang='en-CA'; rec.continuous=true; rec.interimResults=true; rec.maxAlternatives=1;
     rec.onresult=function(e){
       var fin='',itr='';
-      for(var i=0;i<e.results.length;i++){
+      for(var i=e.resultIndex!==undefined?0:0;i<e.results.length;i++){
         if(e.results[i].isFinal) fin+=e.results[i][0].transcript+' ';
-        else itr+=e.results[i][0].transcript;
+        else itr+=e.results[i][0].transcript+' ';
       }
-      st.final=fin; st.interim=itr;
-      $('trans').innerHTML=esc(fin)+'<span class="int">'+esc(itr)+'</span>';
-      var w=(fin+itr).trim()?(fin+itr).trim().split(/\s+/).length:0;
-      $('m-w').textContent=w;
+      st.sessionFinal=fin;                 // 이번 인식 세션에서 확정된 것
+      st.final=(st.committed+fin);         // 이전 세션들 + 이번 세션
+      st.interim=itr;
+      $('trans').innerHTML=esc(st.final)+'<span class="int">'+esc(itr)+'</span>';
+      var all=(st.final+' '+itr).trim();
+      $('m-w').textContent=all?all.split(/\s+/).length:0;
     };
     rec.onerror=function(ev){ if(ev.error!=='no-speech'&&ev.error!=='aborted') console.warn('SR',ev.error); };
-    rec.onend=function(){ if(st.rec) { try{rec.start()}catch(e){} } };
+    rec.onend=function(){
+      // 크롬은 잠깐 조용하면 세션을 끊는다. 끊길 때 받아쓴 걸 쌓아두고 다시 시작.
+      st.committed += (st.sessionFinal || st.interim || '');
+      st.sessionFinal=''; st.interim='';
+      st.final=st.committed;
+      if(st.rec){ try{rec.start()}catch(e){} }
+    };
     rec.start();
   }catch(e){}
 }
@@ -373,14 +383,19 @@ function micFail(err){
 
 function stop(){
   clearInterval(st.timer); cancelAnimationFrame(st.raf);
-  if(st.rec){ var r=st.rec; st.rec=null; try{r.onend=null; r.stop()}catch(e){} }
+  if(st.rec){
+    var r=st.rec; st.rec=null;
+    st.committed += (st.sessionFinal || st.interim || '');
+    st.final=st.committed; st.sessionFinal=''; st.interim='';
+    try{r.onend=null; r.stop()}catch(e){}
+  }
   if(st.stream){ st.stream.getTracks().forEach(function(t){t.stop()}); st.stream=null }
   if(st.ac){ try{st.ac.close()}catch(e){} st.ac=null }
 
   var secs=Math.max(3,Math.round((Date.now()-st.t0)/1000));
   var tail=Date.now()-st.silStart;
   if(!st.speaking&&tail>900) st.gaps.push(tail);
-  var text=(st.final+' '+st.interim).trim().replace(/\s+/g,' ');
+  var text=(st.final+' '+st.interim).trim().replace(/\s+/g,' ').replace(/ ([,.?!])/g,'$1');
   var words=text?text.split(/\s+/).length:0;
   var wpm=Math.round(words/secs*60);
   var quiet=st.gaps.reduce(function(a,g){return a+g},0)/1000;
