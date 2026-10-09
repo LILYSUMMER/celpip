@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>셀핍 아레나</title>
 <meta name="description" content="CELPIP 연습 게임 — 매일 다른 챌린지, 마이크 스피킹, 레벨과 보스.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-180.png">
+<meta name="theme-color" content="#F6F2EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16131C" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="셀핍">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@400;600;700;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
@@ -174,7 +182,20 @@ section h2{font-size:24px;margin-top:6px}
 .set label{display:block;font-size:13px;color:var(--mut);margin-bottom:5px}
 .pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--m);font-size:11px;padding:3px 9px;border-radius:99px;border:1px solid var(--line2);color:var(--mut)}
 .pill.on{border-color:var(--good);color:var(--good)}
-@media (max-width:560px){.boss{grid-template-columns:1fr 62px 38px;gap:8px}.stats,.vst{flex-wrap:wrap}.stat,.vst>div{flex:1 1 44%}}
+@media (max-width:560px){
+  .wrap{padding-inline:max(14px,env(safe-area-inset-left)) max(14px,env(safe-area-inset-right));padding-top:env(safe-area-inset-top)}
+  .boss{grid-template-columns:1fr 62px 38px;gap:8px}.stats,.vst{flex-wrap:wrap}.stat,.vst>div{flex:1 1 44%}
+  .card{padding:16px 14px}.cnm{font-size:20px}
+  textarea,input[type=text],input[type=password],select{font-size:16px}
+  .btn,.btn2{padding:13px 18px;min-height:46px}
+  .row{gap:8px}.row select{flex:1 1 100%}
+  .hrow>summary{grid-template-columns:44px 1fr auto auto;gap:7px;font-size:13px}
+  .types{grid-template-columns:1fr 1fr}
+  .opts button{padding:13px 12px;min-height:46px}
+  .items li{padding-left:26px}
+}
+@media (pointer:coarse){.btn,.btn2,.opts button{min-height:46px}}
+@media (display-mode:standalone){.hud{padding-top:30px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>

@@ -317,6 +317,8 @@ function setHead(t){
 function act(h){$('c-act').innerHTML=h}
 function idle(t){
   clearInterval(tick);$('card').classList.remove('live');
+  if(sp.warm){sp.warm.then(function(st){st.getTracks().forEach(function(x){x.stop()})}).catch(function(){});sp.warm=null}
+  if(sp.ac&&!sp.stream){try{sp.ac.close()}catch(e){}sp.ac=null}
   var avail=TYPES.filter(function(x){return !x.ai||apiKey});
   var last=S.runs.length?S.runs[S.runs.length-1].type:null;
   var pool=avail.filter(function(x){return x.id!==last}); if(!pool.length)pool=avail;
@@ -470,7 +472,37 @@ function wire(){
 
 /* --- 스피킹 --- */
 var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-var sp={rec:null,stream:null,ac:null,raf:0,committed:'',sess:'',interim:'',gaps:[],speaking:false,silStart:0,start:0};
+var sp={rec:null,stream:null,ac:null,raf:0,committed:'',sess:'',interim:'',gaps:[],speaking:false,silStart:0,start:0,warm:null,lock:null};
+/* 폰 진단: 뭐가 되고 뭐가 안 되는지 녹음 전에 말해준다 */
+function env(){
+  var ua=navigator.userAgent||'';
+  var ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  var android=/Android/.test(ua);
+  var standalone=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone===true;
+  var mic=!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia);
+  var secure=window.isSecureContext!==false;
+  return {ios:ios,android:android,mobile:ios||android,standalone:standalone,mic:mic&&secure,sr:!!SR,tts:!!window.speechSynthesis};
+}
+function micNote(){
+  var e=env(),h='';
+  if(!e.mic)h+='<div class="warn"><b>마이크를 쓸 수 없는 환경이야.</b> '+(e.ios?'아이폰이면 <b>Safari</b>로 열어줘. 홈 화면에 추가한 앱도 Safari 기준으로 돌아가.':'HTTPS 주소인지, 브라우저가 최신인지 확인해줘.')+'</div>';
+  else if(!e.sr)h+='<div class="warn">받아쓰기가 안 되는 브라우저야. 수치(속도·무음)는 그대로 재지만 문장은 안 남아. '+
+    (e.ios?'아이폰은 <b>Safari</b>에서만 받아쓰기가 돼. 설정 → Siri 및 받아쓰기 → <b>받아쓰기 켜기</b>도 필요해.':e.android?'안드로이드는 <b>Chrome</b>으로 열어줘.':'<b>Chrome / Edge</b>를 써줘.')+'</div>';
+  else h+='<p class="oknote">마이크 ✓ 받아쓰기 ✓'+(e.mobile?' · 폰이면 조용한 곳에서, 입에서 20cm 정도.':'')+'</p>';
+  return h;
+}
+/* 버튼을 누른 그 순간(사용자 제스처 안)에 마이크·오디오를 미리 연다.
+   아이폰은 제스처 밖에서 AudioContext를 만들면 멈춘 채로 생기고, 준비 30초가 끝난 뒤 타이머에서 열면 늦다. */
+function warm(){
+  if(sp.warm)return;
+  try{var AC=window.AudioContext||window.webkitAudioContext;if(AC&&!sp.ac){sp.ac=new AC();if(sp.ac.resume)sp.ac.resume()}}catch(e){}
+  if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
+    sp.warm=navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+    sp.warm.catch(function(){});
+  }
+}
+function lockOn(){try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){sp.lock=l}).catch(function(){})}catch(e){}}
+function lockOff(){try{if(sp.lock){sp.lock.release();sp.lock=null}}catch(e){}}
 function buildSpeak(){
   var t=one(SPEAK),p=one(t.p);
   C={kind:'speak',t:t,p:p};
@@ -484,13 +516,14 @@ function buildSpeak(){
     '<dl class="vst"><div><dt>단어</dt><dd id="v-w">—</dd></div><div><dt>속도</dt><dd id="v-s">—</dd></div>'+
     '<div><dt>무음</dt><dd id="v-q">—</dd></div><div><dt>최장 침묵</dt><dd id="v-l">—</dd></div></dl>';
   for(var i=0;i<15;i++)$('mtr').appendChild(document.createElement('b'));
+  $('c-body').insertAdjacentHTML('beforeend',micNote());
   act('<button class="btn" id="pr">준비 30초</button><button class="btn2" id="sk">바로 말하기</button>');
-  $('pr').onclick=function(){prep(30)}; $('sk').onclick=speak;
+  $('pr').onclick=function(){warm();prep(30)}; $('sk').onclick=function(){warm();speak()};
 }
 function prep(n){
   var left=n;clearInterval(tick);
   $('ph').textContent='준비 — 무슨 말을 할지만 정해';$('bt').className='bigt prep';$('bt').textContent=fmt(left);$('rg').style.width='100%';
-  act('<button class="btn2" id="sk">바로 말하기</button>');$('sk').onclick=function(){clearInterval(tick);speak()};
+  act('<button class="btn2" id="sk">바로 말하기</button>');$('sk').onclick=function(){warm();clearInterval(tick);speak()};
   tick=setInterval(function(){left--;$('bt').textContent=fmt(Math.max(0,left));$('rg').style.width=(left/n*100)+'%';
     if(left<=0){clearInterval(tick);speak()}},1000);
 }
@@ -499,8 +532,11 @@ function speak(){
   var N=C.t.sec,left=N;
   $('tr').innerHTML='';$('ph').textContent='말하는 중 — 멈추지 마';$('bt').className='bigt live';$('bt').textContent=fmt(left);$('rg').style.width='100%';
   act('<button class="btn2" id="st">끝내기</button>');$('st').onclick=stopSpeak;
-  navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}}).then(function(stream){
-    sp.stream=stream;var AC=window.AudioContext||window.webkitAudioContext;sp.ac=new AC();
+  lockOn();
+  var get=sp.warm||(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia?navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}}):Promise.reject({name:'NotSupported'}));
+  sp.warm=null;
+  get.then(function(stream){
+    sp.stream=stream;var AC=window.AudioContext||window.webkitAudioContext;if(!sp.ac)sp.ac=new AC();if(sp.ac.resume)sp.ac.resume();
     var src=sp.ac.createMediaStreamSource(stream),an=sp.ac.createAnalyser();an.fftSize=1024;an.smoothingTimeConstant=.3;src.connect(an);
     var buf=new Uint8Array(an.fftSize);
     (function loop(){
@@ -515,11 +551,14 @@ function speak(){
     })();
     startSR();
   }).catch(function(err){
-    clearInterval(tick);cancelAnimationFrame(sp.raf);
+    clearInterval(tick);cancelAnimationFrame(sp.raf);lockOff();
+    if(sp.ac){try{sp.ac.close()}catch(e){}sp.ac=null}
+    var e=env();
     $('ph').textContent='마이크를 못 열었어';$('bt').className='bigt';$('bt').textContent='—';
     $('c-res').innerHTML='<div class="warn">'+(err&&err.name==='NotAllowedError'
-      ?'마이크 권한이 거부됐어. 주소창 왼쪽 자물쇠 → 마이크 → <b>허용</b> → 새로고침.'
-      :'마이크를 열 수 없어 ('+esc(err&&err.name||'')+').')+'</div>';
+      ?(e.ios?'마이크 권한이 거부됐어. 아이폰 설정 → Safari → 마이크 → <b>허용</b>. 홈 화면 앱이면 설정 → 셀핍 → 마이크.':e.android?'마이크 권한이 거부됐어. 주소창 자물쇠 → 권한 → 마이크 → <b>허용</b> → 새로고침.':'마이크 권한이 거부됐어. 주소창 왼쪽 자물쇠 → 마이크 → <b>허용</b> → 새로고침.')
+      :err&&err.name==='NotSupported'?'이 브라우저는 마이크를 못 써. '+(e.ios?'<b>Safari</b>로 열어줘.':'<b>Chrome</b>으로 열어줘.')
+      :'마이크를 열 수 없어 ('+esc(err&&err.name||'')+'). 다른 앱이 마이크를 쓰고 있지 않은지 확인해줘.')+'</div>';
     act('<button class="btn2" id="rt">다시</button>');$('rt').onclick=function(){idle(T)};
   });
   clearInterval(tick);
@@ -544,7 +583,7 @@ function startSR(){
   }catch(e){}
 }
 function stopSpeak(){
-  clearInterval(tick);cancelAnimationFrame(sp.raf);
+  clearInterval(tick);cancelAnimationFrame(sp.raf);lockOff();
   if(sp.rec){var r=sp.rec;sp.rec=null;sp.committed+=(sp.sess||sp.interim||'');sp.sess='';sp.interim='';try{r.onend=null;r.stop()}catch(e){}}
   if(sp.stream){sp.stream.getTracks().forEach(function(t){t.stop()});sp.stream=null}
   if(sp.ac){try{sp.ac.close()}catch(e){}sp.ac=null}
@@ -690,6 +729,7 @@ $('wipe').onclick=function(){
 };
 
 /* ============ 부팅 ============ */
+if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js')}catch(e){}}
 load();keyUI();if(apiKey)loadModels();
 renderHud();renderBosses();renderHist();renderNb();renderTypes();idle();
 })();

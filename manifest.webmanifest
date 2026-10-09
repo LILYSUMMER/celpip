@@ -1,0 +1,17 @@
+{
+  "name": "셀핍 아레나",
+  "short_name": "셀핍",
+  "description": "CELPIP 연습 게임. 매일 다른 챌린지, 마이크 스피킹, 레벨과 보스.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#16131C",
+  "theme_color": "#16131C",
+  "lang": "ko",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
