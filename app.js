@@ -464,6 +464,32 @@ function setHead(t){
   $('c-ds').textContent=t.ds;
 }
 function act(h){$('c-act').innerHTML=h}
+/* ---- 추천: 요일 카테고리 ×3 가중 + 살아있는 보스 HP 가중 + 직전 유형 회피. 같은 요일에도 매번 다른 게 나온다. ---- */
+var CAT={0:null,1:'write',2:'speak',3:'write',4:'read',5:'speak',6:'listen'};
+var TCAT={speak:'speak',roleplay:'speak',speed:'speak',repair:'read',traphunt:'read',listen:'listen',spell:'listen',survey:'write',email:'write',hottake:'write'};
+var TBOSS={repair:['article','agree','past','herethere','runon','word','compar','prep','toinf','theyhave','being'],spell:['spell'],
+  survey:['signal','runon','herethere','spell','article','agree'],email:['runon','spell','article','agree','prep'],hottake:['signal','runon','agree'],
+  speak:['freeze','past','agree','article'],roleplay:['past','agree','word'],speed:['past','agree'],traphunt:[],listen:[]};
+function dow(){try{return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Intl.DateTimeFormat('en-CA',{timeZone:'America/Vancouver',weekday:'short'}).format(new Date()))}catch(e){return new Date().getDay()}}
+function gapDays(){if(!S.runs.length)return 0;var last=S.runs[S.runs.length-1].date,d=0,c=TD;while(c!==last&&d<60){c=shift(c,-1);d++}return d}
+function revenge(){
+  /* 가장 최근(오늘 제외) 전투에서 실제로 맞은 보스 중, 수리소 문장이 3개 이상 있는 것 */
+  for(var i=S.runs.length-1;i>=0&&i>=S.runs.length-6;i--){var r=S.runs[i];if(r.date===TD)continue;
+    var f=(r.errorsFound||[]).filter(function(b){return S.bosses[b]>0&&REPAIR.filter(function(x){return x[2]===b}).length>=3});
+    if(f.length)return f[0]}
+  return null;
+}
+function recommend(avail,last){
+  var gap=gapDays(),cat=CAT[dow()];
+  var pool=avail.filter(function(x){return x.id!==last});if(!pool.length)pool=avail;
+  if(gap>=3){var shortp=pool.filter(function(x){return x.mn<=6&&!x.ai});if(shortp.length)pool=shortp}  /* 복귀일: 짧은 것만 */
+  var w=pool.map(function(x){
+    var bl=TBOSS[x.id]||[],bw=bl.length?bl.reduce(function(a,b){return a+Math.max(0,S.bosses[b]||0)},0)/bl.length/100:0.5;
+    return (1+bw)*(cat&&TCAT[x.id]===cat?3:1)});
+  var tot=w.reduce(function(a,b){return a+b},0),r=Math.random()*tot;
+  for(var i=0;i<pool.length;i++){r-=w[i];if(r<=0)return pool[i]}
+  return pool[pool.length-1];
+}
 function idle(t){
   clearInterval(tick);$('card').classList.remove('live');
   hush();
@@ -472,13 +498,23 @@ function idle(t){
   var avail=TYPES.filter(function(x){return !x.ai||apiKey});
   var last=S.runs.length?S.runs[S.runs.length-1].type:null;
   var pool=avail.filter(function(x){return x.id!==last}); if(!pool.length)pool=avail;
-  setHead(t||one(pool));
+  var rv=null;
+  if(!t){
+    t=recommend(avail,last);
+    var rb=revenge();
+    if(rb&&last!=='repair'&&gapDays()<3&&Math.random()<0.4){t=TYPES.filter(function(x){return x.id==='repair'})[0];rv=rb}
+  }
+  setHead(t);T.focus=rv;
   $('c-body').innerHTML='';$('c-res').innerHTML='';
+  var gap=gapDays(),note='';
+  if(gap>=3&&!S.runs.some(function(r){return r.date===TD}))note+='<div class="oknote"><b>'+gap+'일 쉬었어.</b> 복귀일 규칙: 짧은 거 하나만 하고 닫아. 밀린 건 버린다. 내일 또 열면 그게 이긴 거야.</div>';
+  if(rv){var bb=BOSSES.filter(function(b){return b.id===rv})[0];note+='<div class="ask"><span class="who">복수전</span>지난번에 <b>'+esc(bb.n)+'</b> 보스한테 맞았어. 이번 수리소는 그 유형 위주로 나온다.</div>'}
+  if(note)$('c-body').innerHTML=note;
   var sel='<select id="pk"><option value="">🎲 아무거나</option>'+TYPES.map(function(x){
     return '<option value="'+x.id+'"'+(x.id===T.id?' selected':'')+(x.ai&&!apiKey?' disabled':'')+'>'+x.ic+' '+x.nm+(x.ai&&!apiKey?' (키 필요)':'')+'</option>'}).join('')+'</select>';
   act('<button class="btn" id="go">시작</button><button class="btn2" id="re">🎲 다시 뽑기</button>'+sel);
   $('go').onclick=start;
-  $('re').onclick=function(){idle(one(pool))};
+  $('re').onclick=function(){idle()};
   $('pk').onchange=function(){var v=this.value;idle(v?TYPES.filter(function(x){return x.id===v})[0]:null)};
 }
 function start(){
@@ -499,8 +535,11 @@ function timerUI(){
 
 /* --- 문장 수리소 --- */
 function buildRepair(){
-  var items=pickN(REPAIR,8);
-  C={kind:'repair',items:items};
+  var items;
+  if(T.focus){var f=REPAIR.filter(function(x){return x[2]===T.focus}),rest=REPAIR.filter(function(x){return x[2]!==T.focus});
+    items=pickN(f,Math.min(5,f.length)).concat(pickN(rest,8-Math.min(5,f.length)));items=pickN(items,items.length)}
+  else items=pickN(REPAIR,8);
+  C={kind:'repair',items:items,focus:T.focus||null};
   $('c-body').innerHTML='<div class="scen">아래 8문장에 각각 <strong>오류가 하나씩</strong> 있어. 고친 문장을 한 줄에 하나씩 써.</div>'+
     '<ul class="items">'+items.map(function(i){return '<li>'+esc(i[0])+'</li>'}).join('')+'</ul>'+
     '<textarea id="ans" placeholder="1. ...&#10;2. ..."></textarea><div class="cnt" id="cnt">0 단어</div>';
@@ -1125,6 +1164,34 @@ $('exp').onclick=function(){
   var t='[셀핍 아레나 기록] Lv.'+(lvl(S.xp)+1)+' / '+S.xp+'XP\n\n'+s;
   if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){$('exp').textContent='✓ 복사됨';setTimeout(function(){$('exp').textContent='📋 전체 기록 복사'},1600)});
 };
+function backupJSON(){return JSON.stringify({app:'celpip_arena',v:1,exported:new Date().toISOString(),xp:S.xp,bosses:S.bosses,runs:S.runs},null,1)}
+$('dl').onclick=function(){
+  var blob=new Blob([backupJSON()],{type:'application/json'}),a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='celpip-backup-'+TD+'.json';document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1000);
+};
+$('dlc').onclick=function(){
+  if(navigator.clipboard)navigator.clipboard.writeText(backupJSON()).then(function(){$('dlc').textContent='✓ 복사됨';setTimeout(function(){$('dlc').textContent='📋 JSON 복사'},1600)});
+};
+function restore(text){
+  var v;try{v=JSON.parse(text)}catch(e){alert('JSON이 아니야.');return}
+  var runs=Array.isArray(v)?v:(v&&v.runs);
+  if(!Array.isArray(runs)){alert('runs 배열이 없어. 백업 파일이 맞는지 확인해줘.');return}
+  runs=runs.filter(function(r){return r&&r.date&&r.type});
+  var full=v&&typeof v.xp==='number'&&v.bosses;
+  var mode=full&&S.runs.length?(confirm('현재 기록 '+S.runs.length+'개가 있어.\n확인 = 백업으로 전부 덮어쓰기\n취소 = 기록만 합치기(중복 제외, XP·보스 유지)')?'replace':'merge'):(full?'replace':'merge');
+  if(mode==='replace'){S.xp=v.xp;S.runs=runs;BOSSES.forEach(function(b){S.bosses[b.id]=(v.bosses[b.id]!=null)?v.bosses[b.id]:b.hp})}
+  else{var have={};S.runs.forEach(function(r){have[r.ts||(r.date+r.type+r.score)]=1});
+    var add=runs.filter(function(r){return !have[r.ts||(r.date+r.type+r.score)]});
+    S.runs=S.runs.concat(add).sort(function(a,b){return (a.ts||0)-(b.ts||0)});
+    if(!full)add.forEach(function(r){S.xp+=(r.score||0)});}
+  S.runs=S.runs.slice(-150);save();
+  renderHud();renderBosses();renderHist();renderNb();idle();
+  $('rst').textContent='✓ 복원됨 ('+S.runs.length+'개)';setTimeout(function(){$('rst').textContent='⬆ JSON 복원'},2500);
+}
+$('rst').onclick=function(){$('rf').click()};
+$('rf').onchange=function(){var f=this.files&&this.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){restore(rd.result)};rd.readAsText(f);this.value=''};
+$('rp2').onclick=function(){var t=prompt('백업 JSON을 붙여넣어');if(t)restore(t)};
 $('wipe').onclick=function(){
   if(!confirm('전투 기록·XP·보스 HP를 전부 지울까? 되돌릴 수 없어.'))return;
   S={xp:SEED,bosses:{},runs:[]};BOSSES.forEach(function(b){S.bosses[b.id]=b.hp});save();

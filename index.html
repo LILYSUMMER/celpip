@@ -273,7 +273,18 @@ section h2{font-size:24px;margin-top:6px}
     </div>
     <p class="note" style="margin-top:12px">키는 <strong>네 브라우저에만</strong> 저장되고 깃허브엔 안 올라가. console.anthropic.com 에서 발급. 채점 한 번에 1센트 안팎이야.</p>
   </div>
-  <div class="row"><button class="btn2" id="exp">📋 전체 기록 복사</button><button class="btn2" id="wipe">기록 초기화</button></div>
+  <div class="set">
+    <label>백업 — 기록은 이 브라우저에만 있어. 브라우저 데이터를 지우면 전부 사라지니 가끔 받아둬.</label>
+    <div class="row" style="margin-top:6px">
+      <button class="btn2" id="dl">⬇ JSON 백업</button>
+      <button class="btn2" id="dlc">📋 JSON 복사</button>
+      <button class="btn2" id="rst">⬆ JSON 복원</button>
+      <button class="btn2" id="rp2">붙여넣기 복원</button>
+      <input type="file" id="rf" accept=".json,application/json" hidden>
+    </div>
+    <p class="note" style="margin-top:12px">복원은 전체 덮어쓰기 또는 기록 합치기(중복 제외)를 고를 수 있어. 과거 기록을 넣고 싶으면 <code>[{date,type,score,...}]</code> 배열만 붙여넣어도 돼.</p>
+  </div>
+  <div class="row"><button class="btn2" id="exp">📋 전체 기록 복사 (대화용 텍스트)</button><button class="btn2" id="wipe">기록 초기화</button></div>
 </section>
 
 </div>
