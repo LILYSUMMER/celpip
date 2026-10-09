@@ -159,6 +159,37 @@ var EMAIL=[
  '작년에 함께 일한 클라이언트에게 다시 연락해서 새 프로젝트를 제안하는 메일을 써.',
  '참석하기로 한 워크숍에 갑자기 못 가게 됐어. 주최자에게 사정을 설명하고 가능하면 다음 회차로 옮겨달라고 메일을 써.'
 ];
+/* 긴급 이메일 모범답안. EMAIL과 같은 순서. 키 없을 때 자기 비교용. */
+var EMAIL_M=[
+"Dear Studio Manager,\n\nI am writing about the booking I made for your studio on September 20. When I arrived on the day, I was told the room had been double-booked and my session was cancelled. I had already paid a $150 deposit, and it has not been returned yet.\n\nThis caused a serious problem for me because my client had travelled from Burnaby for the shoot. I had to cancel the project and apologize to them.\n\nCould you please refund my deposit by the end of this week? I would also appreciate a discount on a future booking, since the mistake was on your side.\n\nI look forward to hearing from you.\n\nSincerely,\nLily Yoon",
+"Dear Mr. Santos,\n\nI am writing about the laundry room on the second floor. Both machines have been out of order for three weeks. The notice in the lobby said they would be repaired by October 1, but that date has passed and nothing has changed.\n\nThis is a real problem for residents. Many of us now have to carry our laundry to the laundromat on Davie Street, which costs more and takes a lot of time.\n\nCould you please let us know the new repair date? If the machines cannot be fixed soon, I would like to suggest a temporary discount on our laundry fees.\n\nThank you for your help.\n\nBest regards,\nLily Yoon",
+"Dear Customer Service,\n\nI am writing about order number 48213, which I received on Monday. I ordered the Rode Wireless GO II microphone, but the package contained the older Wireless GO model instead.\n\nI need the newer model for a project next week, so this mistake has caused a delay for my client.\n\nCould you please send me a prepaid return label for the wrong item and ship the correct product as soon as possible? I would appreciate express shipping, since the error was not mine.\n\nPlease let me know when the replacement has been sent.\n\nSincerely,\nLily Yoon",
+"Dear City Council,\n\nI am writing to support the plan to replace the streetlights on Richards Street. I have lived in this neighbourhood for two years, and I walk home late at night several times a week.\n\nAt the moment, the lights are dim and some of them do not work at all. I often feel unsafe walking past the park after ten o'clock, and I have heard the same from my neighbours.\n\nBrighter lights would make the street safer and might also reduce crime. I would suggest starting with the section between Robson and Georgia, where the problem is worst.\n\nThank you for considering my opinion.\n\nSincerely,\nLily Yoon",
+"Dear Ms. Nguyen,\n\nI hope you are doing well. We worked together last year on the product video for your spring campaign, and I really enjoyed the project.\n\nI am writing because I have a new idea that might suit your brand. Many companies are now using short vertical videos for social media, and I have recently produced several of them for clients in Vancouver.\n\nWould you be interested in a short meeting next week to discuss it? I could show you some examples and give you a rough estimate.\n\nPlease let me know a time that works for you.\n\nBest regards,\nLily Yoon",
+"Dear Mr. Patel,\n\nI am writing about the video editing workshop on Saturday, October 18. Unfortunately, I will not be able to attend because of a family emergency.\n\nI was really looking forward to this workshop, especially the session on colour grading. I understand that the fee is normally non-refundable, but I would like to ask if I could move my registration to the next workshop in November instead.\n\nIf that is not possible, could you let me know whether a partial refund is available?\n\nI apologize for the short notice and thank you for your understanding.\n\nSincerely,\nLily Yoon"
+];
+/* 설문 응답 (Writing Task 2). 150~200단어, 4문단. 모범답안은 4문단 템플릿 그대로. */
+var SURVEY=[
+ {s:'네 동네 커뮤니티 센터가 내년 예산을 하나에만 쓸 수 있어. (A) 실내 수영장 신축 (B) 도서관 확장. 하나를 고르고 이유를 설명해.',
+  a:'A) Build an indoor pool',b:'B) Expand the library',
+  m:"I believe the community centre should build an indoor pool. Although the library is useful, a pool would benefit more people in our neighbourhood.\n\nThe main reason is that there is no public pool within walking distance. Families with children have to drive thirty minutes to the nearest one, and many people simply give up. A local pool would let children learn to swim, which is an important safety skill in a city surrounded by water.\n\nAnother reason is that a pool supports people's health all year round. Vancouver winters are long and rainy, and it is hard to exercise outside. Swimming is gentle on the body, so seniors and people with injuries can use it too. For example, my neighbour stopped jogging after a knee injury and has nowhere to exercise now.\n\nIn conclusion, the library already exists and can be improved later, but the pool would fill a gap that nothing else fills. I strongly recommend option A."},
+ {s:'네 아파트 건물이 지하 주차 공간 일부를 바꾸려고 해. (A) 주차 20면을 자전거 보관소로 전환 (B) 주차 그대로 유지. 하나를 고르고 이유를 설명해.',
+  a:'A) Convert parking to bike storage',b:'B) Keep all parking',
+  m:"In my opinion, the building should convert some parking spots into bike storage. I understand that drivers may be unhappy, but this change would help more residents than it hurts.\n\nThe main reason is that many people in our building already cycle, and there is nowhere safe to keep a bike. Residents carry bikes into their apartments or lock them outside, where several have been stolen this year. Secure storage would solve this problem immediately.\n\nAnother reason is that the parking garage is never full. When I checked last week, at least fifteen spots were empty on a weekday evening. Removing twenty spots would not create a shortage, and the building could even charge a small fee for bike storage to cover the cost.\n\nIn conclusion, the garage has space that is not being used, while cyclists have a real problem that is not being solved. For these reasons, I support option A."},
+ {s:'네 회사가 근무 방식을 바꾸려고 해. (A) 주 4일, 하루 10시간 (B) 주 5일, 하루 8시간 유지. 하나를 고르고 이유를 설명해.',
+  a:'A) Four 10-hour days',b:'B) Five 8-hour days',
+  m:"I would choose the four-day week with longer days. Although ten hours is a long day, having three days off every week would improve both my work and my life.\n\nThe main reason is that a full extra day off makes real rest possible. On a normal weekend, one day goes to chores and errands, and only one day is left to relax. With a third day, people could see family, exercise, or simply recover, and they would return to work with more energy.\n\nAnother reason is that longer days are better for focused work. In my job, I edit videos, and it takes time to get into deep concentration. A ten-hour day means fewer interruptions and fewer times starting from zero. For example, I often finish more in one long day than in two short ones.\n\nIn conclusion, the four-day schedule gives employees better rest and gives the company more focused work. I strongly recommend option A."},
+ {s:'시에서 주말 다운타운 차량 통행을 막는 안을 검토 중이야. (A) 주말 차 없는 거리 (B) 현행 유지. 하나를 고르고 이유를 설명해.',
+  a:'A) Car-free downtown on weekends',b:'B) Keep cars downtown',
+  m:"I support the plan to make downtown car-free on weekends. I live downtown myself, and I believe the benefits are greater than the inconvenience.\n\nThe main reason is safety. On weekends, the streets are full of families, tourists and cyclists, and cars move slowly and dangerously through the crowds. Without cars, people could walk and ride freely, and the risk of accidents would drop. Many European cities have already done this successfully.\n\nAnother reason is that car-free streets are good for local businesses. When people walk, they stop at shops and cafes that drivers pass by. For example, when Granville Street was closed for a festival last summer, the restaurants near my apartment were busier than I had ever seen them.\n\nIn conclusion, closing downtown to cars on weekends would make the area safer and more lively. Drivers can still use the SkyTrain or park outside the core. I recommend option A."},
+ {s:'네 건물 관리위원회가 반려동물 규정을 정하려고 해. (A) 모든 세대 반려동물 허용 (B) 반려동물 금지. 하나를 고르고 이유를 설명해.',
+  a:'A) Allow pets in all units',b:'B) No pets allowed',
+  m:"I believe pets should be allowed in all units. I have a cat myself, but I also think this rule is better for the building as a whole.\n\nThe main reason is that pets make a building feel like a community. Dog owners meet each other in the elevator and in the park, and neighbours start to talk. In my last building, which allowed pets, I knew most of my neighbours by name. Here, I barely know anyone.\n\nAnother reason is that a no-pet rule is very hard to enforce fairly. Some residents already have pets quietly, and a ban would create conflict and secret complaints. Clear rules, such as a limit of two pets and a cleaning fee for damage, would protect the building much better than a total ban.\n\nIn conclusion, allowing pets with sensible rules is friendlier and more practical than banning them. For these reasons, I strongly support option A."},
+ {s:'시에서 대중교통 요금 정책 의견을 받고 있어. (A) 세금으로 운영하고 요금 무료 (B) 요금 유지. 하나를 고르고 이유를 설명해.',
+  a:'A) Free transit funded by taxes',b:'B) Keep fares',
+  m:"In my opinion, the city should keep transit fares rather than make transit free. Free transit sounds attractive, but I do not think it would work well in practice.\n\nThe main reason is that the money has to come from somewhere. If fares are removed, taxes must go up for everyone, including people who never use transit. Also, when a service is free, it is often the first thing cut when the city has a budget problem. Fares give transit a stable income.\n\nAnother reason is that fares are not the real barrier for most people. The bigger problems are crowded buses and long waits in the suburbs. For example, my coworker in Surrey drives not because of the price, but because the bus takes an hour and a half. The city should spend money on more buses, not on free rides.\n\nIn conclusion, keeping fares and improving service would help more people than free transit would. I recommend option B."}
+];
+
 var SPEAK=[
  {n:1,t:'Giving Advice',ko:'조언하기',sec:90,tip:'구체적인 행동 2~3개 + 각각 왜인지 한 줄.',
   b:['If I were you, I would…','I\'d suggest that you…','It might be worth…','The most important thing is…'],
@@ -348,8 +379,9 @@ var TYPES=[
  {id:'listen',ic:'🎧',nm:'듣기 함정',df:2,mn:6,ds:'대화를 한 번만 들려준다. 문항 4개 + 들은 문장 재진술.',ai:false},
  {id:'spell',ic:'🔤',nm:'철자 받아쓰기',df:1,mn:4,ds:'단어 10개를 불러준다. 시험엔 스펠체크가 없다.',ai:false},
  {id:'roleplay',ic:'🥊',nm:'역할극',df:3,mn:8,ds:'변명하는 상대와 3라운드. 밀리면 진다.',ai:true},
- {id:'hottake',ic:'🔥',nm:'핫테이크',df:3,mn:5,ds:'도발적인 주장에 80단어로 반박하거나 편들어라.',ai:true},
- {id:'email',ic:'✉️',nm:'긴급 이메일',df:2,mn:8,ds:'상황 하나. 실제로 보낼 메일을 쓴다.',ai:true}
+ {id:'hottake',ic:'🔥',nm:'핫테이크',df:3,mn:5,ds:'도발적인 주장에 80단어로 반박하거나 편들어라.',ai:false,opt:true},
+ {id:'email',ic:'✉️',nm:'긴급 이메일',df:2,mn:8,ds:'상황 하나. 실제로 보낼 메일을 쓴다. 모범 메일과 비교.',ai:false,opt:true},
+ {id:'survey',ic:'📝',nm:'설문 응답',df:3,mn:26,ds:'시험 Writing Task 2 그대로. 150~200단어, 4문단, 26분.',ai:false,opt:true}
 ];
 
 /* ============ 상태 ============ */
@@ -420,14 +452,14 @@ function renderNb(){
 }
 function renderTypes(){
   $('types').innerHTML=TYPES.map(function(t){
-    return '<div class="type"><div class="ti">'+t.ic+'</div><div class="tn">'+esc(t.nm)+(t.ai?' <span class="pill">AI</span>':'')+'</div><div class="td">'+esc(t.ds)+'</div></div>'}).join('');
+    return '<div class="type"><div class="ti">'+t.ic+'</div><div class="tn">'+esc(t.nm)+(t.ai?' <span class="pill">AI 필수</span>':t.opt?' <span class="pill">AI 선택</span>':'')+'</div><div class="td">'+esc(t.ds)+'</div></div>'}).join('');
 }
 
 /* ============ 챌린지 ============ */
 var T=null,C=null,busy=false,tick=null,t0=0;
 function setHead(t){
   T=t;$('c-ic').textContent=t.ic;$('c-nm').textContent=t.nm;
-  $('c-mt').textContent=TD+' · 약 '+t.mn+'분 · 100 PT'+(t.ai?' · AI 채점':'');
+  $('c-mt').textContent=TD+' · 약 '+t.mn+'분 · 100 PT'+(t.ai?' · AI 채점':t.opt?(apiKey?' · AI + 기계 검사':' · 기계 검사'):'');
   $('c-st').textContent='★★★'.slice(0,t.df)+'☆☆☆'.slice(0,3-t.df);
   $('c-ds').textContent=t.ds;
 }
@@ -703,6 +735,83 @@ function gradeSpell(){
     C.items.map(function(it,i){return (i+1)+'. '+(C.ans[i]||'-')+(C.ans[i]&&C.ans[i].toLowerCase()===it[0]?'':' ('+it[0]+')')}).join('\n'));
 }
 
+/* --- 기계 검사: AI 없이 코드로 잡을 수 있는 것만. 보스 id와 1:1 --- */
+var MISSPELL={comunity:'community',commuity:'community',bileve:'believe',beleive:'believe',belive:'believe',qulity:'quality',quallity:'quality',surbaey:'survey',survay:'survey',importent:'important',improtant:'important',outsite:'outside',helther:'healthier',healthyer:'healthier',becouse:'because',becuase:'because',diffrent:'different',diferent:'different',enviroment:'environment',envirnoment:'environment',goverment:'government',govermnent:'government',convinient:'convenient',convient:'convenient',recieve:'receive',seperate:'separate',definately:'definitely',definetly:'definitely',experiance:'experience',neccessary:'necessary',necesary:'necessary',wich:'which',truely:'truly',untill:'until',alot:'a lot',occured:'occurred',tommorow:'tomorrow',tomorow:'tomorrow',recomend:'recommend',reccomend:'recommend',apartement:'apartment',appartment:'apartment',resturant:'restaurant',restaraunt:'restaurant',exersize:'exercise',excercise:'exercise',comfortible:'comfortable',confortable:'comfortable',especialy:'especially',expecially:'especially',availible:'available',avaliable:'available',benifit:'benefit',benefit_:'benefit',oppinion:'opinion',opinon:'opinion',sheduel:'schedule',shedule:'schedule',beutiful:'beautiful',beautifull:'beautiful',thier:'their',freind:'friend',enough_:'enough',enuf:'enough',writting:'writing',begining:'beginning',comming:'coming',realy:'really',finaly:'finally',usualy:'usually',oportunity:'opportunity',oppurtunity:'opportunity',reponse:'response',responce:'response',sucess:'success',succes:'success',acheive:'achieve',arguement:'argument',grammer:'grammar',hieght:'height',lenght:'length',strenght:'strength',wether:'whether',wierd:'weird'};
+function checkWrite(text,kind){
+  var t=String(text||''),items=[],cors=[],found={},avoided={};
+  var words=t.trim()?t.trim().split(/\s+/).length:0;
+  var paras=t.split(/\n\s*\n/).map(function(p){return p.trim()}).filter(Boolean);
+  var sents=t.replace(/\n+/g,' ').replace(/([.!?])\s+/g,'$1\n').split('\n').map(function(s){return s.trim()}).filter(function(s){return s.length>2});
+  var pen=0;
+  /* 1. 분량 */
+  var lo=kind==='survey'?150:kind==='email'?90:60, hi=kind==='survey'?200:kind==='email'?140:110;
+  var wOk=words>=lo&&words<=hi;
+  items.push({ok:wOk,l:'분량 '+words+'단어',d:wOk?'목표 '+lo+'~'+hi+' 안':words<lo?(lo-words)+'단어 모자라. 이유에 예시 한 문장을 더 붙여.':'너무 길어. 시험에선 시간이 모자란다.'});
+  if(!wOk)pen+=words<lo*0.7||words>hi*1.3?25:12;
+  /* 2. 구조 */
+  if(kind==='survey'){var pOk=paras.length>=4;items.push({ok:pOk,l:'문단 '+paras.length+'개',d:pOk?'4문단 템플릿':'입장 / 이유1 / 이유2 / 결론 — 빈 줄로 나눠'});if(!pOk)pen+=10}
+  if(kind==='email'){
+    var g=/^\s*(dear|hi|hello)\b/i.test(t),c=/(sincerely|regards|best wishes|thank you for your|yours truly|kind regards)/i.test(t);
+    items.push({ok:g,l:'인사말',d:g?'':'Dear Mr. / Hi Sam, 으로 시작'});items.push({ok:c,l:'맺음말',d:c?'':'Sincerely, / Best regards, + 이름'});
+    if(!g)pen+=8;if(!c)pen+=8;
+    var pOk2=paras.length>=3;items.push({ok:pOk2,l:'문단 '+paras.length+'개',d:pOk2?'':'상황 / 문제 / 요청을 빈 줄로 나눠'});if(!pOk2)pen+=8;
+  }
+  /* 3. 신호탄 (설문·핫테이크) */
+  if(kind==='survey'||kind==='hot'){
+    var sig=/\b(another reason is that|another reason|secondly|in addition|furthermore|moreover)\b/i.test(t);
+    var exact=/another reason is that/i.test(t);
+    items.push({ok:sig,l:'두 번째 이유 신호탄',d:exact?'"Another reason is that" ✓':sig?'다른 신호탄을 썼어. 약속한 건 "Another reason is that"':'세 번째 문단 첫 줄에 "Another reason is that …"'});
+    if(sig)avoided.signal=1;else{found.signal=1;pen+=15;cors.push({wrong:'(두 번째 이유 문단 첫 줄)',right:'Another reason is that …',why:'2회 연속 누락됐던 구조 신호탄.',boss:'signal'})}
+    var ex=/\b(for example|for instance|such as)\b/i.test(t);
+    items.push({ok:ex,l:'구체적 예시',d:ex?'':'"For example," 한 문장. 채점자가 찾는 항목이야'});if(!ex)pen+=8;
+  }
+  /* 4. 런온 */
+  var long=sents.filter(function(s){return s.split(/\s+/).length>32});
+  if(long.length){found.runon=1;pen+=long.length*8;long.slice(0,2).forEach(function(s){cors.push({wrong:s.slice(0,70)+'…',right:'두 문장으로 끊어',why:s.split(/\s+/).length+'단어짜리 한 문장. 마침표가 없다.',boss:'runon'})});items.push({ok:false,l:'런온 '+long.length+'개',d:'32단어 넘는 문장'})}
+  else if(sents.length>=5&&words>=100){avoided.runon=1;items.push({ok:true,l:'문장 길이',d:'런온 없음'})}
+  /* 5. Here / There */
+  var ht=t.match(/\bhere (is|are) (a|an|the|some|many|two|three|no|lots)\b/i);
+  if(ht){found.herethere=1;pen+=8;cors.push({wrong:ht[0],right:ht[0].replace(/^here/i,'There'),why:'존재를 말할 땐 There is/are. Here는 "여기 있어(건네며)"일 때만.',boss:'herethere'})}
+  else if(/\bThere (is|are|was|were)\b/.test(t))avoided.herethere=1;
+  /* 6. 수일치 (잡히는 패턴만) */
+  var ag=[[/\b(two|three|four|five|many|most|some|several|these|those|both) \w+ (is|was|has|does)\b/i,'복수 주어 → are / were / have / do'],[/\b(people|children|women|men|police) (is|was|has|does)\b/i,'복수 명사 → are / were / have / do'],[/\b(he|she|it|my (cat|wife|friend|boss|client)) (have|do|go|want|need|think|like|live|work|make|take)\b/i,'3인칭 단수 → 동사에 -s'],[/\b(I|you|we|they) (is|was|has|does|wants|needs|likes)\b/,'주어와 동사 수 확인']];
+  for(var ai=0;ai<ag.length;ai++){var am=t.match(ag[ai][0]);if(am){found.agree=1;pen+=6;cors.push({wrong:am[0],right:'?',why:ag[ai][1],boss:'agree'});break}}
+  if(!found.agree&&words>=100)avoided.agree=1;
+  /* 7. 관사 a/an */
+  var an=t.match(/\ba (?!uni|use|usu|eu|one\b|u\b)(?=[aeiou]\w)\w+/gi),a2=t.match(/\ban (?=[^aeiouh\s])\w+/gi);
+  if(an||a2){found.article=1;pen+=4;cors.push({wrong:(an||a2)[0],right:an?(an[0].replace(/^a /i,'an ')):(a2[0].replace(/^an /i,'a ')),why:'모음 소리 앞 an, 자음 소리 앞 a',boss:'article'})}
+  /* 8. 철자 */
+  var seen={};t.toLowerCase().replace(/[^a-z' ]/g,' ').split(/\s+/).forEach(function(w){if(MISSPELL[w]&&!seen[w]){seen[w]=1;found.spell=1;pen+=4;cors.push({wrong:w,right:MISSPELL[w],why:'',boss:'spell'})}});
+  if(!found.spell&&words>=100)avoided.spell=1;
+  /* 9. 비교급·전치사·단어 */
+  var cp=t.match(/\bmore (good|bad|better|worse|healthier|cheaper|easier|bigger|smaller|faster|happier|busier)\b/i);
+  if(cp){found.compar=1;pen+=6;cors.push({wrong:cp[0],right:{good:'better',bad:'worse'}[cp[1].toLowerCase()]||cp[1],why:'이중 비교급',boss:'compar'})}
+  var pp=t.match(/\b(come|came|go|went|get|got|arrive|arrived) to (here|there|home)\b/i);
+  if(pp){found.prep=1;pen+=5;cors.push({wrong:pp[0],right:pp[0].replace(' to ',' '),why:'here / there / home 앞엔 to 없음',boss:'prep'})}
+  var wd=t.match(/\bask(ed|s)? to (ai|him|her|them|me|you|us|my \w+)\b/i);
+  if(wd){found.word=1;pen+=5;cors.push({wrong:wd[0],right:wd[0].replace(' to ',' '),why:'ask + 사람 (to 없음)',boss:'word'})}
+  var th=t.match(/\bthey have (a|an|many|some|two|three|lots of) \w+( \w+)? (in|on|at|near|behind|next)\b/i);
+  if(th){found.theyhave=1;pen+=5;cors.push({wrong:th[0],right:th[0].replace(/they have/i,'there is/are'),why:'존재 → there is / are',boss:'theyhave'})}
+  var score=Math.max(30,Math.min(92,100-pen));
+  return {score:score,items:items,corrections:cors,found:Object.keys(found),avoided:Object.keys(avoided),words:words};
+}
+function checksHTML(ck){
+  return '<div class="chk">'+ck.items.map(function(i){return '<div class="ci '+(i.ok?'ok':'no')+'"><span>'+(i.ok?'✓':'✗')+'</span><b>'+esc(i.l)+'</b>'+(i.d?'<span class="cd">'+esc(i.d)+'</span>':'')+'</div>'}).join('')+'</div>';
+}
+function modelHTML(m){
+  return '<details class="hrow" style="margin-top:14px"><summary><span class="hd">모범</span><span>모범답안 펼치기 — 네 글과 문단 단위로 비교해</span><span></span></summary><div class="hb"><div class="hans">'+esc(m)+'</div></div></details>';
+}
+function gradeWriteLocal(){
+  clearInterval(tick);
+  var ans=$('ans').value,ck=checkWrite(ans,C.kind);
+  var model=C.kind==='email'?EMAIL_M[C.idx]:C.kind==='survey'?C.sv.m:null;
+  var bad=ck.items.filter(function(i){return !i.ok});
+  $('c-res').innerHTML=checksHTML(ck)+(model?modelHTML(model):'');
+  var verdict='기계 검사 '+ck.items.length+'항목 중 '+(ck.items.length-bad.length)+' 통과. '+(bad.length?'먼저 고칠 것: '+bad[0].l+'.':'구조는 다 갖췄어. 문법 채점은 키를 넣으면 돼.');
+  finish(ck.score,{verdict:verdict,corrections:ck.corrections,errorsFound:ck.found,errorsAvoided:ck.avoided,
+    next:bad.length?bad[0].d||bad[0].l:(model?'모범답안과 네 글의 두 번째 문단만 비교해. 문장 길이 차이를 봐.':'다음엔 시간을 재고 써.')},ans);
+}
+
 /* --- 자유 작문 (AI) --- */
 function buildWrite(){
   var body='',ask='',bonus=[],scen='';
@@ -717,11 +826,17 @@ function buildWrite(){
     body='<div class="ask"><span class="who">주장</span>“'+esc(h)+'”</div>';
     bonus=['In my opinion,…','The main reason is that…','For example,…','On the other hand,…'];
     ask='80단어 내외, 5분.';
+  } else if(T.id==='survey'){
+    var sv=one(SURVEY); C={kind:'survey',sv:sv,s:sv.s};
+    scen=sv.s;
+    body='<div class="ask"><span class="who">선택지</span>'+esc(sv.a)+'<br>'+esc(sv.b)+'</div>';
+    bonus=['In my opinion, …','The main reason is that…','Another reason is that…','For example, …','In conclusion, …'];
+    ask='150~200단어, 4문단(입장 / 이유1 / 이유2 / 결론), 26분. 마지막 3분은 철자만 훑어.';
   } else {
-    var e=one(EMAIL); C={kind:'email',s:e};
+    var ei=Math.floor(Math.random()*EMAIL.length),e=EMAIL[ei]; C={kind:'email',s:e,idx:ei};
     scen=e;
     bonus=['I am writing about…','As we agreed,…','Could you please let me know…','I look forward to hearing from you.'];
-    ask='90~130단어. 인사 → 문제 → 요청 → 마무리.';
+    ask='90~140단어. 인사 → 문제 → 요청 → 마무리.';
   }
   $('c-body').innerHTML='<div class="scen">'+esc(scen)+'</div>'+body+
     '<div class="bonus">'+bonus.map(function(b){return '<span class="chip">'+esc(b)+'</span>'}).join('')+'</div>'+
@@ -738,7 +853,7 @@ function buildWrite(){
       return;
     }
     if(C.kind==='role')C.log.push({them:C.r.l[C.round],me:$('ans').value});
-    gradeAI();
+    if(apiKey)gradeAI(); else gradeWriteLocal();
   };
 }
 function wire(){
@@ -902,6 +1017,7 @@ function gradeAI(){
     ans=C.log.map(function(x,i){return '[Them] '+x.them+'\n[Her] '+x.me}).join('\n\n');
   } else if(C.kind==='hot'){ task='Hot take — she must agree or disagree with: "'+C.s+'" in about 80 words.'; ans=$('ans').value; }
   else if(C.kind==='email'){ task='Email — situation (Korean): '+C.s; ans=$('ans').value; }
+  else if(C.kind==='survey'){ task='CELPIP Writing Task 2 (survey response), 150-200 words, 4 paragraphs expected. Prompt (Korean): '+C.s+' Options: '+C.sv.a+' / '+C.sv.b; ans=$('ans').value; }
   else if(C.kind==='speak'){
     task='CELPIP Speaking Task '+C.t.n+' ('+C.t.t+'), '+C.t.sec+' seconds. Prompt: '+C.p;
     ans=C.text;
@@ -917,6 +1033,13 @@ function gradeAI(){
     var txt=(d.content&&d.content[0]&&d.content[0].text)||'';
     var m=txt.match(/\{[\s\S]*\}/); var j=m?JSON.parse(m[0]):null;
     if(!j)throw new Error('응답을 읽지 못했어');
+    if(C.kind==='email'||C.kind==='survey'||C.kind==='hot'){
+      var ck=checkWrite(ans,C.kind),model=C.kind==='email'?EMAIL_M[C.idx]:C.kind==='survey'?C.sv.m:null;
+      $('c-res').innerHTML=checksHTML(ck)+(model?modelHTML(model):'');
+      j.corrections=(j.corrections||[]).concat(ck.corrections.filter(function(c){return c.boss==='signal'||c.boss==='runon'||c.boss==='spell'})).slice(0,8);
+      var u=function(a,b){var o={};(a||[]).concat(b).forEach(function(x){o[x]=1});return Object.keys(o)};
+      j.errorsFound=u(j.errorsFound,ck.found);j.errorsAvoided=u(j.errorsAvoided,ck.avoided).filter(function(x){return j.errorsFound.indexOf(x)<0});
+    }
     finish(Math.max(0,Math.min(100,j.score|0)),j,ans,C.metrics);
   }).catch(function(e){
     busy=false;
@@ -940,6 +1063,7 @@ function finish(score,g,answer,metrics){
     else if(C.kind==='role')prompt=C.r.c+'\n'+C.r.s;
     else if(C.kind==='hot')prompt=C.s;
     else if(C.kind==='email')prompt=C.s;
+    else if(C.kind==='survey')prompt=C.s+'\n'+C.sv.a+' / '+C.sv.b;
     else if(C.kind==='repair')prompt=C.items.map(function(x,i){return (i+1)+'. '+x[0]}).join('\n');
     else if(C.kind==='trap')prompt=C.it.q+'\n'+C.it.o.join('  ');
     else if(C.kind==='speed')prompt=C.set.q.map(function(x,i){return (i+1)+'. '+x}).join('\n');
