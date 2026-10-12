@@ -395,7 +395,7 @@ function load(){
   }catch(e){}
   try{apiKey=localStorage.getItem(AKEY)||'';model=localStorage.getItem(MKEY)||''}catch(e){}
 }
-function save(){try{localStorage.setItem(KEY,JSON.stringify({xp:S.xp,bosses:S.bosses,runs:S.runs.slice(-150)}))}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({xp:S.xp,bosses:S.bosses,runs:S.runs.slice(-150)}))}catch(e){};cloudQueue()}
 function today(){try{return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Vancouver',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}catch(e){return new Date().toISOString().slice(0,10)}}
 function shift(k,n){var p=k.split('-');var d=new Date(Date.UTC(+p[0],+p[1]-1,+p[2]));d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
 var TD=today();
@@ -509,6 +509,7 @@ function idle(t){
   var gap=gapDays(),note='';
   if(gap>=3&&!S.runs.some(function(r){return r.date===TD}))note+='<div class="oknote"><b>'+gap+'일 쉬었어.</b> 복귀일 규칙: 짧은 거 하나만 하고 닫아. 밀린 건 버린다. 내일 또 열면 그게 이긴 거야.</div>';
   if(rv){var bb=BOSSES.filter(function(b){return b.id===rv})[0];note+='<div class="ask"><span class="who">복수전</span>지난번에 <b>'+esc(bb.n)+'</b> 보스한테 맞았어. 이번 수리소는 그 유형 위주로 나온다.</div>'}
+  note=backupNag()+note;
   if(note)$('c-body').innerHTML=note;
   var sel='<select id="pk"><option value="">🎲 아무거나</option>'+TYPES.map(function(x){
     return '<option value="'+x.id+'"'+(x.id===T.id?' selected':'')+(x.ai&&!apiKey?' disabled':'')+'>'+x.ic+' '+x.nm+(x.ai&&!apiKey?' (키 필요)':'')+'</option>'}).join('')+'</select>';
@@ -1164,14 +1165,87 @@ $('exp').onclick=function(){
   var t='[셀핍 아레나 기록] Lv.'+(lvl(S.xp)+1)+' / '+S.xp+'XP\n\n'+s;
   if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){$('exp').textContent='✓ 복사됨';setTimeout(function(){$('exp').textContent='📋 전체 기록 복사'},1600)});
 };
+/* ============ 자동 백업 (GitHub Gist) ============
+   토큰(gist 권한만)을 한 번 넣으면 챌린지가 끝날 때마다 비밀 Gist에 기록이 올라간다.
+   새 폰에서는 토큰만 넣으면 기존 Gist를 찾아 복원한다. 서버 없음. */
+var GKEY='celpip_arena_gh',GID='celpip_arena_gist',BKEY='celpip_arena_lastbk',GFILE='celpip-arena.json';
+var cloud={tok:'',gist:'',timer:null,busy:false,dirty:false,last:0,err:''};
+try{cloud.tok=localStorage.getItem(GKEY)||'';cloud.gist=localStorage.getItem(GID)||'';cloud.last=+localStorage.getItem(BKEY)||0}catch(e){}
+function markBackup(){cloud.last=Date.now();try{localStorage.setItem(BKEY,String(cloud.last))}catch(e){};cloudUI()}
+function gh(method,path,body){
+  return fetch('https://api.github.com'+path,{method:method,headers:{'Authorization':'Bearer '+cloud.tok,'Accept':'application/vnd.github+json','Content-Type':'application/json'},body:body?JSON.stringify(body):undefined})
+    .then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.message||('HTTP '+r.status));return j})});
+}
+function cloudQueue(){
+  if(!cloud.tok)return; cloud.dirty=true;
+  clearTimeout(cloud.timer);cloud.timer=setTimeout(cloudPush,2500);
+}
+function cloudPush(){
+  if(!cloud.tok||cloud.busy||!cloud.dirty)return;
+  cloud.busy=true;cloud.dirty=false;cloud.err='';cloudUI('올리는 중…');
+  var files={};files[GFILE]={content:backupJSON()};
+  var p=cloud.gist?gh('PATCH','/gists/'+cloud.gist,{files:files}):gh('POST','/gists',{description:'셀핍 아레나 기록 (자동 백업)',public:false,files:files});
+  p.then(function(j){cloud.busy=false;if(j&&j.id&&!cloud.gist){cloud.gist=j.id;try{localStorage.setItem(GID,j.id)}catch(e){}}markBackup();if(cloud.dirty)cloudQueue()})
+   .catch(function(e){cloud.busy=false;cloud.dirty=true;cloud.err=e.message||'실패';
+     if(/Not Found/i.test(cloud.err)&&cloud.gist){cloud.gist='';try{localStorage.removeItem(GID)}catch(x){}}  /* 지운 gist면 다음에 새로 만든다 */
+     cloudUI()});
+}
+function cloudFind(){
+  /* 이 계정의 gist 중 우리 파일이 있는 것을 찾는다 */
+  return gh('GET','/gists?per_page=100').then(function(list){
+    var hit=(list||[]).filter(function(g){return g.files&&g.files[GFILE]})[0];
+    return hit?hit.id:'';
+  });
+}
+function cloudPull(){
+  if(!cloud.tok||!cloud.gist){alert('연결된 백업이 없어.');return}
+  cloudUI('가져오는 중…');
+  gh('GET','/gists/'+cloud.gist).then(function(j){
+    var f=j.files&&j.files[GFILE];
+    if(!f)throw new Error('백업 파일이 비어 있어');
+    var get=f.truncated?fetch(f.raw_url).then(function(r){return r.text()}):Promise.resolve(f.content);
+    return get;
+  }).then(function(txt){restore(txt);cloud.dirty=false;markBackup()})
+    .catch(function(e){cloud.err=e.message||'실패';cloudUI()});
+}
+function cloudUI(msg){
+  var st=$('gst'),ln=$('gln');if(!st)return;
+  if(!cloud.tok){st.textContent='꺼짐';st.className='pill';if(ln)ln.textContent='';return}
+  st.className='pill'+(cloud.err?'':' on');
+  st.textContent=msg||(cloud.err?'오류':'켜짐');
+  if(ln)ln.textContent=cloud.err?('마지막 시도 실패: '+cloud.err):(cloud.last?('마지막 백업 '+new Date(cloud.last).toLocaleString('ko-CA',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})):'아직 올린 적 없음');
+  var inp=$('gk');if(inp&&cloud.tok)inp.value='';
+}
+function backupNag(){
+  /* 자동 백업이 없고, 기록이 쌓였는데 7일 넘게 백업 안 했으면 카드 위에 한 줄 */
+  if(cloud.tok||S.runs.length<5)return '';
+  var days=cloud.last?Math.floor((Date.now()-cloud.last)/864e5):99;
+  if(days<7)return '';
+  return '<div class="warn" style="margin-top:0;margin-bottom:12px">기록 '+S.runs.length+'개가 이 폰에만 있어'+(cloud.last?' (백업 '+days+'일 전)':'')+'. 설정에서 <b>자동 백업</b>을 켜두면 다시 안 물어볼게.</div>';
+}
+$('gsave').onclick=function(){
+  var v=$('gk').value.trim();if(!v)return;
+  cloud.tok=v;try{localStorage.setItem(GKEY,v)}catch(e){}
+  cloudUI('확인 중…');
+  cloudFind().then(function(id){
+    if(id){cloud.gist=id;try{localStorage.setItem(GID,id)}catch(e){}
+      if(!S.runs.length&&confirm('이 계정에 이전 백업이 있어. 지금 가져올까?')){cloudPull();return}
+    }
+    cloud.dirty=true;cloudPush();
+  }).catch(function(e){cloud.err=e.message||'토큰이 안 맞아';cloudUI()});
+};
+$('gclear').onclick=function(){cloud.tok='';cloud.gist='';cloud.err='';try{localStorage.removeItem(GKEY);localStorage.removeItem(GID)}catch(e){};cloudUI()};
+$('gpull').onclick=cloudPull;
+$('gpush').onclick=function(){cloud.dirty=true;cloudPush()};
 function backupJSON(){return JSON.stringify({app:'celpip_arena',v:1,exported:new Date().toISOString(),xp:S.xp,bosses:S.bosses,runs:S.runs},null,1)}
 $('dl').onclick=function(){
   var blob=new Blob([backupJSON()],{type:'application/json'}),a=document.createElement('a');
   a.href=URL.createObjectURL(blob);a.download='celpip-backup-'+TD+'.json';document.body.appendChild(a);a.click();
   setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1000);
+  markBackup();
 };
 $('dlc').onclick=function(){
-  if(navigator.clipboard)navigator.clipboard.writeText(backupJSON()).then(function(){$('dlc').textContent='✓ 복사됨';setTimeout(function(){$('dlc').textContent='📋 JSON 복사'},1600)});
+  if(navigator.clipboard)navigator.clipboard.writeText(backupJSON()).then(function(){$('dlc').textContent='✓ 복사됨';setTimeout(function(){$('dlc').textContent='📋 JSON 복사'},1600);markBackup()});
 };
 function restore(text){
   var v;try{v=JSON.parse(text)}catch(e){alert('JSON이 아니야.');return}
@@ -1200,6 +1274,8 @@ $('wipe').onclick=function(){
 
 /* ============ 부팅 ============ */
 if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js')}catch(e){}}
-load();keyUI();if(apiKey)loadModels();ttsLoad();
+load();keyUI();if(apiKey)loadModels();ttsLoad();cloudUI();
+window.addEventListener('online',function(){if(cloud.dirty)cloudQueue()});
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&cloud.dirty){clearTimeout(cloud.timer);cloudPush()}});
 renderHud();renderBosses();renderHist();renderNb();renderTypes();idle();
 })();

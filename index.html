@@ -274,7 +274,20 @@ section h2{font-size:24px;margin-top:6px}
     <p class="note" style="margin-top:12px">키는 <strong>네 브라우저에만</strong> 저장되고 깃허브엔 안 올라가. console.anthropic.com 에서 발급. 채점 한 번에 1센트 안팎이야.</p>
   </div>
   <div class="set">
-    <label>백업 — 기록은 이 브라우저에만 있어. 브라우저 데이터를 지우면 전부 사라지니 가끔 받아둬.</label>
+    <label for="gk">자동 백업 (GitHub Gist) <span class="pill" id="gst">꺼짐</span></label>
+    <input type="password" id="gk" placeholder="ghp_... (gist 권한만 있는 토큰)" autocomplete="off">
+    <div class="row">
+      <button class="btn2" id="gsave">연결</button>
+      <button class="btn2" id="gclear">해제</button>
+      <button class="btn2" id="gpush">지금 올리기</button>
+      <button class="btn2" id="gpull">Gist에서 복원</button>
+    </div>
+    <p class="note" id="gln" style="margin-top:10px"></p>
+    <p class="note" style="margin-top:10px">한 번 연결하면 챌린지가 끝날 때마다 <strong>비밀 Gist</strong>에 자동으로 올라가. 새 폰에서도 토큰만 넣으면 복원돼.<br>
+    토큰 만들기: github.com → Settings → Developer settings → Personal access tokens → <strong>Tokens (classic)</strong> → Generate → 권한은 <strong>gist</strong> 하나만 체크 → 만료 No expiration. 토큰은 이 브라우저에만 저장돼.</p>
+  </div>
+  <div class="set">
+    <label>수동 백업 — 자동 백업을 안 켰을 때만 필요해.</label>
     <div class="row" style="margin-top:6px">
       <button class="btn2" id="dl">⬇ JSON 백업</button>
       <button class="btn2" id="dlc">📋 JSON 복사</button>
