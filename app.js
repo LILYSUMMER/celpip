@@ -99,6 +99,276 @@ var TRAP=[
   ev:'Weekday mornings are usually open and I can often offer those at $35 an hour if you book more than four hours.',
   why:'조건이 두 개(평일 오전 + 4시간 초과)인데 하나만 맞는 선택지들이 섞여 있어. 조건이 여러 개면 전부 맞는 걸 골라야 해.'}
 ];
+var READ=[
+{id:'r1',title:'Moving Day',ko:'이사 날',min:10,from:'Message from Dana',
+ body:"Hi Lena,\n\nThanks for offering to help on the twenty-second. I wanted to give you the details before the week gets away from me.\n\nThe truck is booked for eight in the morning, but the elevator in my building can only be reserved in two-hour blocks, and the only slot left was ten to twelve. So the plan is to carry everything down to the lobby first and load once the elevator is ours. Marcus is coming at nine with his brother, and the two of them will take the furniture. If you can be there by nine thirty, that would be perfect — the boxes are all packed and labelled, so it is really just carrying.\n\nOne thing I should warn you about: the loading zone out front is a fifteen-minute space, and the city has been ticketing it. We will have to move the truck around the corner between loads. Marcus has done this before and says it is fine, but it means someone needs to stay with the vehicle.\n\nMy new place is in Burnaby, about forty minutes out, and I have told the building manager there we will arrive around one. If we are badly behind, I will call her — she was clear that she leaves at four and will not stay late.\n\nLunch is on me. There is a good Vietnamese place two blocks from the new apartment.\n\nDana",
+ qs:[
+  {q:'Why is the elevator booked from ten to twelve?',
+   o:['It is the only block that was still available','Loading the truck takes two hours','The building allows moves only at that time','Marcus asked for that time'],a:0,
+   ev:'the only slot left was ten to twelve',
+   why:'"two-hour blocks"라는 말이 지문에 있어서 B가 그럴듯해 보여. 하지만 이유는 "남은 게 그것뿐"이야.'},
+  {q:'What does Dana ask Lena to do?',
+   o:['Take the furniture with Marcus','Arrive by nine thirty and carry boxes','Drive the truck between loads','Pack the remaining boxes'],a:1,
+   ev:'If you can be there by nine thirty, that would be perfect — the boxes are all packed and labelled, so it is really just carrying.',
+   why:'A는 Marcus와 그의 형제가 할 일, D는 "boxes are all packed"라고 이미 끝났어. 누가 뭘 하는지 바꿔치기한 선택지야.'},
+  {q:'Why must the truck be moved between loads?',
+   o:['The truck is too large for the zone','The city is ticketing the fifteen-minute zone','Marcus needs it for the furniture','The elevator entrance is blocked'],a:1,
+   ev:'the loading zone out front is a fifteen-minute space, and the city has been ticketing it',
+   why:'상식으로 "트럭이 커서"를 고르기 쉬워. 지문은 단속 때문이라고 말해.'},
+  {q:'What will Dana do if the move runs late?',
+   o:['Ask the manager to stay past four','Call the building manager','Rebook the elevator','Arrive the next morning'],a:1,
+   ev:'If we are badly behind, I will call her',
+   why:'A가 핵심 함정 — 매니저는 4시에 가고 늦게까지 안 있는다고 못박았어. 전화하는 것과 남아달라고 부탁하는 건 달라.'},
+  {q:'"Lunch is on me" most nearly means',
+   o:['Lunch will be at Dana\'s new home','Dana will pay for lunch','Lunch depends on Dana\'s schedule','Dana will cook lunch herself'],a:1,
+   ev:'Lunch is on me.',
+   why:'on의 대표 뜻(~위에)으로 풀면 틀려. 관용 표현이야.'},
+  {q:'What is the main purpose of this message?',
+   o:['To ask Lena to find a truck','To explain the arrangements for the day','To apologise for changing the date','To ask Lena to meet the building manager'],a:1,
+   ev:'I wanted to give you the details before the week gets away from me.',
+   why:'목적 문제는 첫 문단에 거의 항상 답이 있어.'}],
+ rhead:'Hi Dana,',
+ rtext:"Thanks for sending everything through. Nine thirty works, and I'll {7} so I'm not holding anyone up.\n\nI'm happy to {8} while the truck is around the corner — I don't mind standing outside.\n\nOne thing: I finish work at seven that morning, so I may {9}. If that happens I'll message you rather than {10}.\n\nAnd thank you for lunch — {11}.\n\nSee you on the twenty-second,\nLena",
+ blanks:[
+  {o:['arrive a little early','book the elevator','bring my own truck','start loading at eight'],a:0,
+   ev:'If you can be there by nine thirty',ko:'9시 반까지 오라고 했으니 "조금 일찍 간다"가 자연스러워.'},
+  {o:['carry the furniture down','stay with the vehicle','drive to Burnaby','talk to the building manager'],a:1,
+   ev:'it means someone needs to stay with the vehicle',ko:'트럭이 모퉁이에 있는 동안 누군가 차에 남아야 한다고 했어.'},
+  {o:['be a few minutes late','miss the whole day','need to leave at four','arrive before eight'],a:0,
+   ev:'If you can be there by nine thirty',ko:'7시에 퇴근이면 조금 늦을 수 있다는 흐름.'},
+  {o:['just turning up late','booking another elevator','calling Marcus','parking around the corner'],a:0,
+   ev:'I will call her',ko:'"말없이 늦게 나타나는 것보다 연락하겠다"는 대조야.'},
+  {o:["I've been meaning to try that Vietnamese place",'I\'ll bring something from home','I\'ll cook at the new apartment','we can eat before we start'],a:0,
+   ev:'There is a good Vietnamese place two blocks from the new apartment.',ko:'Dana가 베트남 식당을 언급했으니 그걸 받는 답장이야.'}]},
+
+{id:'r2',title:'Studio Term',ko:'공방 학기',min:10,from:'Message from Theo',
+ body:"Hi Rosa,\n\nI'm writing about the Tuesday evening pottery class you signed up for. The studio's kiln failed its inspection last week, and the replacement will not be installed until the eighteenth. Rather than cancel the term, we are moving the first three sessions to the annex on Fraser Street, where there is a working kiln but only six wheels.\n\nBecause of that, the class is split. Students whose surnames begin A through L keep the Tuesday slot; M through Z move to Thursday for those three weeks. You are in the Thursday group. After the eighteenth everyone returns to Tuesday at the main studio.\n\nThe annex has no parking of its own, but the lot behind the library is free after six and it is a short walk. I would not rely on street parking — the permit zone starts at five.\n\nYour materials fee already covers the clay for the term, so there is nothing more to pay. If Thursdays genuinely do not work, I can move you to the morning section, though it meets at ten and I know you work.\n\nLet me know by Friday either way.\n\nTheo",
+ qs:[
+  {q:'Why are the first three sessions moving?',
+   o:['The studio has too many students','The kiln will not be replaced until the eighteenth','The annex has more wheels','The main studio is closed for the term'],a:1,
+   ev:'the kiln failed its inspection last week, and the replacement will not be installed until the eighteenth',
+   why:'C는 정반대야 — annex는 물레가 여섯 대뿐이라 더 적어.'},
+  {q:'Which day will Rosa attend for the next three weeks?',
+   o:['Tuesday','Thursday','Friday','Ten in the morning'],a:1,
+   ev:'M through Z move to Thursday for those three weeks. You are in the Thursday group.',
+   why:'성 첫 글자 규칙을 읽고 자기에게 적용해야 해. 규칙만 보고 Tuesday를 고르기 쉬워.'},
+  {q:'What does Theo advise about parking?',
+   o:["Use the annex's own lot",'Use the library lot, which is free after six','Park on the street before five','Buy a permit'],a:1,
+   ev:'the lot behind the library is free after six and it is a short walk',
+   why:'A는 "annex has no parking of its own"과 정반대. C는 permit zone이 5시에 시작하니 위험해.'},
+  {q:'What does Rosa need to pay?',
+   o:['A new materials fee','Nothing more','A fee for the annex','A parking permit'],a:1,
+   ev:'Your materials fee already covers the clay for the term, so there is nothing more to pay.',
+   why:'"fee"라는 단어가 여러 번 나와서 뭔가 내야 할 것 같지만 이미 포함이야.'},
+  {q:'If Thursdays do not work, what does Theo offer?',
+   o:['A refund','The morning section','A place in the A–L group','Starting after the eighteenth'],a:1,
+   ev:'I can move you to the morning section, though it meets at ten',
+   why:'지문에 없는 환불을 상식으로 떠올리기 쉬워.'},
+  {q:'What is the main purpose of this message?',
+   o:['To explain a temporary schedule change','To collect a fee','To cancel the term','To advertise a new studio'],a:0,
+   ev:"I'm writing about the Tuesday evening pottery class you signed up for.",
+   why:''}],
+ rhead:'Hi Theo,',
+ rtext:"Thanks for letting me know. Thursday is fine for the three weeks — I'll {7}.\n\nI'll use the {8} as you suggested, since I won't get there before six anyway.\n\nI did want to check one thing: after the eighteenth we're {9}, is that right? I'd rather not {10} if I can help it.\n\nAnd good to hear the {11}.\n\nRosa",
+ blanks:[
+  {o:['go to the annex on Fraser Street','keep the Tuesday slot','switch to the morning section','wait until the eighteenth'],a:0,
+   ev:'we are moving the first three sessions to the annex on Fraser Street',ko:'3주간은 annex로 간다고 했어.'},
+  {o:['street parking','library lot','annex lot','permit zone'],a:1,
+   ev:'the lot behind the library is free after six',ko:'6시 이후 무료인 곳이야.'},
+  {o:['back at the main studio on Tuesday','still at the annex','on Thursdays permanently','in the morning section'],a:0,
+   ev:'After the eighteenth everyone returns to Tuesday at the main studio.',ko:'18일 이후는 원래대로야.'},
+  {o:['change days again','pay more','buy a wheel','miss the first class'],a:0,
+   ev:'M through Z move to Thursday for those three weeks',ko:'요일이 또 바뀌는 걸 피하고 싶다는 흐름.'},
+  {o:['clay is already covered','kiln is fixed','class is cancelled','fee has gone up'],a:0,
+   ev:'Your materials fee already covers the clay for the term',ko:'좋은 소식으로 받을 수 있는 건 재료비 포함이야.'}]},
+
+{id:'r3',title:'Swim Club',ko:'수영 클럽',min:10,from:'Message from Marguerite',
+ body:"Hi Sam,\n\nA few changes to the Tuesday swim before you turn up and find the pool full.\n\nThe city has given the six-to-seven slot to a children's lesson programme for the rest of the fall, so our club now has seven to eight. That is the only change to the time. The lanes are the bigger issue: we had four and we now have two, which means we will split into two groups and alternate weeks rather than squeeze eight people into a lane.\n\nYou are in Group B, so your first session is the week of the tenth, not this week. I know that is annoying when you have just paid.\n\nOn the deck: the far door by the sauna is locked after six now, so come through the main entrance and down the stairs. Your membership card will not open the turnstile after six either — tell the front desk you are with the swim club and they will buzz you through.\n\nIf two weeks between swims is too thin, the public lanes are open nine to ten on Thursdays and your membership covers that. It is not coached, but it is water.\n\nMarguerite",
+ qs:[
+  {q:"Why did the club's swim time change?",o:['The club asked for a later time',"The city gave the earlier slot to a children's programme",'The pool now closes at seven','There are fewer lanes available'],a:1,
+   ev:'The city has given the six-to-seven slot to a children\'s lesson programme',
+   why:'D도 지문에 있지만 그건 레인 문제고 시간 변경 이유가 아니야. 한 글에 문제가 둘이면 섞어서 낸다.'},
+  {q:'Why will the club alternate weeks?',o:['Fewer members have paid','The club now has two lanes instead of four','The coach is only free every other week','The children use the pool weekly'],a:1,
+   ev:'we had four and we now have two, which means we will split into two groups and alternate weeks',why:''},
+  {q:"When is Sam's first session?",o:['This week','The week of the tenth','Thursday at nine','After the fall programme ends'],a:1,
+   ev:'You are in Group B, so your first session is the week of the tenth, not this week.',
+   why:'C는 공용 레인 시간이지 클럽 세션이 아니야. 지문에 있는 시간이라고 다 답은 아니야.'},
+  {q:'How should Sam get onto the deck?',o:['Through the far door by the sauna','Through the main entrance and down the stairs','Through the turnstile with his card','With a coach after six'],a:1,
+   ev:'the far door by the sauna is locked after six now, so come through the main entrance and down the stairs',
+   why:'A와 C는 지문이 "안 된다"고 짚은 것들이야. 부정문을 긍정으로 뒤집은 선택지.'},
+  {q:'"It is not coached, but it is water." Marguerite means',o:['The public lanes are free','The public swim has no instructor but is still practice','The water quality is poor','The club will coach on Thursdays'],a:1,
+   ev:'It is not coached, but it is water.',why:'직역하면 "그건 물이다"야. 문맥은 "그래도 연습은 된다"는 뜻.'},
+  {q:'What is the main purpose of this message?',o:['To announce changes before the next session','To collect a membership fee','To close the club','To ask Sam to coach'],a:0,
+   ev:'A few changes to the Tuesday swim before you turn up and find the pool full.',why:''}],
+ rhead:'Hi Marguerite,',
+ rtext:"Thanks for the warning. I'll {7} and tell the front desk I'm with the club.\n\nTwo weeks between swims is thin, so I'll {8} on the Thursdays in between.\n\nJust to confirm — I'm {9}, so I'm not coming this week.\n\nThe lane situation is a shame, but {10} is better than eight people in one lane.\n\nAnd thanks for sorting out {11}.\n\nSam",
+ blanks:[
+  {o:['come through the main entrance','use the sauna door','arrive at six','buy a new card'],a:0,ev:'come through the main entrance and down the stairs',ko:'사우나 쪽 문은 6시 이후 잠겨.'},
+  {o:['use the public lanes','join Group A','skip the term','book a private coach'],a:0,ev:'the public lanes are open nine to ten on Thursdays',ko:'목요일 공용 레인을 권했어.'},
+  {o:['in Group B','in Group A','in the children\'s programme','on the waiting list'],a:0,ev:'You are in Group B',ko:'B조라서 이번 주가 아니야.'},
+  {o:['alternating weeks','losing the slot','swimming at nine','a locked door'],a:0,ev:'we will split into two groups and alternate weeks rather than squeeze eight people into a lane',ko:'한 레인에 여덟보다는 격주가 낫다는 흐름.'},
+  {o:['the arrangement with the front desk','a refund','the extra lanes','the children\'s programme'],a:0,ev:'tell the front desk you are with the swim club and they will buzz you through',ko:'프런트에 말해두면 통과시켜 준다고 했어.'}]},
+
+{id:'r4',title:'Used Lens',ko:'중고 렌즈',min:10,from:'Message from Owen',
+ body:"Hi Nabila,\n\nSorry for the slow reply — I was away for the long weekend.\n\nThe lens is still available. To be straight with you: the autofocus works, but the zoom ring has a slight grind at the wide end. It does not affect images and I have shot with it for two years, but I would rather you hear it from me than find it yourself. That is why I have it at three fifty instead of the four twenty they go for used.\n\nI am in Mount Pleasant and I can meet most evenings after six. The coffee place on Main at Eleventh has power outlets, so you can put it on a body and test it properly rather than looking at it in a parking lot. Bring a card if you have one — mine is full.\n\nCash or e-transfer both work. If you e-transfer, do it while we are sitting there, not in advance; I have had one go missing before.\n\nOne more thing: I also have the original hood and a filter that fits. I was going to sell them separately but you can have both with the lens if you take it this week.\n\nOwen",
+ qs:[
+  {q:'What is wrong with the lens?',o:['The autofocus does not work','The zoom ring grinds at the wide end','Images come out soft','The hood is missing'],a:1,
+   ev:'the zoom ring has a slight grind at the wide end',
+   why:'A·C·D는 전부 지문이 "괜찮다" 또는 "있다"고 말한 것들을 뒤집은 거야.'},
+  {q:'Why is the price three fifty?',o:['That is the standard used price','Owen lowered it because of the fault','It includes the hood and filter','Nabila asked for a discount'],a:1,
+   ev:'That is why I have it at three fifty instead of the four twenty they go for used.',
+   why:'C는 지문에 있지만 이번 주 조건이지 가격을 정한 이유가 아니야. 420이라는 숫자도 함정.'},
+  {q:'Why does Owen suggest the coffee place?',o:['It is close to his home','So she can test the lens properly with power','It is safer than a parking lot','The coffee is good'],a:1,
+   ev:'has power outlets, so you can put it on a body and test it properly',
+   why:'주차장이 언급되긴 하지만 "안전"은 지문에 없어. 있는 단어로 없는 이유를 만들면 틀려.'},
+  {q:'What does Owen ask Nabila to bring?',o:['Cash','A memory card','A tripod','The original hood'],a:1,
+   ev:'Bring a card if you have one — mine is full.',why:''},
+  {q:'What does Owen say about e-transfer?',o:['Send it before meeting','Send it during the meeting','Avoid e-transfer','Split it into two payments'],a:1,
+   ev:'do it while we are sitting there, not in advance',why:'A가 정확히 정반대야. not in advance를 놓치면 걸려.'},
+  {q:'When are the hood and filter included?',o:['If she pays cash','If she takes the lens this week','If she pays four twenty','They are always included'],a:1,
+   ev:'you can have both with the lens if you take it this week',why:''}],
+ rhead:'Hi Owen,',
+ rtext:"Thanks for being upfront about the {7} — I'd rather know.\n\nThree fifty works. I'll {8} so I can shoot a few frames there.\n\nWednesday after six suits me. I'll {9} rather than cash, and I'll send it {10}.\n\nAnd yes — I'll take it this week, so {11}.\n\nNabila",
+ blanks:[
+  {o:['zoom ring','autofocus','price increase','missing hood'],a:0,ev:'the zoom ring has a slight grind at the wide end',ko:'그가 미리 말해준 결함이야.'},
+  {o:['bring a card','bring cash','meet in a parking lot','borrow your body'],a:0,ev:'Bring a card if you have one',ko:'테스트하려면 카드가 필요해.'},
+  {o:['e-transfer','pay later','trade something','pay in instalments'],a:0,ev:'Cash or e-transfer both work.',ko:'현금 말고 다른 쪽이야.'},
+  {o:["while we're sitting there",'the night before','after I get home','in two parts'],a:0,ev:'do it while we are sitting there, not in advance',ko:'미리 보내지 말라고 했어.'},
+  {o:['the hood and filter are included',"I'll pay four twenty",'you can sell them separately',"I'll come next month"],a:0,ev:'you can have both with the lens if you take it this week',ko:'이번 주에 가져가면 포함이야.'}]},
+
+{id:'r5',title:'Cat Sitting',ko:'고양이 돌봄',min:10,from:'Message from Reza',
+ body:"Hi Mina,\n\nThank you again for taking this on. I will be away from the third to the ninth.\n\nJuniper eats twice a day, half a tin in the morning and half at night, and the tins are in the cupboard above the kettle. She will tell you she has not been fed. She is lying. There is a note on the fridge with the amount so you do not have to take her word for it.\n\nThe litter is in the hall closet. Once a day is plenty.\n\nIf she will not sit still for her morning brushing, my neighbour Fatima on the second floor has done it before and does not mind being asked. Her number is on the fridge too.\n\nThe building door code changed last month: it is now 4417, not the old one. The buzzer still does not work, so do not rely on it.\n\nIf anything seems wrong, the clinic on Commercial is open until eight and they have her file. I would rather you called them than waited for me — I will be six hours behind.\n\nReza",
+ qs:[
+  {q:'How much does Juniper eat?',o:['One tin twice a day','Half a tin twice a day','Half a tin once a day','As much as she asks for'],a:1,
+   ev:'half a tin in the morning and half at night',
+   why:'D는 상식으로 메운 답이야. 지문은 고양이 말을 믿지 말라고 대놓고 경고해.'},
+  {q:'Why is there a note on the fridge about food?',o:['Because Reza may change the amount',"So Mina does not have to rely on Juniper's behaviour",'Because Fatima feeds her too','Because the tins are hard to find'],a:1,
+   ev:'There is a note on the fridge with the amount so you do not have to take her word for it.',why:''},
+  {q:'Who can help if Juniper will not sit still?',o:['The clinic on Commercial','Fatima on the second floor','Reza, by phone','The building manager'],a:1,
+   ev:'my neighbour Fatima on the second floor has done it before and does not mind being asked',
+   why:'A는 지문에 있는 다른 용도야. 이름이 나왔다고 아무 역할이나 붙이면 안 돼.'},
+  {q:'What should Mina know about getting into the building?',o:['The buzzer will let her in','The code is now 4417','Fatima will open the door','The door is unlocked until eight'],a:1,
+   ev:'it is now 4417, not the old one. The buzzer still does not work',
+   why:'A는 "작동 안 한다"고 못박은 걸 뒤집은 거야.'},
+  {q:'"I will be six hours behind." means',o:['Reza will arrive six hours late','Reza will be in a different time zone','Reza will reply within six hours','The flight is delayed by six hours'],a:1,
+   ev:'I would rather you called them than waited for me — I will be six hours behind.',
+   why:'behind의 대표 뜻(늦다)으로 풀면 틀려. 시차 얘기야.'},
+  {q:'What does Reza want Mina to do if something seems wrong?',o:['Wait for Reza to reply','Call the clinic','Ask Fatima first','Message the building manager'],a:1,
+   ev:'I would rather you called them than waited for me',why:''}],
+ rhead:'Hi Reza,',
+ rtext:"All noted. {7} twice a day, and I won't believe her.\n\nI'll do the brushing myself and only ask {8} if she won't sit still.\n\nThanks for the code — I'd have been stuck, since {9}.\n\nIf anything looks off I'll {10} rather than wait for you.\n\nHave a good trip. I'll {11} so you can see she's fine.\n\nMina",
+ blanks:[
+  {o:['Half a tin','A full tin','Whatever she asks for','One meal'],a:0,ev:'half a tin in the morning and half at night',ko:'한 번에 반 캔씩이야.'},
+  {o:['Fatima','the clinic','the building manager','you'],a:0,ev:'my neighbour Fatima on the second floor has done it before',ko:'이웃 파티마가 해본 적 있어.'},
+  {o:["the buzzer doesn't work",'the door is always open','Fatima has a key','the code is the old one'],a:0,ev:'The buzzer still does not work, so do not rely on it.',ko:'버저가 안 되니 코드가 없으면 못 들어가.'},
+  {o:['call the clinic','message you','wait until the ninth','ask Fatima'],a:0,ev:'I would rather you called them than waited for me',ko:'기다리지 말고 병원에 전화하라고 했어.'},
+  {o:['send you a photo','call every hour','leave a note on the fridge','change the code'],a:0,ev:'If anything seems wrong, the clinic on Commercial is open until eight',ko:'잘 있다는 걸 보여주는 자연스러운 방법.'}]},
+
+{id:'r6',title:'Shoot Changes',ko:'촬영 변경',min:10,from:'Message from Priya',
+ body:"Hi Lee,\n\nA few things have moved on our end, so I want to get them to you before you start planning.\n\nThe shoot is still the fourteenth, but we have lost the boardroom for the afternoon — a board meeting was booked over it. We can have it from eight until eleven thirty, and after that we are in the small meeting room on the third floor, which has one window and no table big enough for the product shots. If the product shots need the boardroom, they have to happen in the morning.\n\nSecond, our new operations lead starts that week and I would like her in the piece. She has not done this before and is nervous about it, so if there is a way to do her part seated and short, that would help.\n\nThird — and I am sorry about this — legal has asked that we not show the warehouse floor. Anything with pallets or racking is out. The loading bay is fine.\n\nBudget has not changed. If the split rooms mean an extra hour, tell me now and I will get it approved rather than discover it later.\n\nPriya",
+ qs:[
+  {q:'Why is the boardroom unavailable in the afternoon?',o:['It is being renovated','A board meeting was booked over it','The product shots take all morning','Legal has restricted it'],a:1,
+   ev:'we have lost the boardroom for the afternoon — a board meeting was booked over it',
+   why:'D는 지문에 있는 다른 제약(창고)이야. 제약이 여러 개면 서로 바꿔 끼운 선택지가 나와.'},
+  {q:'What must happen in the morning?',o:["The operations lead's interview",'The product shots, if they need the boardroom','The warehouse footage','The loading bay shots'],a:1,
+   ev:'If the product shots need the boardroom, they have to happen in the morning.',why:''},
+  {q:'What does Priya ask about the new operations lead?',o:['To leave her out','To keep her part seated and short','To film her in the warehouse','To interview her after the fourteenth'],a:1,
+   ev:'if there is a way to do her part seated and short, that would help',why:''},
+  {q:'What is not allowed on camera?',o:['The loading bay','The warehouse floor','The third-floor meeting room','The boardroom'],a:1,
+   ev:'legal has asked that we not show the warehouse floor. Anything with pallets or racking is out. The loading bay is fine.',
+   why:'A는 바로 다음 문장에서 "괜찮다"고 한 거야. 붙어 있는 두 문장을 반대로 읽는 실수.'},
+  {q:'What does Priya ask Lee to do if more time is needed?',o:['Absorb the extra hour','Tell her now so she can get it approved','Reduce the number of shots','Invoice for it afterwards'],a:1,
+   ev:'tell me now and I will get it approved rather than discover it later',
+   why:'D가 상식적으로 보이지만 지문은 정확히 그 반대를 요청해.'},
+  {q:'What is the main purpose of this message?',o:['To cancel the shoot','To pass on changes before planning starts','To negotiate the budget','To introduce a new employee'],a:1,
+   ev:'I want to get them to you before you start planning.',why:''}],
+ rhead:'Hi Priya,',
+ rtext:"Thanks for getting ahead of it. I'll {7} in the morning while we still have the boardroom.\n\nFor your new ops lead, I'll {8} — it's easier on camera anyway.\n\nUnderstood on the {9}; I'll keep everything to the loading bay.\n\nThe room change does add setup time, so {10}.\n\nNothing else from me — {11}.\n\nLee",
+ blanks:[
+  {o:['do the product shots','film the interviews','scout the third floor','shoot the loading bay'],a:0,ev:'If the product shots need the boardroom, they have to happen in the morning.',ko:'보드룸이 필요한 건 제품 컷이야.'},
+  {o:['keep it seated and short','do a walking interview','film her last','skip her part'],a:0,ev:'do her part seated and short',ko:'긴장한 사람에게 맞춘 요청이야.'},
+  {o:['warehouse floor','loading bay','boardroom','budget'],a:0,ev:'legal has asked that we not show the warehouse floor',ko:'법무팀이 막은 건 창고 바닥이야.'},
+  {o:["I'll need one extra hour","I'll work faster",'we should move the date',"I'll cut the product shots"],a:0,ev:'If the split rooms mean an extra hour, tell me now',ko:'미리 말해달라고 했으니 지금 말하는 게 맞아.'},
+  {o:['see you on the fourteenth','send me the new budget',"I'll confirm the warehouse","let's move to the afternoon"],a:0,ev:'The shoot is still the fourteenth',ko:'날짜는 그대로야.'}]}
+];
+var LISTEN=[{
+ id:'p1-bike', part:'Part 1 · 문제 해결',
+ title:'Bike Room', ko:'자전거 보관실',
+ segs:[
+  {src:'audio/p1-1.mp3', sec:57, qs:[
+   {q:'Why didn\'t Greg respond to Nadia\'s message?',
+    o:['A) He never received it','B) He was working at another building','C) The front desk staff forgot to pass it on','D) He was waiting for more information'],a:1,
+    ev:'I was covering the Cambie building all week.',
+    why:'A·C는 그럴듯하지만 안 나온 말이야. 로그 얘기는 뒤에 나오지, 답을 안 한 이유로 말한 게 아니야.'},
+   {q:'What happened to Nadia\'s bike?',
+    o:['A) It was stolen from the bike room','B) It was unlocked and moved outside','C) Its front wheel was damaged and it had been moved','D) Its lock was cut and a bag was taken'],a:2,
+    ev:'my front wheel was bent... it had been moved',
+    why:'A는 상식으로 메운 답. 자물쇠는 걸려 있었고 없어진 건 없어.'},
+   {q:'Why did Nadia\'s report not reach Greg?',
+    o:['A) Priya forgot to write it down','B) The log is kept for the overnight staff','C) She reported it at the wrong building','D) She only reported it verbally'],a:1,
+    ev:'The log is for the overnight staff, so it may not have reached me.',
+    why:'A가 핵심 함정 — Priya는 지문에 있고 "로그에 쓰겠다"고 했지만, "까먹었다"는 말은 어디에도 없어.'}
+  ],
+  tx:[['Nadia','Hi, are you Greg? I\'m Nadia, from eleven-oh-four. I left a message at the front desk yesterday about the bike room.'],
+      ['Greg','Right, yes. Sorry I didn\'t get back to you. I was covering the Cambie building all week. Something about your bike?'],
+      ['Nadia','Yeah. I went down Sunday morning and my front wheel was bent. Pretty badly. The bike was still locked to the rack, but it had been moved. It was on the completely other side of the room.'],
+      ['Greg','Moved? That\'s odd. Did you report it to the front desk?'],
+      ['Nadia','I told the woman on duty, Priya I think, and she said she\'d write it in the log. But nobody called me.'],
+      ['Greg','Hm. The log is for the overnight staff, so it may not have reached me. Was anything else taken? A helmet, a bag?'],
+      ['Nadia','No, nothing. Just the wheel.']]},
+  {src:'audio/p1-2.mp3', sec:44, qs:[
+   {q:'Why can\'t the security footage be checked?',
+    o:['A) The cameras broke in August','B) The bike room has no camera','C) The recording is older than the system keeps','D) Only the strata council may view it'],a:2,
+    ev:'only keeps footage for seven days. Sunday was the fifth.',
+    why:'August는 지문에 있는 단어지만 교체 시점이지 고장이 아니야. 5일과 11일을 직접 빼야 풀려.'},
+   {q:'Why does Greg say he will file an incident report?',
+    o:['A) It is required before insurance will pay','B) It will help if the problem happens again','C) It allows the police to investigate','D) It is the only way to recover the footage'],a:1,
+    ev:'That\'s useful if it happens again, because the strata won\'t act on a single complaint.',
+    why:'A는 뒤에 나오는 보험 얘기와 엮은 함정. police는 아예 안 나와.'},
+   {q:'Why won\'t the building\'s insurance pay for the wheel?',
+    o:['A) The building is not responsible for the bike room','B) The bike was not locked properly','C) The cost is far below the deductible','D) Nadia reported it too late'],a:2,
+    ev:'has a two-thousand-dollar deductible, so a wheel wouldn\'t come close',
+    why:'A가 상식 답. 그렉이 말한 이유는 책임이 아니라 금액이야.'},
+   {q:'What does Greg suggest Nadia do herself?',
+    o:['A) File an incident report','B) Contact the strata council','C) Call her own tenant insurance','D) Buy a stronger lock'],a:2,
+    ev:'What I\'d suggest is checking your own tenant insurance... you\'d have to call and ask.',
+    why:'A가 핵심 함정 — incident report는 그렉이 하는 일이야. 누가 하는지를 바꿔치기했어.'},
+   {q:'"the strata won\'t act on a single complaint" — act on most nearly means',
+    o:['A) perform','B) pretend','C) take action about','D) replace'],a:2,
+    ev:'the strata won\'t act on a single complaint',
+    why:'A가 단어의 대표 뜻. 9월 리딩에서 forward로 똑같이 틀렸던 유형이야.'}
+  ],
+  tx:[['Nadia','Is there a camera in the bike room?'],
+      ['Greg','There is. But we had the whole system replaced in August, and the new one only keeps footage for seven days. Sunday was the fifth.'],
+      ['Nadia','Today\'s the eleventh. So it\'s gone?'],
+      ['Greg','It\'s gone. I\'m sorry. I can still file an incident report. That\'s useful if it happens again, because the strata won\'t act on a single complaint.'],
+      ['Greg','Not usually, no. The building\'s insurance has a two-thousand-dollar deductible, so a wheel wouldn\'t come close. What I\'d suggest is checking your own tenant insurance. Most policies here cover a bike in a locked common room, but you\'d have to call and ask.']]},
+  {src:'audio/p1-3.mp3', sec:33, qs:[
+   {q:'Why is the bike room not secure at the moment?',
+    o:['A) The fob reader is broken','B) The door has been propped open with a wedge','C) The door closer was removed in the summer','D) Residents share their fobs'],a:1,
+    ev:'it\'s been propped open with a wedge since the summer',
+    why:'fob reader는 나오지만 고장났다는 말은 없어. 있는 단어 + 없는 상태.'},
+   {q:'When will anyone vote on Greg\'s request?',
+    o:['A) Within two days','B) At the council meeting, about two weeks away','C) As soon as the wedge is removed','D) After the new door closer is fitted'],a:1,
+    ev:'they meet on the last Thursday of the month. So two weeks, realistically, before anyone votes on it.',
+    why:'C·D는 순서를 뒤집은 함정. 투표가 먼저고 설치가 나중이야.'},
+   {q:'What does Greg recommend Nadia do until then?',
+    o:['A) Use a second lock','B) Keep the bike in her apartment','C) Park the bike outside the building','D) Wait for the strata council\'s decision'],a:1,
+    ev:'I\'d bring the bike up to your unit if you can.',
+    why:'D는 그렉이 "그때까지"라고 말한 것과 정반대야.'}
+  ],
+  tx:[['Nadia','And in the meantime? I use that bike to get to work.'],
+      ['Greg','The bike room door has a fob reader, but it\'s been propped open with a wedge since the summer. People carrying groceries. I\'ve asked twice. If you want, I\'ll put in a request to have the wedge removed and a door closer fitted.'],
+      ['Nadia','How long does that take?'],
+      ['Greg','The request goes to the strata council, and they meet on the last Thursday of the month. So two weeks, realistically, before anyone votes on it.'],
+      ['Nadia','Two weeks. And until then?'],
+      ['Greg','I\'d bring the bike up to your unit if you can. I know that\'s not what you want to hear.']]}
+ ],
+ vocab:[['I left a message about ~','~에 대해 메시지를 남겼다'],['Sorry I didn\'t get back to you','답을 못 드려 죄송합니다'],
+        ['I was covering ~','~를 대신 맡고 있었다'],['Was anything else taken?','다른 건 없어졌나요?'],
+        ['What I\'d suggest is ~ing','제가 권하는 건 ~입니다'],['but you\'d have to call and ask','다만 전화해서 물어보셔야 해요'],
+        ['It wouldn\'t come close','턱없이 모자랍니다'],['in the meantime','그동안에는']]
+}];
 var SPEED=[
  {q:['What did you eat for breakfast yesterday?','What are you doing right now?','How often do you take the SkyTrain?','What is your cat doing at the moment?','Where did you go last weekend?','What are you planning to do tonight?','How long have you lived in Vancouver?','What is the weather like outside?'],
   m:['I ate toast and a boiled egg.','I am sitting at my desk and practising English.','I take it about three times a week.','She is sleeping on the sofa.','We went to Stanley Park.','I am going to edit a video.','I have lived here since May.','It is cloudy and a bit cold.']},
@@ -159,37 +429,6 @@ var EMAIL=[
  '작년에 함께 일한 클라이언트에게 다시 연락해서 새 프로젝트를 제안하는 메일을 써.',
  '참석하기로 한 워크숍에 갑자기 못 가게 됐어. 주최자에게 사정을 설명하고 가능하면 다음 회차로 옮겨달라고 메일을 써.'
 ];
-/* 긴급 이메일 모범답안. EMAIL과 같은 순서. 키 없을 때 자기 비교용. */
-var EMAIL_M=[
-"Dear Studio Manager,\n\nI am writing about the booking I made for your studio on September 20. When I arrived on the day, I was told the room had been double-booked and my session was cancelled. I had already paid a $150 deposit, and it has not been returned yet.\n\nThis caused a serious problem for me because my client had travelled from Burnaby for the shoot. I had to cancel the project and apologize to them.\n\nCould you please refund my deposit by the end of this week? I would also appreciate a discount on a future booking, since the mistake was on your side.\n\nI look forward to hearing from you.\n\nSincerely,\nLily Yoon",
-"Dear Mr. Santos,\n\nI am writing about the laundry room on the second floor. Both machines have been out of order for three weeks. The notice in the lobby said they would be repaired by October 1, but that date has passed and nothing has changed.\n\nThis is a real problem for residents. Many of us now have to carry our laundry to the laundromat on Davie Street, which costs more and takes a lot of time.\n\nCould you please let us know the new repair date? If the machines cannot be fixed soon, I would like to suggest a temporary discount on our laundry fees.\n\nThank you for your help.\n\nBest regards,\nLily Yoon",
-"Dear Customer Service,\n\nI am writing about order number 48213, which I received on Monday. I ordered the Rode Wireless GO II microphone, but the package contained the older Wireless GO model instead.\n\nI need the newer model for a project next week, so this mistake has caused a delay for my client.\n\nCould you please send me a prepaid return label for the wrong item and ship the correct product as soon as possible? I would appreciate express shipping, since the error was not mine.\n\nPlease let me know when the replacement has been sent.\n\nSincerely,\nLily Yoon",
-"Dear City Council,\n\nI am writing to support the plan to replace the streetlights on Richards Street. I have lived in this neighbourhood for two years, and I walk home late at night several times a week.\n\nAt the moment, the lights are dim and some of them do not work at all. I often feel unsafe walking past the park after ten o'clock, and I have heard the same from my neighbours.\n\nBrighter lights would make the street safer and might also reduce crime. I would suggest starting with the section between Robson and Georgia, where the problem is worst.\n\nThank you for considering my opinion.\n\nSincerely,\nLily Yoon",
-"Dear Ms. Nguyen,\n\nI hope you are doing well. We worked together last year on the product video for your spring campaign, and I really enjoyed the project.\n\nI am writing because I have a new idea that might suit your brand. Many companies are now using short vertical videos for social media, and I have recently produced several of them for clients in Vancouver.\n\nWould you be interested in a short meeting next week to discuss it? I could show you some examples and give you a rough estimate.\n\nPlease let me know a time that works for you.\n\nBest regards,\nLily Yoon",
-"Dear Mr. Patel,\n\nI am writing about the video editing workshop on Saturday, October 18. Unfortunately, I will not be able to attend because of a family emergency.\n\nI was really looking forward to this workshop, especially the session on colour grading. I understand that the fee is normally non-refundable, but I would like to ask if I could move my registration to the next workshop in November instead.\n\nIf that is not possible, could you let me know whether a partial refund is available?\n\nI apologize for the short notice and thank you for your understanding.\n\nSincerely,\nLily Yoon"
-];
-/* 설문 응답 (Writing Task 2). 150~200단어, 4문단. 모범답안은 4문단 템플릿 그대로. */
-var SURVEY=[
- {s:'네 동네 커뮤니티 센터가 내년 예산을 하나에만 쓸 수 있어. (A) 실내 수영장 신축 (B) 도서관 확장. 하나를 고르고 이유를 설명해.',
-  a:'A) Build an indoor pool',b:'B) Expand the library',
-  m:"I believe the community centre should build an indoor pool. Although the library is useful, a pool would benefit more people in our neighbourhood.\n\nThe main reason is that there is no public pool within walking distance. Families with children have to drive thirty minutes to the nearest one, and many people simply give up. A local pool would let children learn to swim, which is an important safety skill in a city surrounded by water.\n\nAnother reason is that a pool supports people's health all year round. Vancouver winters are long and rainy, and it is hard to exercise outside. Swimming is gentle on the body, so seniors and people with injuries can use it too. For example, my neighbour stopped jogging after a knee injury and has nowhere to exercise now.\n\nIn conclusion, the library already exists and can be improved later, but the pool would fill a gap that nothing else fills. I strongly recommend option A."},
- {s:'네 아파트 건물이 지하 주차 공간 일부를 바꾸려고 해. (A) 주차 20면을 자전거 보관소로 전환 (B) 주차 그대로 유지. 하나를 고르고 이유를 설명해.',
-  a:'A) Convert parking to bike storage',b:'B) Keep all parking',
-  m:"In my opinion, the building should convert some parking spots into bike storage. I understand that drivers may be unhappy, but this change would help more residents than it hurts.\n\nThe main reason is that many people in our building already cycle, and there is nowhere safe to keep a bike. Residents carry bikes into their apartments or lock them outside, where several have been stolen this year. Secure storage would solve this problem immediately.\n\nAnother reason is that the parking garage is never full. When I checked last week, at least fifteen spots were empty on a weekday evening. Removing twenty spots would not create a shortage, and the building could even charge a small fee for bike storage to cover the cost.\n\nIn conclusion, the garage has space that is not being used, while cyclists have a real problem that is not being solved. For these reasons, I support option A."},
- {s:'네 회사가 근무 방식을 바꾸려고 해. (A) 주 4일, 하루 10시간 (B) 주 5일, 하루 8시간 유지. 하나를 고르고 이유를 설명해.',
-  a:'A) Four 10-hour days',b:'B) Five 8-hour days',
-  m:"I would choose the four-day week with longer days. Although ten hours is a long day, having three days off every week would improve both my work and my life.\n\nThe main reason is that a full extra day off makes real rest possible. On a normal weekend, one day goes to chores and errands, and only one day is left to relax. With a third day, people could see family, exercise, or simply recover, and they would return to work with more energy.\n\nAnother reason is that longer days are better for focused work. In my job, I edit videos, and it takes time to get into deep concentration. A ten-hour day means fewer interruptions and fewer times starting from zero. For example, I often finish more in one long day than in two short ones.\n\nIn conclusion, the four-day schedule gives employees better rest and gives the company more focused work. I strongly recommend option A."},
- {s:'시에서 주말 다운타운 차량 통행을 막는 안을 검토 중이야. (A) 주말 차 없는 거리 (B) 현행 유지. 하나를 고르고 이유를 설명해.',
-  a:'A) Car-free downtown on weekends',b:'B) Keep cars downtown',
-  m:"I support the plan to make downtown car-free on weekends. I live downtown myself, and I believe the benefits are greater than the inconvenience.\n\nThe main reason is safety. On weekends, the streets are full of families, tourists and cyclists, and cars move slowly and dangerously through the crowds. Without cars, people could walk and ride freely, and the risk of accidents would drop. Many European cities have already done this successfully.\n\nAnother reason is that car-free streets are good for local businesses. When people walk, they stop at shops and cafes that drivers pass by. For example, when Granville Street was closed for a festival last summer, the restaurants near my apartment were busier than I had ever seen them.\n\nIn conclusion, closing downtown to cars on weekends would make the area safer and more lively. Drivers can still use the SkyTrain or park outside the core. I recommend option A."},
- {s:'네 건물 관리위원회가 반려동물 규정을 정하려고 해. (A) 모든 세대 반려동물 허용 (B) 반려동물 금지. 하나를 고르고 이유를 설명해.',
-  a:'A) Allow pets in all units',b:'B) No pets allowed',
-  m:"I believe pets should be allowed in all units. I have a cat myself, but I also think this rule is better for the building as a whole.\n\nThe main reason is that pets make a building feel like a community. Dog owners meet each other in the elevator and in the park, and neighbours start to talk. In my last building, which allowed pets, I knew most of my neighbours by name. Here, I barely know anyone.\n\nAnother reason is that a no-pet rule is very hard to enforce fairly. Some residents already have pets quietly, and a ban would create conflict and secret complaints. Clear rules, such as a limit of two pets and a cleaning fee for damage, would protect the building much better than a total ban.\n\nIn conclusion, allowing pets with sensible rules is friendlier and more practical than banning them. For these reasons, I strongly support option A."},
- {s:'시에서 대중교통 요금 정책 의견을 받고 있어. (A) 세금으로 운영하고 요금 무료 (B) 요금 유지. 하나를 고르고 이유를 설명해.',
-  a:'A) Free transit funded by taxes',b:'B) Keep fares',
-  m:"In my opinion, the city should keep transit fares rather than make transit free. Free transit sounds attractive, but I do not think it would work well in practice.\n\nThe main reason is that the money has to come from somewhere. If fares are removed, taxes must go up for everyone, including people who never use transit. Also, when a service is free, it is often the first thing cut when the city has a budget problem. Fares give transit a stable income.\n\nAnother reason is that fares are not the real barrier for most people. The bigger problems are crowded buses and long waits in the suburbs. For example, my coworker in Surrey drives not because of the price, but because the bus takes an hour and a half. The city should spend money on more buses, not on free rides.\n\nIn conclusion, keeping fares and improving service would help more people than free transit would. I recommend option B."}
-];
-
 var SPEAK=[
  {n:1,t:'Giving Advice',ko:'조언하기',sec:90,tip:'구체적인 행동 2~3개 + 각각 왜인지 한 줄.',
   b:['If I were you, I would…','I\'d suggest that you…','It might be worth…','The most important thing is…'],
@@ -256,132 +495,16 @@ var SPEAK=[
      'You found something odd in a parcel. Describe it to customer service.',
      'Describe a piece of equipment from your work to someone outside your field.']}
 ];
-/* ---- 듣기 함정 (CELPIP Listening Part 1 축소판: 대화 1편 + 문항 4 + 재진술 1) ---- */
-var LISTEN=[
- {t:'세탁실 수리',sp:['Jordan','Ms. Park'],
-  l:[[0,"Hi, this is Jordan from unit 804. I'm calling about the laundry room on the third floor."],
-     [1,"Oh, hi Jordan. Let me guess. The dryer again?"],
-     [0,"Actually, both dryers now. The one on the left stopped heating last week, and the other one has been making a loud noise for two weeks."],
-     [1,"I'm sorry about that. The repair company came on Monday, but they only had the part for one machine."],
-     [0,"So when are they coming back?"],
-     [1,"They said Thursday, but I'd rather tell you Friday to be safe. I'll put a notice in the lobby once they confirm."],
-     [0,"Okay. In the meantime, is there anything we can do? I've got a week of laundry piling up."],
-     [1,"The laundry room in the east tower is open to everyone in the building this week. You just need your fob."],
-     [0,"I didn't know that. Is it the same price?"],
-     [1,"It's actually a bit cheaper, two dollars a load instead of two fifty, because those machines are older."],
-     [0,"Good to know. One more thing, could you email me when the notice goes up? I don't always check the lobby."],
-     [1,"Sure. I'll send it to the address on your lease. Thanks for letting me know about the noise."]],
-  q:[{q:'Why is Jordan calling?',o:['A) To report a problem with both dryers','B) To complain about noise from the hallway','C) To ask for a refund for a load','D) To report a problem with the washing machines'],a:0,
-      why:'D가 함정. "laundry room"이 나왔다고 washing machine이 아니야. 고장 난 건 dryers.'},
-     {q:"Why didn't the repair company fix both machines on Monday?",o:['A) They ran out of time','B) They only brought one part','C) They could not find the second machine','D) The second dryer was still working'],a:1,
-      why:'"they only had the part for one machine"을 그대로 들어야 해. D는 상식으로 메운 추론.'},
-     {q:'What does Ms. Park say about the east tower laundry room?',o:['A) It costs more','B) It is only for east tower residents','C) It is cheaper because the machines are older','D) It is closed this week'],a:2,
-      why:'"two dollars instead of two fifty, because those machines are older"'},
-     {q:'What does Jordan ask Ms. Park to do?',o:['A) Call him when the repair is done','B) Email him when the notice goes up','C) Lower the laundry price','D) Put a notice in the east tower'],a:1,
-      why:'A는 지문에 있는 사람 + 지문에 없는 행동. 그는 "email me"라고 했어.'}],
-  k:{ask:'Ms. Park이 이번 주 세탁 문제의 대안으로 말한 문장을 들은 대로 써.',ev:'The laundry room in the east tower is open to everyone in the building this week.'}},
- {t:'촬영 일정 변경',sp:['Sam','Mina'],
-  l:[[0,"Mina, do you have a minute? It's about Thursday's shoot at the waterfront."],
-     [1,"Sure. Is the client still happy with the location?"],
-     [0,"They love it, but the weather is the problem. The forecast says heavy rain all afternoon."],
-     [1,"Hmm. We can't shoot a product video in the rain. Can we move it to the morning?"],
-     [0,"The client's team can't come before noon. They're flying in from Calgary that day."],
-     [1,"Then let's push it to Friday. Is the location available?"],
-     [0,"I checked. Friday is free, but the permit fee goes up on Fridays and weekends. It's an extra eighty dollars."],
-     [1,"That's fine. Rain would cost us a lot more. What about the camera rental?"],
-     [0,"That's the tricky part. The rental shop closes at six on Thursday, and we'd need to return the gear by then."],
-     [1,"Call them and ask if they can extend it one day. If they say no, we'll rent from the place on Granville instead."],
-     [0,"Got it. Should I tell the client about the change now?"],
-     [1,"Yes, but say it's tentative until we hear back about the camera. I'd rather not change the date twice."]],
-  q:[{q:"What is the main problem with Thursday's shoot?",o:['A) The client does not like the location','B) Heavy rain is expected in the afternoon','C) The camera rental is too expensive','D) The permit has expired'],a:1,why:'"heavy rain all afternoon"'},
-     {q:"Why can't the shoot move to Thursday morning?",o:['A) The location is booked','B) The client\'s team arrives from Calgary at noon','C) Mina has another meeting','D) The rental shop is closed in the morning'],a:1,
-      why:'D는 지문에 있는 단어(rental shop)로 만든 함정. 가게는 "closes at six"지 아침 얘기가 아니야.'},
-     {q:'What does Mina say about the extra permit fee?',o:['A) It is too expensive','B) The client should pay it','C) It is acceptable because rain would cost more','D) It only applies on weekends'],a:2,why:'"That\'s fine. Rain would cost us a lot more."'},
-     {q:'What should Sam tell the client?',o:['A) The shoot is cancelled','B) The new date is confirmed','C) The date may still change until the camera is sorted out','D) To bring their own camera'],a:2,why:'"say it\'s tentative until we hear back about the camera"'}],
-  k:{ask:'카메라 대여에 대해 Mina가 지시한 문장을 들은 대로 써.',ev:'Call them and ask if they can extend it one day.'}},
- {t:'동물병원 예약',sp:['Omar','Yuna'],
-  l:[[0,"Westside Animal Clinic, this is Omar."],
-     [1,"Hi, I'm calling about my cat, Mochi. She's booked for a check-up on Saturday at ten."],
-     [0,"Let me find that. Yes, Mochi, Saturday at ten with Dr. Lee."],
-     [1,"The thing is, she hasn't been eating well since yesterday, and I'm a little worried. Is there any way to see someone sooner?"],
-     [0,"Dr. Lee is fully booked today, but Dr. Chen has an opening at four thirty this afternoon."],
-     [1,"Four thirty works. Should I bring anything?"],
-     [0,"If you can, bring a sample of the food she's been refusing, and a note of how much water she's drinking."],
-     [1,"Okay. And should I keep the Saturday appointment?"],
-     [0,"Let's cancel it for now. If Dr. Chen wants a follow-up, we'll book it before you leave."],
-     [1,"Sounds good. Oh, is parking still behind the building?"],
-     [0,"It is, but the lot is being repaved this week, so it's only half open. Give yourself an extra ten minutes."],
-     [1,"Thanks, I'll be there at four thirty."]],
-  q:[{q:'Why does Yuna want an earlier appointment?',o:['A) Her cat has not been eating well','B) She is busy on Saturday','C) Dr. Lee is away on Saturday','D) Her cat was injured'],a:0,why:'"she hasn\'t been eating well since yesterday"'},
-     {q:'Who will see Mochi this afternoon?',o:['A) Dr. Lee','B) Dr. Chen','C) Omar','D) Any available vet'],a:1,why:'Dr. Lee는 "fully booked today". 이름이 먼저 나왔다고 답이 아니야.'},
-     {q:'What does Omar ask Yuna to bring?',o:['A) Mochi\'s vaccination record','B) A sample of the food and a note about water','C) A urine sample','D) Her Saturday booking number'],a:1,why:'"a sample of the food... and a note of how much water"'},
-     {q:'Why should Yuna arrive early?',o:['A) The clinic is busy','B) The parking lot is partly closed','C) She needs to fill out forms','D) Dr. Chen leaves at five'],a:1,why:'"the lot is being repaved... only half open"'}],
-  k:{ask:'토요일 예약을 어떻게 할지 Omar가 한 말을 들은 대로 써.',ev:"If Dr. Chen wants a follow-up, we'll book it before you leave."}},
- {t:'수영 강습 등록',sp:['Priya','Daniel'],
-  l:[[0,"Hi, how can I help you?"],
-     [1,"I'd like to sign up for the adult beginner swim class. The one on Tuesday evenings."],
-     [0,"The Tuesday class is full, I'm afraid. We do have spots on Wednesday at seven and Saturday at nine in the morning."],
-     [1,"Wednesday at seven would work. How long is the session?"],
-     [0,"Eight weeks, forty-five minutes each. It starts next week, so you'd be joining from the first class."],
-     [1,"Great. And the price?"],
-     [0,"It's one hundred and twenty dollars for residents, or one forty if you live outside the city. Do you have a Vancouver address?"],
-     [1,"I do. I just moved here, though, so my ID still shows my old address in Burnaby."],
-     [0,"That's okay. A utility bill or a lease with your new address is enough."],
-     [1,"I have a copy of my lease on my phone. Will that do?"],
-     [0,"That works. One more thing, the pool is closed for cleaning the last week of the month, so there's no class that Wednesday. We add one at the end instead."],
-     [1,"Perfect. Let's do it."]],
-  q:[{q:"Why can't Daniel take the Tuesday class?",o:['A) It is too expensive','B) It is full','C) It is for children','D) It starts too late'],a:1,why:'"The Tuesday class is full"'},
-     {q:'How long is each class?',o:['A) Forty minutes','B) Forty-five minutes','C) One hour','D) Eight weeks'],a:1,why:'D는 코스 전체 길이. 숫자가 들렸다고 답이 아니야.'},
-     {q:'Why does Priya ask for a utility bill or a lease?',o:['A) To confirm his new Vancouver address','B) To check his swimming level','C) Because his ID has expired','D) Because he is a student'],a:0,why:'ID에 옛 주소(Burnaby)가 있어서 새 주소 증명이 필요한 거야.'},
-     {q:'What happens in the last week of the month?',o:['A) The price goes up','B) The class moves to Saturday','C) There is no class because the pool is closed','D) The course ends'],a:2,why:'"the pool is closed for cleaning... no class that Wednesday"'}],
-  k:{ask:'주소 증명으로 뭐가 필요한지 Priya가 한 말을 들은 대로 써.',ev:'A utility bill or a lease with your new address is enough.'}}
-];
-/* ---- 철자 받아쓰기. 앞 6개는 그녀의 실제 오철자. 나머지는 그녀 글(Task 2 템플릿·수리소 문장)에 실제로 쓰이는 단어.
-        안키 7번 덱(25장) 목록을 받으면 그걸로 교체할 것. ---- */
-var SPELL=[
- ['believe','I believe that online shopping saves time.'],
- ['quality','The quality of the food was excellent.'],
- ['survey','I am writing in response to your survey.'],
- ['important','It is important to arrive on time.'],
- ['outside','We ate outside because the weather was nice.'],
- ['healthier','Cooking at home is healthier than eating out.'],
- ['because','I chose this option because it is cheaper.'],
- ['different','People have different opinions about this.'],
- ['environment','Public transit is better for the environment.'],
- ['government','The government should support small businesses.'],
- ['convenient','The new location is more convenient for me.'],
- ['necessary','It is necessary to book in advance.'],
- ['definitely','I would definitely recommend this option.'],
- ['experience','I had a great experience at the workshop.'],
- ['receive','I did not receive the package.'],
- ['separate','Please send a separate invoice for the deposit.'],
- ['through','I learned a lot through this project.'],
- ['beautiful','Stanley Park is beautiful in the fall.'],
- ['recommend','I recommend the second option.'],
- ['apartment','Our apartment is close to the station.'],
- ['restaurant','We tried a new restaurant last weekend.'],
- ['schedule','My schedule is very busy this month.'],
- ['exercise','I exercise three times a week.'],
- ['comfortable','The chairs were not very comfortable.'],
- ['especially','I like Vancouver, especially in summer.'],
- ['available','Is the studio available on Friday?'],
- ['community','The community centre offers free classes.'],
- ['decision','It was a difficult decision for our family.'],
- ['opinion','In my opinion, the first plan is better.'],
- ['benefit','Another benefit is that it saves money.']
-];
-
 var TYPES=[
  {id:'speak',ic:'🎤',nm:'1분 스피킹',df:3,mn:5,ds:'준비 30초, 말하기 60초. 마이크로 속도·무음까지 잰다.',ai:false},
  {id:'repair',ic:'🛠️',nm:'문장 수리소',df:2,mn:6,ds:'네가 실제로 틀렸던 문장 8개가 고장난 채로 온다.',ai:false},
  {id:'traphunt',ic:'🔍',nm:'함정 사냥',df:2,mn:6,ds:'답만으론 점수 없다. 근거 문장까지 짚어야 한다.',ai:false},
+ {id:'listen',ic:'🎧',nm:'리스닝',df:3,mn:10,ds:'한 번만 듣는다. 찍은 문제엔 ⭐를 붙여야 한다.',ai:false},
+ {id:'readp1',ic:'📨',nm:'리딩 Part 1',df:3,mn:10,ds:'실제 시험 형식 그대로. 드롭다운 6개 + 답장 빈칸 5개, 10분.',ai:false},
  {id:'speed',ic:'⚡',nm:'스피드 라운드',df:1,mn:5,ds:'질문 8개. 한 줄씩. 생각하지 말고 바로.',ai:false},
- {id:'listen',ic:'🎧',nm:'듣기 함정',df:2,mn:6,ds:'대화를 한 번만 들려준다. 문항 4개 + 들은 문장 재진술.',ai:false},
- {id:'spell',ic:'🔤',nm:'철자 받아쓰기',df:1,mn:4,ds:'단어 10개를 불러준다. 시험엔 스펠체크가 없다.',ai:false},
  {id:'roleplay',ic:'🥊',nm:'역할극',df:3,mn:8,ds:'변명하는 상대와 3라운드. 밀리면 진다.',ai:true},
- {id:'hottake',ic:'🔥',nm:'핫테이크',df:3,mn:5,ds:'도발적인 주장에 80단어로 반박하거나 편들어라.',ai:false,opt:true},
- {id:'email',ic:'✉️',nm:'긴급 이메일',df:2,mn:8,ds:'상황 하나. 실제로 보낼 메일을 쓴다. 모범 메일과 비교.',ai:false,opt:true},
- {id:'survey',ic:'📝',nm:'설문 응답',df:3,mn:26,ds:'시험 Writing Task 2 그대로. 150~200단어, 4문단, 26분.',ai:false,opt:true}
+ {id:'hottake',ic:'🔥',nm:'핫테이크',df:3,mn:5,ds:'도발적인 주장에 80단어로 반박하거나 편들어라.',ai:true},
+ {id:'email',ic:'✉️',nm:'긴급 이메일',df:2,mn:8,ds:'상황 하나. 실제로 보낼 메일을 쓴다.',ai:true}
 ];
 
 /* ============ 상태 ============ */
@@ -395,11 +518,31 @@ function load(){
   }catch(e){}
   try{apiKey=localStorage.getItem(AKEY)||'';model=localStorage.getItem(MKEY)||''}catch(e){}
 }
-function save(){try{localStorage.setItem(KEY,JSON.stringify({xp:S.xp,bosses:S.bosses,runs:S.runs.slice(-150)}))}catch(e){};cloudQueue()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({xp:S.xp,bosses:S.bosses,runs:S.runs.slice(-150)}))}catch(e){}}
 function today(){try{return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Vancouver',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}catch(e){return new Date().toISOString().slice(0,10)}}
 function shift(k,n){var p=k.split('-');var d=new Date(Date.UTC(+p[0],+p[1]-1,+p[2]));d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
 var TD=today();
 function lvl(x){var i=0;for(var k=0;k<LEVELS.length;k++)if(x>=LEVELS[k][0])i=k;return i}
+
+/* CELPIP 점수 = CLB 레벨 (IRCC 공식 환산, 4~10 구간 1:1).
+   아래 정답률 → 밴드 변환은 공식이 아니라 추정치다. */
+function clbBand(pct){
+  if(pct>=92)return{lo:9,hi:10};
+  if(pct>=85)return{lo:8,hi:9};
+  if(pct>=76)return{lo:7,hi:8};
+  if(pct>=66)return{lo:6,hi:7};
+  if(pct>=55)return{lo:5,hi:6};
+  if(pct>=42)return{lo:4,hi:5};
+  return{lo:3,hi:4};
+}
+function bandTxt(c){return c?(c.lo===c.hi?('CLB '+c.lo):('CLB '+c.lo+'–'+c.hi)):'—'}
+function bandHtml(c,note){
+  if(!c)return '';
+  var ok=c.lo>=7;
+  return '<div class="clb'+(ok?' ok':'')+'"><div class="clbn">'+esc(bandTxt(c))+'</div>'+
+    '<div class="clbd">추정 · 목표 CLB 7'+(note?' · '+esc(note):'')+'</div>'+
+    '<div class="clbbar"><i style="width:'+Math.max(4,Math.min(100,(c.hi/10*100)))+'%"></i><b style="left:70%"></b></div></div>';
+}
 
 /* ============ 렌더 ============ */
 function renderHud(){
@@ -413,7 +556,12 @@ function renderHud(){
   if(!S.runs.some(function(r){return r.date===TD}))cur=shift(TD,-1);
   while(S.runs.some(function(r){return r.date===cur})){st++;cur=shift(cur,-1)}
   $('s-streak').textContent=st+'일'; $('s-runs').textContent=S.runs.length;
-  $('s-avg').textContent=S.runs.length?Math.round(S.runs.reduce(function(a,r){return a+(r.score||0)},0)/S.runs.length):'—';
+  var cb=S.runs.filter(function(r){return r.clb}).slice(-8);
+  if(cb.length){
+    var mid=cb.reduce(function(a,r){return a+(r.clb.lo+r.clb.hi)/2},0)/cb.length;
+    var el=$('s-avg');el.textContent=(Math.round(mid*10)/10).toFixed(1);
+    el.className=mid>=7?'ok':(mid>=6?'':'bad');
+  } else { $('s-avg').textContent='—'; $('s-avg').className=''; }
   $('s-kill').textContent=BOSSES.filter(function(b){return(S.bosses[b.id]||0)<=0}).length+'/'+BOSSES.length;
 }
 function renderBosses(){
@@ -431,6 +579,7 @@ function renderHist(){
     if(r.prompt)b+='<div class="hlab">받은 문제</div><div class="hq">'+esc(r.prompt)+'</div>';
     if(r.answer)b+='<div class="hlab">내 답</div><div class="hans">'+esc(r.answer)+'</div>';
     if(r.metrics)b+='<div class="hmm"><span>'+r.metrics.words+' 단어</span><span>'+r.metrics.wpm+' wpm</span><span>무음 '+r.metrics.qpct+'%</span><span>최장 '+r.metrics.longest+'s</span></div>';
+    if(r.clb)b+='<div class="hmm"><span style="color:var(--gold);font-weight:700">추정 '+esc(bandTxt(r.clb))+'</span></div>';
     if(r.verdict)b+='<div class="hlab">총평</div><p style="font-size:14px">'+esc(r.verdict)+'</p>';
     if(r.corrections&&r.corrections.length)b+='<div class="hlab">교정 '+r.corrections.length+'개</div><div class="fixes">'+r.corrections.map(function(c){
       return '<div class="fix"><span class="w">'+esc(c.wrong)+'</span> → <span class="r">'+esc(c.right)+'</span>'+(c.why?'<span class="y">'+esc(c.why)+'</span>':'')+'</div>'}).join('')+'</div>';
@@ -452,70 +601,30 @@ function renderNb(){
 }
 function renderTypes(){
   $('types').innerHTML=TYPES.map(function(t){
-    return '<div class="type"><div class="ti">'+t.ic+'</div><div class="tn">'+esc(t.nm)+(t.ai?' <span class="pill">AI 필수</span>':t.opt?' <span class="pill">AI 선택</span>':'')+'</div><div class="td">'+esc(t.ds)+'</div></div>'}).join('');
+    return '<div class="type"><div class="ti">'+t.ic+'</div><div class="tn">'+esc(t.nm)+(t.ai?' <span class="pill">AI</span>':'')+'</div><div class="td">'+esc(t.ds)+'</div></div>'}).join('');
 }
 
 /* ============ 챌린지 ============ */
 var T=null,C=null,busy=false,tick=null,t0=0;
 function setHead(t){
   T=t;$('c-ic').textContent=t.ic;$('c-nm').textContent=t.nm;
-  $('c-mt').textContent=TD+' · 약 '+t.mn+'분 · 100 PT'+(t.ai?' · AI 채점':t.opt?(apiKey?' · AI + 기계 검사':' · 기계 검사'):'');
+  $('c-mt').textContent=TD+' · 약 '+t.mn+'분 · 100 PT'+(t.ai?' · AI 채점':'');
   $('c-st').textContent='★★★'.slice(0,t.df)+'☆☆☆'.slice(0,3-t.df);
   $('c-ds').textContent=t.ds;
 }
 function act(h){$('c-act').innerHTML=h}
-/* ---- 추천: 요일 카테고리 ×3 가중 + 살아있는 보스 HP 가중 + 직전 유형 회피. 같은 요일에도 매번 다른 게 나온다. ---- */
-var CAT={0:null,1:'write',2:'speak',3:'write',4:'read',5:'speak',6:'listen'};
-var TCAT={speak:'speak',roleplay:'speak',speed:'speak',repair:'read',traphunt:'read',listen:'listen',spell:'listen',survey:'write',email:'write',hottake:'write'};
-var TBOSS={repair:['article','agree','past','herethere','runon','word','compar','prep','toinf','theyhave','being'],spell:['spell'],
-  survey:['signal','runon','herethere','spell','article','agree'],email:['runon','spell','article','agree','prep'],hottake:['signal','runon','agree'],
-  speak:['freeze','past','agree','article'],roleplay:['past','agree','word'],speed:['past','agree'],traphunt:[],listen:[]};
-function dow(){try{return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Intl.DateTimeFormat('en-CA',{timeZone:'America/Vancouver',weekday:'short'}).format(new Date()))}catch(e){return new Date().getDay()}}
-function gapDays(){if(!S.runs.length)return 0;var last=S.runs[S.runs.length-1].date,d=0,c=TD;while(c!==last&&d<60){c=shift(c,-1);d++}return d}
-function revenge(){
-  /* 가장 최근(오늘 제외) 전투에서 실제로 맞은 보스 중, 수리소 문장이 3개 이상 있는 것 */
-  for(var i=S.runs.length-1;i>=0&&i>=S.runs.length-6;i--){var r=S.runs[i];if(r.date===TD)continue;
-    var f=(r.errorsFound||[]).filter(function(b){return S.bosses[b]>0&&REPAIR.filter(function(x){return x[2]===b}).length>=3});
-    if(f.length)return f[0]}
-  return null;
-}
-function recommend(avail,last){
-  var gap=gapDays(),cat=CAT[dow()];
-  var pool=avail.filter(function(x){return x.id!==last});if(!pool.length)pool=avail;
-  if(gap>=3){var shortp=pool.filter(function(x){return x.mn<=6&&!x.ai});if(shortp.length)pool=shortp}  /* 복귀일: 짧은 것만 */
-  var w=pool.map(function(x){
-    var bl=TBOSS[x.id]||[],bw=bl.length?bl.reduce(function(a,b){return a+Math.max(0,S.bosses[b]||0)},0)/bl.length/100:0.5;
-    return (1+bw)*(cat&&TCAT[x.id]===cat?3:1)});
-  var tot=w.reduce(function(a,b){return a+b},0),r=Math.random()*tot;
-  for(var i=0;i<pool.length;i++){r-=w[i];if(r<=0)return pool[i]}
-  return pool[pool.length-1];
-}
 function idle(t){
   clearInterval(tick);$('card').classList.remove('live');
-  hush();
-  if(sp.warm){sp.warm.then(function(st){st.getTracks().forEach(function(x){x.stop()})}).catch(function(){});sp.warm=null}
-  if(sp.ac&&!sp.stream){try{sp.ac.close()}catch(e){}sp.ac=null}
   var avail=TYPES.filter(function(x){return !x.ai||apiKey});
   var last=S.runs.length?S.runs[S.runs.length-1].type:null;
   var pool=avail.filter(function(x){return x.id!==last}); if(!pool.length)pool=avail;
-  var rv=null;
-  if(!t){
-    t=recommend(avail,last);
-    var rb=revenge();
-    if(rb&&last!=='repair'&&gapDays()<3&&Math.random()<0.4){t=TYPES.filter(function(x){return x.id==='repair'})[0];rv=rb}
-  }
-  setHead(t);T.focus=rv;
+  setHead(t||one(pool));
   $('c-body').innerHTML='';$('c-res').innerHTML='';
-  var gap=gapDays(),note='';
-  if(gap>=3&&!S.runs.some(function(r){return r.date===TD}))note+='<div class="oknote"><b>'+gap+'일 쉬었어.</b> 복귀일 규칙: 짧은 거 하나만 하고 닫아. 밀린 건 버린다. 내일 또 열면 그게 이긴 거야.</div>';
-  if(rv){var bb=BOSSES.filter(function(b){return b.id===rv})[0];note+='<div class="ask"><span class="who">복수전</span>지난번에 <b>'+esc(bb.n)+'</b> 보스한테 맞았어. 이번 수리소는 그 유형 위주로 나온다.</div>'}
-  note=backupNag()+note;
-  if(note)$('c-body').innerHTML=note;
   var sel='<select id="pk"><option value="">🎲 아무거나</option>'+TYPES.map(function(x){
     return '<option value="'+x.id+'"'+(x.id===T.id?' selected':'')+(x.ai&&!apiKey?' disabled':'')+'>'+x.ic+' '+x.nm+(x.ai&&!apiKey?' (키 필요)':'')+'</option>'}).join('')+'</select>';
   act('<button class="btn" id="go">시작</button><button class="btn2" id="re">🎲 다시 뽑기</button>'+sel);
   $('go').onclick=start;
-  $('re').onclick=function(){idle()};
+  $('re').onclick=function(){idle(one(pool))};
   $('pk').onchange=function(){var v=this.value;idle(v?TYPES.filter(function(x){return x.id===v})[0]:null)};
 }
 function start(){
@@ -523,9 +632,9 @@ function start(){
   if(T.id==='speak')return buildSpeak();
   if(T.id==='repair')return buildRepair();
   if(T.id==='traphunt')return buildTrap();
-  if(T.id==='speed')return buildSpeed();
   if(T.id==='listen')return buildListen();
-  if(T.id==='spell')return buildSpell();
+  if(T.id==='readp1')return buildRead();
+  if(T.id==='speed')return buildSpeed();
   return buildWrite();
 }
 function timerUI(){
@@ -536,11 +645,8 @@ function timerUI(){
 
 /* --- 문장 수리소 --- */
 function buildRepair(){
-  var items;
-  if(T.focus){var f=REPAIR.filter(function(x){return x[2]===T.focus}),rest=REPAIR.filter(function(x){return x[2]!==T.focus});
-    items=pickN(f,Math.min(5,f.length)).concat(pickN(rest,8-Math.min(5,f.length)));items=pickN(items,items.length)}
-  else items=pickN(REPAIR,8);
-  C={kind:'repair',items:items,focus:T.focus||null};
+  var items=pickN(REPAIR,8);
+  C={kind:'repair',items:items};
   $('c-body').innerHTML='<div class="scen">아래 8문장에 각각 <strong>오류가 하나씩</strong> 있어. 고친 문장을 한 줄에 하나씩 써.</div>'+
     '<ul class="items">'+items.map(function(i){return '<li>'+esc(i[0])+'</li>'}).join('')+'</ul>'+
     '<textarea id="ans" placeholder="1. ...&#10;2. ..."></textarea><div class="cnt" id="cnt">0 단어</div>';
@@ -594,8 +700,195 @@ function gradeTrap(){
   if(!evOk)cors.push({wrong:$('ans').value||'(빈칸)',right:it.ev,why:'근거 문장은 지문에서 그대로 옮겨야 해.',boss:'misc'});
   finish(score,{verdict:right?(evOk?'정답 + 근거까지. 이게 만점 풀이야.':'답은 맞았는데 근거를 못 짚었어 — 운일 수도 있다는 뜻이야.'):'오답. 지문 밖에서 답을 가져왔어.',
     corrections:cors,errorsFound:[],errorsAvoided:[],
+    clb:right?(evOk?clbBand(90):clbBand(70)):clbBand(40),clbNote:'Reading 1문항 · 참고용',
     next:'답을 고르기 전에 "이 답의 근거가 몇 번째 문장이지?"를 1초만 물어.'},
     '선택: '+(it.o[C.pick]||'-')+'\n근거: '+($('ans').value||'-'));
+}
+
+/* --- 리딩 Part 1 (실제 시험 형식) --- */
+function buildRead(){
+  var set=one(READ);
+  C={kind:'readp1',set:set,ans:[],left:set.min*60};
+  $('c-mt').textContent=TD+' · Reading Part 1 · 11문항 · '+set.min+'분 · 100 PT';
+  var sel=function(i,o){
+    return '<select class="dd" data-q="'+i+'"><option value="">—</option>'+
+      o.map(function(x,k){return '<option value="'+k+'">'+esc(x)+'</option>'}).join('')+'</select>';
+  };
+  var rep=esc(set.rtext).replace(/\{(\d+)\}/g,function(m,n){
+    var i=parseInt(n,10)-1;return '<span class="bl">'+n+'. '+sel(i,set.blanks[i-6].o)+'</span>';
+  }).replace(/\n/g,'<br>');
+  $('c-body').innerHTML=
+    '<div class="scen"><b>Reading Part 1 · Reading Correspondence.</b> 왼쪽 글을 읽고 오른쪽 1~6번을 드롭다운으로 고른 다음, 아래 답장의 빈칸 7~11번을 채워. <b>'+set.min+'분.</b> 실제 시험과 같은 형식이야.</div>'+
+    '<div class="rsplit"><div class="rpas"><div class="rphead">Read the following message.</div>'+
+      '<div class="rpbody"><b>'+esc(set.from)+'</b><br><br>'+esc(set.body).replace(/\n/g,'<br>')+'</div></div>'+
+    '<div class="rq"><div class="rqhead">Questions 1–6 — choose the best option.</div>'+
+      set.qs.map(function(q,i){
+        return '<div class="rqr"><span class="rqn">'+(i+1)+'.</span><span class="rqt">'+esc(q.q)+'</span>'+sel(i,q.o)+'</div>';
+      }).join('')+
+      '<div class="rqhead" style="margin-top:18px">Questions 7–11 — complete the reply.</div>'+
+      '<div class="rrep"><b>'+esc(set.rhead)+'</b><br><br>'+rep+'</div>'+
+    '</div></div>';
+  [].forEach.call($('c-body').querySelectorAll('.dd'),function(s){
+    s.onchange=function(){C.ans[+s.getAttribute('data-q')]=s.value===''?undefined:+s.value;
+      s.className='dd'+(s.value===''?'':' set')};
+  });
+  act('<button class="btn" id="sub">제출 · 채점</button><span class="tmr" id="tm">'+fmt(C.left)+'</span>');
+  clearInterval(tick);
+  tick=setInterval(function(){
+    C.left--;var e=$('tm');if(!e){clearInterval(tick);return}
+    e.textContent=fmt(Math.max(0,C.left));
+    if(C.left<=60)e.style.animation='pulse 1s infinite';
+    if(C.left<=0){clearInterval(tick);gradeRead()}
+  },1000);
+  $('sub').onclick=gradeRead;
+}
+function gradeRead(){
+  clearInterval(tick);
+  var set=C.set,all=[],i;
+  for(i=0;i<6;i++)all.push({n:i+1,q:set.qs[i].q,o:set.qs[i].o,a:set.qs[i].a,ev:set.qs[i].ev,why:set.qs[i].why});
+  for(i=0;i<5;i++)all.push({n:i+7,q:'빈칸 '+(i+7),o:set.blanks[i].o,a:set.blanks[i].a,ev:set.blanks[i].ev,why:set.blanks[i].ko});
+  var hit=0,blank=0,cors=[],part1=0,part2=0;
+  all.forEach(function(it,k){
+    var mine=C.ans[k],ok=mine===it.a;
+    if(mine===undefined)blank++;
+    if(ok){hit++;if(k<6)part1++;else part2++}
+    else cors.push({wrong:it.n+'. '+(mine===undefined?'(미선택)':it.o[mine]),right:it.o[it.a],
+      why:(it.why?it.why+'  ▸ ':'')+'근거: "'+it.ev+'"',boss:'misc'});
+  });
+  var total=set.min*60,secs=total-Math.max(0,C.left);
+  var score=Math.round(hit/all.length*100);
+  var v=hit+' / 11 정답 (이해 '+part1+'/6 · 빈칸 '+part2+'/5) · '+fmt(secs)+' 사용.';
+  if(blank)v+=' 미선택 '+blank+'개.';
+  if(C.left>120&&hit<9)v+=' 시간을 '+fmt(C.left)+' 남기고 냈어 — 9월부터 반복되는 습관이야. 남는 시간은 확신 없는 문제 재검토에 써.';
+  else if(part2<part1-1)v+=' 빈칸(7~11)이 이해 문제보다 약해. 답장 빈칸은 원문의 어느 문장을 받는지 짚으면 풀려.';
+  var bonus=0,bn=[];
+  if(!blank){bonus+=10;bn.push('완주 +10')}
+  if(secs>=total*0.6){bonus+=15;bn.push('시간 완주 +15')}
+  if(secs>=total*0.6&&hit>=9){bonus+=25;bn.push('재검토 +25')}
+  finish(score,{verdict:v,corrections:cors,errorsFound:[],errorsAvoided:[],
+    bonus:bonus,bonusNote:bn.join(' · '),
+    clb:clbBand(score),clbNote:'Reading '+hit+'/11',
+    next:blank?'끝까지 다 고르고 내. 빈칸은 0점이야.':'틀린 문제의 근거 문장을 지문에서 찾아 형광펜 긋듯 짚어봐.'},
+    all.map(function(it,k){return it.n+'. '+(C.ans[k]===undefined?'-':it.o[C.ans[k]])}).join('\n'));
+  $('c-res').insertAdjacentHTML('beforeend',
+    '<details class="hrow" style="margin-top:14px"><summary><span class="hd">PASSAGE</span><span>지문 다시 보기</span><span class="hs"></span></summary>'+
+    '<div class="hb"><div class="hq">'+esc(set.body)+'</div></div></details>');
+}
+
+/* --- 리스닝 --- */
+function buildListen(){
+  var set=LISTEN[0],total=0;
+  set.segs.forEach(function(s){total+=s.qs.length});
+  C={kind:'listen',set:set,seg:0,ans:[],star:[],total:total};
+  $('c-mt').textContent=TD+' · '+set.part+' · '+total+'문항 · 100 PT';
+  renderSeg();
+}
+function renderSeg(){
+  var set=C.set,i=C.seg,s=set.segs[i],n=set.segs.length,done='';
+  for(var k=0;k<i;k++)done+='<div class="segdone">✓ 세그먼트 '+(k+1)+' · '+set.segs[k].qs.length+'문항 완료</div>';
+  $('c-body').innerHTML=done+
+    (i===0?'<div class="scen"><strong>'+esc(set.title)+' · '+esc(set.ko)+'</strong> — 주민 Nadia와 건물 매니저 Greg의 대화야.<br><br>'+
+      '<b>규칙 하나.</b> 한 번만 듣는다. 재생이 끝나면 플레이어가 사라지고 문제가 나와. 메모는 해도 돼.<br>'+
+      '<b>규칙 둘.</b> 확신이 없으면 <b>⭐ 찍었어</b>를 눌러. 안 누르면 운으로 맞은 게 실력으로 기록돼.</div>':'')+
+    '<div class="seghead">세그먼트 '+(i+1)+' / '+n+'<span>'+fmt(s.sec)+'</span></div>'+
+    '<div id="player"><audio id="au" controls preload="auto" src="'+esc(s.src)+'"></audio>'+
+    '<p class="note" id="aerr" hidden></p>'+
+    '<div class="row"><button class="btn2" id="skipq">다 들었어 — 문제 보기</button></div></div>'+
+    '<div id="qs"></div>';
+  var au=$('au');
+  au.onended=showQs;
+  au.onerror=function(){var e=$('aerr');e.hidden=false;
+    e.innerHTML='음원을 못 찾았어 — <code>'+esc(s.src)+'</code> 가 리포에 있는지 확인해줘.'};
+  $('skipq').onclick=showQs;
+  act('');
+}
+function showQs(){
+  var s=C.set.segs[C.seg],base=0,k;
+  for(k=0;k<C.seg;k++)base+=C.set.segs[k].qs.length;
+  var p=$('player'); if(p)p.hidden=true;
+  var last=C.seg+1>=C.set.segs.length;
+  $('qs').innerHTML=s.qs.map(function(q,j){
+    var gi=base+j;
+    return '<div class="qb" data-q="'+gi+'"><div class="qn">Q'+(gi+1)+'</div><p class="qt">'+esc(q.q)+'</p>'+
+      '<ul class="opts">'+q.o.map(function(o,oi){return '<li><button data-i="'+oi+'">'+esc(o)+'</button></li>'}).join('')+'</ul>'+
+      '<button class="star" data-s="'+gi+'">⭐ 찍었어</button></div>';
+  }).join('')+'<div class="row"><button class="btn" id="nextseg">'+(last?'제출 · 채점':'다음 세그먼트')+'</button></div>';
+  [].forEach.call($('qs').querySelectorAll('.qb'),function(b){
+    var gi=+b.getAttribute('data-q');
+    [].forEach.call(b.querySelectorAll('.opts button'),function(btn){
+      btn.onclick=function(){
+        [].forEach.call(b.querySelectorAll('.opts button'),function(x){x.className=''});
+        btn.className='pick';C.ans[gi]=+btn.getAttribute('data-i');
+      };
+    });
+    var st=b.querySelector('.star');
+    st.onclick=function(){C.star[gi]=!C.star[gi];st.className='star'+(C.star[gi]?' on':'')};
+  });
+  $('nextseg').onclick=function(){
+    if(C.seg+1<C.set.segs.length){C.seg++;renderSeg();window.scrollTo({top:$('card').offsetTop-20,behavior:'smooth'})}
+    else gradeListen();
+  };
+}
+function gradeListen(){
+  clearInterval(tick);
+  var all=[],n=0;
+  C.set.segs.forEach(function(s,si){s.qs.forEach(function(q){all.push({q:q,seg:si,i:n++})})});
+  var hit=0,sure=0,sureHit=0,guess=0,guessHit=0,cors=[];
+  all.forEach(function(it){
+    var mine=C.ans[it.i],ok=mine===it.q.a,st=!!C.star[it.i];
+    if(ok)hit++;
+    if(st){guess++;if(ok)guessHit++}else{sure++;if(ok)sureHit++}
+    if(!ok)cors.push({wrong:'Q'+(it.i+1)+' '+(it.q.o[mine]||'(미선택)'),right:it.q.o[it.q.a],
+      why:it.q.why+'  ▸ 근거: "'+it.q.ev+'"',boss:'misc'});
+    else if(st)cors.push({wrong:'Q'+(it.i+1)+' 찍어서 맞음',right:it.q.o[it.q.a],
+      why:'근거: "'+it.q.ev+'" — 운이야. 이 문장을 다시 들어.',boss:'misc'});
+  });
+  var score=Math.round(hit/all.length*100);
+  var v=hit+' / '+all.length+' 정답 · 확신 '+sureHit+'/'+sure+' · 찍기 '+guessHit+'/'+guess+'.';
+  if(guess===0)v+=' 찍은 게 하나도 없다고 했어 — 사실이면 아주 좋은 신호야.';
+  else if(sure>0&&sureHit/sure>=0.85&&guessHit/guess<0.5)v+=' 9월 리딩과 똑같은 모양이야 — 아는 건 다 맞히고 찍으면 떨어져. 실력이 아니라 근거 없이 고르는 습관이 문제야.';
+  else if(guessHit/Math.max(1,guess)>=0.7)v+=' 찍었다는 것치고 많이 맞았어. 사실은 들린 건데 확신을 못 한 걸 수도 있어.';
+  finish(score,{verdict:v,corrections:cors,errorsFound:[],errorsAvoided:[],
+    clb:clbBand(Math.round(hit/all.length*100)),clbNote:'Listening '+hit+'/'+all.length,
+    next:guess>0?'찍은 문제의 근거 문장을 스크립트에서 찾아 소리 내서 한 번 읽어.':'다음엔 메모 없이 해봐.'},
+    all.map(function(it){return 'Q'+(it.i+1)+': '+(it.q.o[C.ans[it.i]]||'-')+(C.star[it.i]?' ⭐':'')}).join('\n'));
+  var nz2=function(x){return String(x||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()};
+  var qno=0;
+  var rev=C.set.segs.map(function(s,k){
+    var mark={};
+    s.qs.forEach(function(q){
+      qno++;
+      var ew=nz2(q.ev).split(' ').filter(function(w){return w.length>3}),best=-1,bs=0;
+      s.tx.forEach(function(t,ti){
+        var lw=nz2(t[1]).split(' '),h=ew.filter(function(w){return lw.indexOf(w)>=0}).length;
+        if(h>bs){bs=h;best=ti}
+      });
+      if(best>=0&&bs>=Math.max(2,ew.length*0.5))(mark[best]=mark[best]||[]).push(qno);
+    });
+    var lines=s.tx.map(function(t,ti){
+      var tag=mark[ti]?'<span class="evq">Q'+mark[ti].join(', Q')+'</span>':'';
+      return '<div class="txl'+(mark[ti]?' ev':'')+'"><b>'+esc(t[0])+'</b> '+esc(t[1])+tag+'</div>';
+    }).join('');
+    return '<div class="seghead" style="margin-top:14px">세그먼트 '+(k+1)+'<span>'+fmt(s.sec)+'</span></div>'+
+      '<audio class="rv" controls preload="none" src="'+esc(s.src)+'"></audio>'+
+      '<div class="txw">'+lines+'</div>';
+  }).join('');
+  var vb=C.set.vocab.map(function(p){return '<div class="fix"><span class="r">'+esc(p[0])+'</span><span class="y">'+esc(p[1])+'</span></div>'}).join('');
+  $('c-res').insertAdjacentHTML('beforeend',
+    '<details class="hrow" style="margin-top:14px"><summary><span class="hd">REVIEW</span><span>다시 듣기 + 스크립트</span><span class="hs"></span></summary>'+
+    '<div class="hb"><p class="hd" style="margin-bottom:9px">채점이 끝났으니 이제 다시 들어도 돼. 못 들은 문장을 스크립트에서 눈으로 따라가면서 들어.</p>'+
+    '<div class="row" style="margin-top:0"><span class="hlab" style="margin:0">속도</span>'+
+    '<button class="btn2 sp on" data-r="1">1.0×</button><button class="btn2 sp" data-r="0.85">0.85×</button><button class="btn2 sp" data-r="0.7">0.7×</button></div>'+
+    rev+'<div class="hlab">가져갈 표현</div><div class="fixes">'+vb+'</div></div></details>');
+  var box=$('c-res').lastElementChild;
+  [].forEach.call(box.querySelectorAll('.sp'),function(b){
+    b.onclick=function(){
+      [].forEach.call(box.querySelectorAll('.sp'),function(x){x.className='btn2 sp'});
+      b.className='btn2 sp on';
+      var r=parseFloat(b.getAttribute('data-r'));
+      [].forEach.call(box.querySelectorAll('audio.rv'),function(a){a.playbackRate=r});
+    };
+  });
 }
 
 /* --- 스피드 --- */
@@ -618,240 +911,6 @@ function gradeSpeed(){
     next:'모범답안과 비교해서 네 문장이 더 짧거나 시제가 틀린 곳만 표시해둬.'},$('ans').value);
 }
 
-/* --- 브라우저 TTS (듣기·철자 공용) --- */
-var tts={v:[],on:!!window.speechSynthesis};
-function ttsLoad(){
-  if(!tts.on)return;
-  var grab=function(){var v=window.speechSynthesis.getVoices()||[];if(v.length)tts.v=v};
-  grab(); try{window.speechSynthesis.onvoiceschanged=grab}catch(e){}
-}
-function ttsVoices(){
-  /* 영어 음성 둘. 북미 영어 우선, 같은 이름 중복 제거. 하나뿐이면 음높이로 구분. */
-  var en=tts.v.filter(function(v){return /^en[-_]/i.test(v.lang)});
-  var score=function(v){var l=v.lang.toLowerCase(),n=(v.name||'').toLowerCase();
-    return (l==='en-ca'?4:l==='en-us'?3:l==='en-gb'||l==='en-au'?1:2)+(/google|samantha|daniel|karen|moira|natural|neural/.test(n)?2:0)+(v.localService?0:1)};
-  en.sort(function(a,b){return score(b)-score(a)});
-  var a=en[0]||null,b=null;
-  for(var i=1;i<en.length;i++){if(en[i].name!==a.name){b=en[i];break}}
-  return [a,b];
-}
-function say(text,voice,pitch,rate){
-  return new Promise(function(res){
-    if(!tts.on){res();return}
-    var u=new SpeechSynthesisUtterance(text);
-    if(voice)u.voice=voice; u.lang=(voice&&voice.lang)||'en-CA'; u.rate=rate||0.95; u.pitch=pitch||1;
-    var done=false,fin=function(){if(!done){done=true;res()}};
-    u.onend=fin;u.onerror=fin;
-    /* 일부 브라우저가 onend를 안 쏘는 경우 대비 */
-    setTimeout(fin,Math.max(3000,text.length*120));
-    try{window.speechSynthesis.speak(u)}catch(e){fin()}
-  });
-}
-function hush(){try{if(tts.on)window.speechSynthesis.cancel()}catch(e){}}
-function ttsNote(){
-  if(tts.on)return '';
-  var e=env();
-  return '<div class="warn"><b>이 브라우저는 음성 합성이 안 돼.</b> '+(e.ios?'Safari로 열어줘.':'Chrome으로 열어줘.')+' 아래 대본을 읽고 푸는 걸로 대체할게.</div>';
-}
-
-/* --- 듣기 함정 --- */
-function buildListen(){
-  var it=one(LISTEN); C={kind:'listen',it:it,pick:[],plays:0,playing:false,heard:false};
-  var vs=ttsVoices();C.va=vs[0];C.vb=vs[1];
-  $('c-body').innerHTML='<div class="scen"><strong>'+esc(it.t)+'</strong> — '+esc(it.sp[0])+'와 '+esc(it.sp[1])+'의 대화. 시험처럼 <strong>한 번만</strong> 들려준다. 메모는 해도 돼.</div>'+
-    ttsNote()+
-    '<div class="stage" id="stg"><div class="phase" id="ph">듣기</div><div class="bigt prep" id="bt">▶</div>'+
-    '<div class="ring"><i id="rg" style="width:0"></i></div><p class="cmt" id="who" style="margin-top:10px;min-height:1.4em"></p></div>'+
-    '<div id="lq"></div>';
-  if(!tts.on){ // 폴백: 읽기 모드
-    C.heard=true;
-    $('stg').hidden=true;
-    $('lq').innerHTML='<div class="scen">'+it.l.map(function(x){return '<strong>'+esc(it.sp[x[0]])+':</strong> '+esc(x[1])}).join('<br>')+'</div>';
-    listenQs();return;
-  }
-  act('<button class="btn" id="pl">▶ 듣기 시작</button>');
-  $('pl').onclick=function(){playListen()};
-}
-function playListen(){
-  if(C.playing)return;
-  var it=C.it;C.playing=true;C.plays++;hush();
-  $('bt').className='bigt live';$('bt').textContent='●';$('ph').textContent=C.plays>1?'다시 듣는 중 (−10)':'듣는 중';
-  act('<button class="btn2" disabled>듣는 중…</button>');
-  var i=0,n=it.l.length;
-  (function next(){
-    if(i>=n||C.kind!=='listen'){ C.playing=false;
-      if(C.kind!=='listen')return;
-      $('bt').className='bigt done';$('bt').textContent='✓';$('ph').textContent='끝';$('who').textContent='';$('rg').style.width='100%';
-      if(!C.heard){C.heard=true;listenQs()} else {act('<button class="btn" id="sub">제출 · 채점</button>');$('sub').onclick=gradeListen}
-      return }
-    var ln=it.l[i];i++;
-    $('who').textContent=it.sp[ln[0]]+' …';$('rg').style.width=Math.round(i/n*100)+'%';
-    var v=ln[0]===0?C.va:(C.vb||C.va),pitch=ln[0]===0?1:(C.vb?1:0.8);
-    say(ln[1],v,pitch,0.95).then(function(){setTimeout(next,350)});
-  })();
-}
-function listenQs(){
-  var it=C.it;
-  $('lq').innerHTML=it.q.map(function(q,qi){
-    return '<div class="ask" style="margin-top:14px"><span class="who">Q'+(qi+1)+'</span>'+esc(q.q)+'</div>'+
-      '<ul class="opts" data-q="'+qi+'">'+q.o.map(function(o,i){return '<li><button data-i="'+i+'">'+esc(o)+'</button></li>'}).join('')+'</ul>'}).join('')+
-    '<p class="cds" style="margin-top:16px;font-weight:700">'+esc(it.k.ask)+'</p>'+
-    '<textarea id="ans" style="min-height:70px" placeholder="들은 대로. 틀려도 돼, 안 쓰는 게 0점이야."></textarea>';
-  [].forEach.call($('lq').querySelectorAll('.opts'),function(ul){
-    var qi=+ul.dataset.q;
-    [].forEach.call(ul.querySelectorAll('button'),function(b){b.onclick=function(){
-      [].forEach.call(ul.querySelectorAll('button'),function(x){x.className=''});b.className='pick';C.pick[qi]=+b.dataset.i}});
-  });
-  act('<button class="btn" id="sub">제출 · 채점</button>'+(tts.on?'<button class="btn2" id="ag">한 번 더 듣기 (−10)</button>':''));
-  $('sub').onclick=gradeListen; if($('ag'))$('ag').onclick=playListen;
-}
-function gradeListen(){
-  hush();clearInterval(tick);
-  var it=C.it,hit=0,cors=[];
-  it.q.forEach(function(q,qi){
-    var p=C.pick[qi],ok=p===q.a; if(ok)hit++;
-    else cors.push({wrong:'Q'+(qi+1)+' '+(q.o[p]||'(미선택)'),right:q.o[q.a],why:q.why,boss:'misc'});
-    var ul=$('lq').querySelector('.opts[data-q="'+qi+'"]');
-    if(ul)[].forEach.call(ul.querySelectorAll('button'),function(b,i){b.className=i===q.a?'right':(i===p?'wrong':'')});
-  });
-  var nz=function(s){return String(s||'').toLowerCase().replace(/n't/g,' not').replace(/'ll/g,' will').replace(/cannot/g,'can not').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()};
-  var ev=nz($('ans').value),tw=nz(it.k.ev).split(' ').filter(function(w){return w.length>2}),ew=ev.split(' ');
-  var hitw=tw.filter(function(w){return ew.indexOf(w)>=0}).length;
-  var evOk=ev.length>8&&tw.length>0&&hitw/tw.length>=0.6;
-  if(!evOk)cors.push({wrong:$('ans').value||'(빈칸)',right:it.k.ev,why:'핵심 문장은 단어 60% 이상 맞으면 인정해.',boss:'misc'});
-  var pen=Math.max(0,C.plays-1)*10;
-  var score=Math.max(0,hit*15+(evOk?40:0)-pen);
-  /* 대본 공개 */
-  $('lq').insertAdjacentHTML('beforeend','<div class="hlab" style="margin-top:16px">대본</div><div class="scen">'+it.l.map(function(x){
-    var t=esc(x[1]);if(x[1]===it.k.ev)t='<mark>'+t+'</mark>';return '<strong>'+esc(it.sp[x[0]])+':</strong> '+t}).join('<br>')+'</div>');
-  finish(score,{verdict:hit+'/4 정답'+(evOk?' + 재진술 성공':' · 재진술 실패')+(pen?' · 다시 듣기 −'+pen:'')+'.'+(hit===4?' 함정을 다 피했어.':hit>=2?' 틀린 문항의 함정 설명을 읽어.':' 대본을 다시 읽고 어디서 끊겼는지 봐.'),
-    corrections:cors,errorsFound:[],errorsAvoided:[],
-    next:evOk?'다음엔 숫자·요일·이름이 나올 때 바로 메모해.':'핵심 문장을 통째로 기억하려 하지 말고 동사 하나만 잡아. 나머지는 거기서 재구성돼.'},
-    it.q.map(function(q,qi){return 'Q'+(qi+1)+': '+(q.o[C.pick[qi]]||'-')}).join('\n')+'\n재진술: '+($('ans').value||'-'));
-}
-
-/* --- 철자 받아쓰기 --- */
-function buildSpell(){
-  var items=pickN(SPELL,10); C={kind:'spell',items:items,i:0,ans:[]};
-  var v=ttsVoices()[0];C.va=v;
-  $('c-body').innerHTML='<div class="scen">단어 10개. 단어 → 예문 → 단어 순으로 불러준다. <strong>스펠체크 없이</strong> 적어.</div>'+ttsNote()+
-    '<div class="stage" id="stg"><div class="phase" id="ph">단어 1 / 10</div><div class="bigt prep" id="bt">🔊</div>'+
-    '<div class="ring"><i id="rg" style="width:0"></i></div></div>'+
-    '<input type="text" id="sw" placeholder="들은 단어" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" style="margin-top:13px;font-family:var(--m);font-size:18px;padding:13px">'+
-    (tts.on?'':'<p class="cds" id="fb" style="margin-top:8px"></p>');
-  act('<button class="btn" id="go2">▶ 시작</button>');
-  $('go2').onclick=function(){spellShow()};
-  timerStart();
-}
-function timerStart(){t0=Date.now()}
-function spellSay(){
-  var it=C.items[C.i];hush();
-  if(!tts.on){$('fb').textContent='음성 없음 — 예문: '+it[1].replace(new RegExp(it[0],'i'),'_____');return Promise.resolve()}
-  return say(it[0],C.va,1,0.85).then(function(){return say(it[1],C.va,1,0.95)}).then(function(){return say(it[0],C.va,1,0.8)});
-}
-function spellShow(){
-  $('ph').textContent='단어 '+(C.i+1)+' / 10';$('rg').style.width=Math.round(C.i/10*100)+'%';
-  $('sw').value='';$('sw').focus();
-  act('<button class="btn" id="nx2">'+(C.i===9?'제출 · 채점':'다음')+'</button><button class="btn2" id="rp">🔊 다시</button>');
-  $('rp').onclick=spellSay;
-  var go=function(){C.ans[C.i]=$('sw').value.trim();C.i++;if(C.i>=10)gradeSpell();else spellShow()};
-  $('nx2').onclick=go;
-  $('sw').onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();go()}};
-  spellSay();
-}
-function gradeSpell(){
-  hush();
-  var hit=0,cors=[],alt={neighbourhood:'neighborhood',favourite:'favorite',colour:'color',centre:'center'};
-  C.items.forEach(function(it,i){
-    var a=(C.ans[i]||'').toLowerCase(),w=it[0];
-    var ok=a===w||(alt[w]&&a===alt[w]);
-    if(ok)hit++; else cors.push({wrong:C.ans[i]||'(빈칸)',right:w,why:it[1],boss:'spell'});
-  });
-  var secs=Math.round((Date.now()-t0)/1000);
-  var score=hit*10;
-  finish(score,{verdict:hit+'/10 정확'+(hit>=9?'. 철자 보스가 흔들린다.':hit>=7?'. 틀린 단어는 소리 내서 한 글자씩 읽어.':'. 틀린 단어를 지금 바로 3번씩 타이핑해.'),
-    corrections:cors,errorsFound:hit<8?['spell']:[],errorsAvoided:hit>=8?['spell']:[],
-    next:cors.length?('다음 타깃: '+cors.map(function(c){return c.right}).slice(0,3).join(', ')):'10개 전부. 다음엔 글 쓸 때 마지막 3분 철자 패스를 해봐.'},
-    C.items.map(function(it,i){return (i+1)+'. '+(C.ans[i]||'-')+(C.ans[i]&&C.ans[i].toLowerCase()===it[0]?'':' ('+it[0]+')')}).join('\n'));
-}
-
-/* --- 기계 검사: AI 없이 코드로 잡을 수 있는 것만. 보스 id와 1:1 --- */
-var MISSPELL={comunity:'community',commuity:'community',bileve:'believe',beleive:'believe',belive:'believe',qulity:'quality',quallity:'quality',surbaey:'survey',survay:'survey',importent:'important',improtant:'important',outsite:'outside',helther:'healthier',healthyer:'healthier',becouse:'because',becuase:'because',diffrent:'different',diferent:'different',enviroment:'environment',envirnoment:'environment',goverment:'government',govermnent:'government',convinient:'convenient',convient:'convenient',recieve:'receive',seperate:'separate',definately:'definitely',definetly:'definitely',experiance:'experience',neccessary:'necessary',necesary:'necessary',wich:'which',truely:'truly',untill:'until',alot:'a lot',occured:'occurred',tommorow:'tomorrow',tomorow:'tomorrow',recomend:'recommend',reccomend:'recommend',apartement:'apartment',appartment:'apartment',resturant:'restaurant',restaraunt:'restaurant',exersize:'exercise',excercise:'exercise',comfortible:'comfortable',confortable:'comfortable',especialy:'especially',expecially:'especially',availible:'available',avaliable:'available',benifit:'benefit',benefit_:'benefit',oppinion:'opinion',opinon:'opinion',sheduel:'schedule',shedule:'schedule',beutiful:'beautiful',beautifull:'beautiful',thier:'their',freind:'friend',enough_:'enough',enuf:'enough',writting:'writing',begining:'beginning',comming:'coming',realy:'really',finaly:'finally',usualy:'usually',oportunity:'opportunity',oppurtunity:'opportunity',reponse:'response',responce:'response',sucess:'success',succes:'success',acheive:'achieve',arguement:'argument',grammer:'grammar',hieght:'height',lenght:'length',strenght:'strength',wether:'whether',wierd:'weird'};
-function checkWrite(text,kind){
-  var t=String(text||''),items=[],cors=[],found={},avoided={};
-  var words=t.trim()?t.trim().split(/\s+/).length:0;
-  var paras=t.split(/\n\s*\n/).map(function(p){return p.trim()}).filter(Boolean);
-  var sents=t.replace(/\n+/g,' ').replace(/([.!?])\s+/g,'$1\n').split('\n').map(function(s){return s.trim()}).filter(function(s){return s.length>2});
-  var pen=0;
-  /* 1. 분량 */
-  var lo=kind==='survey'?150:kind==='email'?90:60, hi=kind==='survey'?200:kind==='email'?140:110;
-  var wOk=words>=lo&&words<=hi;
-  items.push({ok:wOk,l:'분량 '+words+'단어',d:wOk?'목표 '+lo+'~'+hi+' 안':words<lo?(lo-words)+'단어 모자라. 이유에 예시 한 문장을 더 붙여.':'너무 길어. 시험에선 시간이 모자란다.'});
-  if(!wOk)pen+=words<lo*0.7||words>hi*1.3?25:12;
-  /* 2. 구조 */
-  if(kind==='survey'){var pOk=paras.length>=4;items.push({ok:pOk,l:'문단 '+paras.length+'개',d:pOk?'4문단 템플릿':'입장 / 이유1 / 이유2 / 결론 — 빈 줄로 나눠'});if(!pOk)pen+=10}
-  if(kind==='email'){
-    var g=/^\s*(dear|hi|hello)\b/i.test(t),c=/(sincerely|regards|best wishes|thank you for your|yours truly|kind regards)/i.test(t);
-    items.push({ok:g,l:'인사말',d:g?'':'Dear Mr. / Hi Sam, 으로 시작'});items.push({ok:c,l:'맺음말',d:c?'':'Sincerely, / Best regards, + 이름'});
-    if(!g)pen+=8;if(!c)pen+=8;
-    var pOk2=paras.length>=3;items.push({ok:pOk2,l:'문단 '+paras.length+'개',d:pOk2?'':'상황 / 문제 / 요청을 빈 줄로 나눠'});if(!pOk2)pen+=8;
-  }
-  /* 3. 신호탄 (설문·핫테이크) */
-  if(kind==='survey'||kind==='hot'){
-    var sig=/\b(another reason is that|another reason|secondly|in addition|furthermore|moreover)\b/i.test(t);
-    var exact=/another reason is that/i.test(t);
-    items.push({ok:sig,l:'두 번째 이유 신호탄',d:exact?'"Another reason is that" ✓':sig?'다른 신호탄을 썼어. 약속한 건 "Another reason is that"':'세 번째 문단 첫 줄에 "Another reason is that …"'});
-    if(sig)avoided.signal=1;else{found.signal=1;pen+=15;cors.push({wrong:'(두 번째 이유 문단 첫 줄)',right:'Another reason is that …',why:'2회 연속 누락됐던 구조 신호탄.',boss:'signal'})}
-    var ex=/\b(for example|for instance|such as)\b/i.test(t);
-    items.push({ok:ex,l:'구체적 예시',d:ex?'':'"For example," 한 문장. 채점자가 찾는 항목이야'});if(!ex)pen+=8;
-  }
-  /* 4. 런온 */
-  var long=sents.filter(function(s){return s.split(/\s+/).length>32});
-  if(long.length){found.runon=1;pen+=long.length*8;long.slice(0,2).forEach(function(s){cors.push({wrong:s.slice(0,70)+'…',right:'두 문장으로 끊어',why:s.split(/\s+/).length+'단어짜리 한 문장. 마침표가 없다.',boss:'runon'})});items.push({ok:false,l:'런온 '+long.length+'개',d:'32단어 넘는 문장'})}
-  else if(sents.length>=5&&words>=100){avoided.runon=1;items.push({ok:true,l:'문장 길이',d:'런온 없음'})}
-  /* 5. Here / There */
-  var ht=t.match(/\bhere (is|are) (a|an|the|some|many|two|three|no|lots)\b/i);
-  if(ht){found.herethere=1;pen+=8;cors.push({wrong:ht[0],right:ht[0].replace(/^here/i,'There'),why:'존재를 말할 땐 There is/are. Here는 "여기 있어(건네며)"일 때만.',boss:'herethere'})}
-  else if(/\bThere (is|are|was|were)\b/.test(t))avoided.herethere=1;
-  /* 6. 수일치 (잡히는 패턴만) */
-  var ag=[[/\b(two|three|four|five|many|most|some|several|these|those|both) \w+ (is|was|has|does)\b/i,'복수 주어 → are / were / have / do'],[/\b(people|children|women|men|police) (is|was|has|does)\b/i,'복수 명사 → are / were / have / do'],[/\b(he|she|it|my (cat|wife|friend|boss|client)) (have|do|go|want|need|think|like|live|work|make|take)\b/i,'3인칭 단수 → 동사에 -s'],[/\b(I|you|we|they) (is|was|has|does|wants|needs|likes)\b/,'주어와 동사 수 확인']];
-  for(var ai=0;ai<ag.length;ai++){var am=t.match(ag[ai][0]);if(am){found.agree=1;pen+=6;cors.push({wrong:am[0],right:'?',why:ag[ai][1],boss:'agree'});break}}
-  if(!found.agree&&words>=100)avoided.agree=1;
-  /* 7. 관사 a/an */
-  var an=t.match(/\ba (?!uni|use|usu|eu|one\b|u\b)(?=[aeiou]\w)\w+/gi),a2=t.match(/\ban (?=[^aeiouh\s])\w+/gi);
-  if(an||a2){found.article=1;pen+=4;cors.push({wrong:(an||a2)[0],right:an?(an[0].replace(/^a /i,'an ')):(a2[0].replace(/^an /i,'a ')),why:'모음 소리 앞 an, 자음 소리 앞 a',boss:'article'})}
-  /* 8. 철자 */
-  var seen={};t.toLowerCase().replace(/[^a-z' ]/g,' ').split(/\s+/).forEach(function(w){if(MISSPELL[w]&&!seen[w]){seen[w]=1;found.spell=1;pen+=4;cors.push({wrong:w,right:MISSPELL[w],why:'',boss:'spell'})}});
-  if(!found.spell&&words>=100)avoided.spell=1;
-  /* 9. 비교급·전치사·단어 */
-  var cp=t.match(/\bmore (good|bad|better|worse|healthier|cheaper|easier|bigger|smaller|faster|happier|busier)\b/i);
-  if(cp){found.compar=1;pen+=6;cors.push({wrong:cp[0],right:{good:'better',bad:'worse'}[cp[1].toLowerCase()]||cp[1],why:'이중 비교급',boss:'compar'})}
-  var pp=t.match(/\b(come|came|go|went|get|got|arrive|arrived) to (here|there|home)\b/i);
-  if(pp){found.prep=1;pen+=5;cors.push({wrong:pp[0],right:pp[0].replace(' to ',' '),why:'here / there / home 앞엔 to 없음',boss:'prep'})}
-  var wd=t.match(/\bask(ed|s)? to (ai|him|her|them|me|you|us|my \w+)\b/i);
-  if(wd){found.word=1;pen+=5;cors.push({wrong:wd[0],right:wd[0].replace(' to ',' '),why:'ask + 사람 (to 없음)',boss:'word'})}
-  var th=t.match(/\bthey have (a|an|many|some|two|three|lots of) \w+( \w+)? (in|on|at|near|behind|next)\b/i);
-  if(th){found.theyhave=1;pen+=5;cors.push({wrong:th[0],right:th[0].replace(/they have/i,'there is/are'),why:'존재 → there is / are',boss:'theyhave'})}
-  var score=Math.max(30,Math.min(92,100-pen));
-  return {score:score,items:items,corrections:cors,found:Object.keys(found),avoided:Object.keys(avoided),words:words};
-}
-function checksHTML(ck){
-  return '<div class="chk">'+ck.items.map(function(i){return '<div class="ci '+(i.ok?'ok':'no')+'"><span>'+(i.ok?'✓':'✗')+'</span><b>'+esc(i.l)+'</b>'+(i.d?'<span class="cd">'+esc(i.d)+'</span>':'')+'</div>'}).join('')+'</div>';
-}
-function modelHTML(m){
-  return '<details class="hrow" style="margin-top:14px"><summary><span class="hd">모범</span><span>모범답안 펼치기 — 네 글과 문단 단위로 비교해</span><span></span></summary><div class="hb"><div class="hans">'+esc(m)+'</div></div></details>';
-}
-function gradeWriteLocal(){
-  clearInterval(tick);
-  var ans=$('ans').value,ck=checkWrite(ans,C.kind);
-  var model=C.kind==='email'?EMAIL_M[C.idx]:C.kind==='survey'?C.sv.m:null;
-  var bad=ck.items.filter(function(i){return !i.ok});
-  $('c-res').innerHTML=checksHTML(ck)+(model?modelHTML(model):'');
-  var verdict='기계 검사 '+ck.items.length+'항목 중 '+(ck.items.length-bad.length)+' 통과. '+(bad.length?'먼저 고칠 것: '+bad[0].l+'.':'구조는 다 갖췄어. 문법 채점은 키를 넣으면 돼.');
-  finish(ck.score,{verdict:verdict,corrections:ck.corrections,errorsFound:ck.found,errorsAvoided:ck.avoided,
-    next:bad.length?bad[0].d||bad[0].l:(model?'모범답안과 네 글의 두 번째 문단만 비교해. 문장 길이 차이를 봐.':'다음엔 시간을 재고 써.')},ans);
-}
-
 /* --- 자유 작문 (AI) --- */
 function buildWrite(){
   var body='',ask='',bonus=[],scen='';
@@ -866,17 +925,11 @@ function buildWrite(){
     body='<div class="ask"><span class="who">주장</span>“'+esc(h)+'”</div>';
     bonus=['In my opinion,…','The main reason is that…','For example,…','On the other hand,…'];
     ask='80단어 내외, 5분.';
-  } else if(T.id==='survey'){
-    var sv=one(SURVEY); C={kind:'survey',sv:sv,s:sv.s};
-    scen=sv.s;
-    body='<div class="ask"><span class="who">선택지</span>'+esc(sv.a)+'<br>'+esc(sv.b)+'</div>';
-    bonus=['In my opinion, …','The main reason is that…','Another reason is that…','For example, …','In conclusion, …'];
-    ask='150~200단어, 4문단(입장 / 이유1 / 이유2 / 결론), 26분. 마지막 3분은 철자만 훑어.';
   } else {
-    var ei=Math.floor(Math.random()*EMAIL.length),e=EMAIL[ei]; C={kind:'email',s:e,idx:ei};
+    var e=one(EMAIL); C={kind:'email',s:e};
     scen=e;
     bonus=['I am writing about…','As we agreed,…','Could you please let me know…','I look forward to hearing from you.'];
-    ask='90~140단어. 인사 → 문제 → 요청 → 마무리.';
+    ask='90~130단어. 인사 → 문제 → 요청 → 마무리.';
   }
   $('c-body').innerHTML='<div class="scen">'+esc(scen)+'</div>'+body+
     '<div class="bonus">'+bonus.map(function(b){return '<span class="chip">'+esc(b)+'</span>'}).join('')+'</div>'+
@@ -893,7 +946,7 @@ function buildWrite(){
       return;
     }
     if(C.kind==='role')C.log.push({them:C.r.l[C.round],me:$('ans').value});
-    if(apiKey)gradeAI(); else gradeWriteLocal();
+    gradeAI();
   };
 }
 function wire(){
@@ -904,37 +957,7 @@ function wire(){
 
 /* --- 스피킹 --- */
 var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-var sp={rec:null,stream:null,ac:null,raf:0,committed:'',sess:'',interim:'',gaps:[],speaking:false,silStart:0,start:0,warm:null,lock:null};
-/* 폰 진단: 뭐가 되고 뭐가 안 되는지 녹음 전에 말해준다 */
-function env(){
-  var ua=navigator.userAgent||'';
-  var ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-  var android=/Android/.test(ua);
-  var standalone=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone===true;
-  var mic=!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia);
-  var secure=window.isSecureContext!==false;
-  return {ios:ios,android:android,mobile:ios||android,standalone:standalone,mic:mic&&secure,sr:!!SR,tts:!!window.speechSynthesis};
-}
-function micNote(){
-  var e=env(),h='';
-  if(!e.mic)h+='<div class="warn"><b>마이크를 쓸 수 없는 환경이야.</b> '+(e.ios?'아이폰이면 <b>Safari</b>로 열어줘. 홈 화면에 추가한 앱도 Safari 기준으로 돌아가.':'HTTPS 주소인지, 브라우저가 최신인지 확인해줘.')+'</div>';
-  else if(!e.sr)h+='<div class="warn">받아쓰기가 안 되는 브라우저야. 수치(속도·무음)는 그대로 재지만 문장은 안 남아. '+
-    (e.ios?'아이폰은 <b>Safari</b>에서만 받아쓰기가 돼. 설정 → Siri 및 받아쓰기 → <b>받아쓰기 켜기</b>도 필요해.':e.android?'안드로이드는 <b>Chrome</b>으로 열어줘.':'<b>Chrome / Edge</b>를 써줘.')+'</div>';
-  else h+='<p class="oknote">마이크 ✓ 받아쓰기 ✓'+(e.mobile?' · 폰이면 조용한 곳에서, 입에서 20cm 정도.':'')+'</p>';
-  return h;
-}
-/* 버튼을 누른 그 순간(사용자 제스처 안)에 마이크·오디오를 미리 연다.
-   아이폰은 제스처 밖에서 AudioContext를 만들면 멈춘 채로 생기고, 준비 30초가 끝난 뒤 타이머에서 열면 늦다. */
-function warm(){
-  if(sp.warm)return;
-  try{var AC=window.AudioContext||window.webkitAudioContext;if(AC&&!sp.ac){sp.ac=new AC();if(sp.ac.resume)sp.ac.resume()}}catch(e){}
-  if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
-    sp.warm=navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
-    sp.warm.catch(function(){});
-  }
-}
-function lockOn(){try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){sp.lock=l}).catch(function(){})}catch(e){}}
-function lockOff(){try{if(sp.lock){sp.lock.release();sp.lock=null}}catch(e){}}
+var sp={rec:null,stream:null,ac:null,raf:0,committed:'',sess:'',interim:'',gaps:[],speaking:false,silStart:0,start:0,mr:null,chunks:[],url:''};
 function buildSpeak(){
   var t=one(SPEAK),p=one(t.p);
   C={kind:'speak',t:t,p:p};
@@ -948,14 +971,13 @@ function buildSpeak(){
     '<dl class="vst"><div><dt>단어</dt><dd id="v-w">—</dd></div><div><dt>속도</dt><dd id="v-s">—</dd></div>'+
     '<div><dt>무음</dt><dd id="v-q">—</dd></div><div><dt>최장 침묵</dt><dd id="v-l">—</dd></div></dl>';
   for(var i=0;i<15;i++)$('mtr').appendChild(document.createElement('b'));
-  $('c-body').insertAdjacentHTML('beforeend',micNote());
   act('<button class="btn" id="pr">준비 30초</button><button class="btn2" id="sk">바로 말하기</button>');
-  $('pr').onclick=function(){warm();prep(30)}; $('sk').onclick=function(){warm();speak()};
+  $('pr').onclick=function(){prep(30)}; $('sk').onclick=speak;
 }
 function prep(n){
   var left=n;clearInterval(tick);
   $('ph').textContent='준비 — 무슨 말을 할지만 정해';$('bt').className='bigt prep';$('bt').textContent=fmt(left);$('rg').style.width='100%';
-  act('<button class="btn2" id="sk">바로 말하기</button>');$('sk').onclick=function(){warm();clearInterval(tick);speak()};
+  act('<button class="btn2" id="sk">바로 말하기</button>');$('sk').onclick=function(){clearInterval(tick);speak()};
   tick=setInterval(function(){left--;$('bt').textContent=fmt(Math.max(0,left));$('rg').style.width=(left/n*100)+'%';
     if(left<=0){clearInterval(tick);speak()}},1000);
 }
@@ -964,11 +986,25 @@ function speak(){
   var N=C.t.sec,left=N;
   $('tr').innerHTML='';$('ph').textContent='말하는 중 — 멈추지 마';$('bt').className='bigt live';$('bt').textContent=fmt(left);$('rg').style.width='100%';
   act('<button class="btn2" id="st">끝내기</button>');$('st').onclick=stopSpeak;
-  lockOn();
-  var get=sp.warm||(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia?navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}}):Promise.reject({name:'NotSupported'}));
-  sp.warm=null;
-  get.then(function(stream){
-    sp.stream=stream;var AC=window.AudioContext||window.webkitAudioContext;if(!sp.ac)sp.ac=new AC();if(sp.ac.resume)sp.ac.resume();
+  navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}}).then(function(stream){
+    sp.stream=stream;
+    if(sp.url){try{URL.revokeObjectURL(sp.url)}catch(e){}sp.url=''}
+    sp.chunks=[];
+    try{
+      var mr=new MediaRecorder(stream);sp.mr=mr;
+      mr.ondataavailable=function(e){if(e.data&&e.data.size)sp.chunks.push(e.data)};
+      mr.onstop=function(){
+        if(!sp.chunks.length)return;
+        try{
+          sp.url=URL.createObjectURL(new Blob(sp.chunks,{type:sp.chunks[0].type||'audio/webm'}));
+          var slot=$('rec-slot');
+          if(slot)slot.innerHTML='<div class="hlab">내 녹음 다시 듣기</div><audio class="rv" controls src="'+sp.url+'"></audio>'+
+            '<p class="hd" style="margin-top:5px">침묵이 어디서 났는지는 숫자보다 귀로 듣는 게 빨라.</p>';
+        }catch(e){}
+      };
+      mr.start();
+    }catch(e){sp.mr=null}
+    var AC=window.AudioContext||window.webkitAudioContext;sp.ac=new AC();
     var src=sp.ac.createMediaStreamSource(stream),an=sp.ac.createAnalyser();an.fftSize=1024;an.smoothingTimeConstant=.3;src.connect(an);
     var buf=new Uint8Array(an.fftSize);
     (function loop(){
@@ -983,14 +1019,11 @@ function speak(){
     })();
     startSR();
   }).catch(function(err){
-    clearInterval(tick);cancelAnimationFrame(sp.raf);lockOff();
-    if(sp.ac){try{sp.ac.close()}catch(e){}sp.ac=null}
-    var e=env();
+    clearInterval(tick);cancelAnimationFrame(sp.raf);
     $('ph').textContent='마이크를 못 열었어';$('bt').className='bigt';$('bt').textContent='—';
     $('c-res').innerHTML='<div class="warn">'+(err&&err.name==='NotAllowedError'
-      ?(e.ios?'마이크 권한이 거부됐어. 아이폰 설정 → Safari → 마이크 → <b>허용</b>. 홈 화면 앱이면 설정 → 셀핍 → 마이크.':e.android?'마이크 권한이 거부됐어. 주소창 자물쇠 → 권한 → 마이크 → <b>허용</b> → 새로고침.':'마이크 권한이 거부됐어. 주소창 왼쪽 자물쇠 → 마이크 → <b>허용</b> → 새로고침.')
-      :err&&err.name==='NotSupported'?'이 브라우저는 마이크를 못 써. '+(e.ios?'<b>Safari</b>로 열어줘.':'<b>Chrome</b>으로 열어줘.')
-      :'마이크를 열 수 없어 ('+esc(err&&err.name||'')+'). 다른 앱이 마이크를 쓰고 있지 않은지 확인해줘.')+'</div>';
+      ?'마이크 권한이 거부됐어. 주소창 왼쪽 자물쇠 → 마이크 → <b>허용</b> → 새로고침.'
+      :'마이크를 열 수 없어 ('+esc(err&&err.name||'')+').')+'</div>';
     act('<button class="btn2" id="rt">다시</button>');$('rt').onclick=function(){idle(T)};
   });
   clearInterval(tick);
@@ -1015,8 +1048,9 @@ function startSR(){
   }catch(e){}
 }
 function stopSpeak(){
-  clearInterval(tick);cancelAnimationFrame(sp.raf);lockOff();
+  clearInterval(tick);cancelAnimationFrame(sp.raf);
   if(sp.rec){var r=sp.rec;sp.rec=null;sp.committed+=(sp.sess||sp.interim||'');sp.sess='';sp.interim='';try{r.onend=null;r.stop()}catch(e){}}
+  if(sp.mr){try{if(sp.mr.state!=='inactive')sp.mr.stop()}catch(e){}sp.mr=null}
   if(sp.stream){sp.stream.getTracks().forEach(function(t){t.stop()});sp.stream=null}
   if(sp.ac){try{sp.ac.close()}catch(e){}sp.ac=null}
   var secs=Math.max(3,Math.round((Date.now()-sp.start)/1000));
@@ -1057,13 +1091,13 @@ function gradeAI(){
     ans=C.log.map(function(x,i){return '[Them] '+x.them+'\n[Her] '+x.me}).join('\n\n');
   } else if(C.kind==='hot'){ task='Hot take — she must agree or disagree with: "'+C.s+'" in about 80 words.'; ans=$('ans').value; }
   else if(C.kind==='email'){ task='Email — situation (Korean): '+C.s; ans=$('ans').value; }
-  else if(C.kind==='survey'){ task='CELPIP Writing Task 2 (survey response), 150-200 words, 4 paragraphs expected. Prompt (Korean): '+C.s+' Options: '+C.sv.a+' / '+C.sv.b; ans=$('ans').value; }
   else if(C.kind==='speak'){
     task='CELPIP Speaking Task '+C.t.n+' ('+C.t.t+'), '+C.t.sec+' seconds. Prompt: '+C.p;
     ans=C.text;
     extra='\n\nThis is an automatic speech-to-text transcript, so some words are misheard — judge grammar and content, ignore obvious transcription noise. MEASURED: '+C.metrics.words+' words in '+C.metrics.secs+'s = '+C.metrics.wpm+' wpm; silence '+C.metrics.qpct+'%; longest pause '+C.metrics.longest+'s. CLB 7 needs roughly 110+ wpm and under 20% silence. Factor these into the score.';
   }
-  var prompt='You are grading English for a Korean learner preparing for CELPIP. She is around CELPIP 4-5 and aiming for 7. Be accurate and specific, never flattering, and write all Korean naturally.\n\nTASK: '+task+extra+'\n\nHER ANSWER:\n"""\n'+String(ans).slice(0,4000)+'\n"""\n\nHer recurring error bosses (use these exact ids): '+bossList+'\n\nReturn ONLY a JSON object, no markdown fence:\n{"score": integer 0-100 (a complete, understandable answer earns 55-75 even with errors; 85+ only if nearly clean),\n"verdict": one direct Korean sentence naming the single most important issue,\n"corrections": up to 6 objects {"wrong": exact wrong text, "right": fixed version, "why": short Korean reason, "boss": one boss id or "misc"},\n"errorsFound": array of boss ids that actually appeared,\n"errorsAvoided": array of boss ids that had a clear chance to appear but she got right,\n"win": one short Korean sentence on what she did well,\n"next": one short Korean sentence - the single thing to fix next time}';
+  var rub='"rubric": {"content": 0-12, "vocabulary": 0-12, "readability": 0-12, "task": 0-12} — the four official CELPIP Writing criteria (Content/Coherence, Vocabulary, Readability, Task Fulfillment). 12 = CELPIP 12. Grade each independently and say in "rubricNote" one Korean sentence naming the LOWEST one and why,\n"rubricNote": that sentence,\n';
+  var prompt='You are grading English for a Korean learner preparing for CELPIP. She is around CELPIP 4-5 and aiming for 7. Be accurate and specific, never flattering, and write all Korean naturally.\n\nTASK: '+task+extra+'\n\nHER ANSWER:\n"""\n'+String(ans).slice(0,4000)+'\n"""\n\nHer recurring error bosses (use these exact ids): '+bossList+'\n\nReturn ONLY a JSON object, no markdown fence:\n{"score": integer 0-100 (a complete, understandable answer earns 55-75 even with errors; 85+ only if nearly clean),\n'+rub+'"verdict": one direct Korean sentence naming the single most important issue,\n"corrections": up to 6 objects {"wrong": exact wrong text, "right": fixed version, "why": short Korean reason, "boss": one boss id or "misc"},\n"errorsFound": array of boss ids that actually appeared,\n"errorsAvoided": array of boss ids that had a clear chance to appear but she got right,\n"win": one short Korean sentence on what she did well,\n"next": one short Korean sentence - the single thing to fix next time}';
   fetch('https://api.anthropic.com/v1/messages',{method:'POST',
     headers:{'content-type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
     body:JSON.stringify({model:model||'claude-sonnet-4-5',max_tokens:1600,messages:[{role:'user',content:prompt}]})
@@ -1073,13 +1107,6 @@ function gradeAI(){
     var txt=(d.content&&d.content[0]&&d.content[0].text)||'';
     var m=txt.match(/\{[\s\S]*\}/); var j=m?JSON.parse(m[0]):null;
     if(!j)throw new Error('응답을 읽지 못했어');
-    if(C.kind==='email'||C.kind==='survey'||C.kind==='hot'){
-      var ck=checkWrite(ans,C.kind),model=C.kind==='email'?EMAIL_M[C.idx]:C.kind==='survey'?C.sv.m:null;
-      $('c-res').innerHTML=checksHTML(ck)+(model?modelHTML(model):'');
-      j.corrections=(j.corrections||[]).concat(ck.corrections.filter(function(c){return c.boss==='signal'||c.boss==='runon'||c.boss==='spell'})).slice(0,8);
-      var u=function(a,b){var o={};(a||[]).concat(b).forEach(function(x){o[x]=1});return Object.keys(o)};
-      j.errorsFound=u(j.errorsFound,ck.found);j.errorsAvoided=u(j.errorsAvoided,ck.avoided).filter(function(x){return j.errorsFound.indexOf(x)<0});
-    }
     finish(Math.max(0,Math.min(100,j.score|0)),j,ans,C.metrics);
   }).catch(function(e){
     busy=false;
@@ -1093,7 +1120,8 @@ function finish(score,g,answer,metrics){
   clearInterval(tick);$('card').classList.remove('live');
   g=g||{};g.corrections=g.corrections||[];g.errorsFound=g.errorsFound||[];g.errorsAvoided=g.errorsAvoided||[];
   var repeat=S.runs.some(function(r){return r.date===TD});
-  var gain=repeat?Math.round(score/2):score;
+  var bonus=g.bonus|0;
+  var gain=repeat?Math.round((score+bonus)/2):(score+bonus);
   S.xp+=gain;
   var killed=[];
   g.errorsAvoided.forEach(function(id){if(S.bosses[id]>0){S.bosses[id]=Math.max(0,S.bosses[id]-12);if(S.bosses[id]===0)killed.push(id)}});
@@ -1103,26 +1131,46 @@ function finish(score,g,answer,metrics){
     else if(C.kind==='role')prompt=C.r.c+'\n'+C.r.s;
     else if(C.kind==='hot')prompt=C.s;
     else if(C.kind==='email')prompt=C.s;
-    else if(C.kind==='survey')prompt=C.s+'\n'+C.sv.a+' / '+C.sv.b;
     else if(C.kind==='repair')prompt=C.items.map(function(x,i){return (i+1)+'. '+x[0]}).join('\n');
     else if(C.kind==='trap')prompt=C.it.q+'\n'+C.it.o.join('  ');
     else if(C.kind==='speed')prompt=C.set.q.map(function(x,i){return (i+1)+'. '+x}).join('\n');
-    else if(C.kind==='listen')prompt=C.it.t+'\n'+C.it.q.map(function(q,i){return 'Q'+(i+1)+'. '+q.q}).join('\n')+'\n'+C.it.k.ask;
-    else if(C.kind==='spell')prompt=C.items.map(function(x,i){return (i+1)+'. '+x[0]}).join('  '); }
+    else if(C.kind==='readp1')prompt='Reading Part 1 · '+C.set.title+'\n'+C.set.from+'\n'+C.set.qs.map(function(q,i){return (i+1)+'. '+q.q}).join('\n');
+    else if(C.kind==='listen'){var qn=0;prompt=C.set.part+' · '+C.set.title+'\n'+
+      C.set.segs.map(function(s){return s.qs.map(function(q){return 'Q'+(++qn)+'. '+q.q}).join('\n')}).join('\n')} }
+  if(g.rubric&&!g.clb){
+    var rk=['content','vocabulary','readability','task'];
+    var rm=Math.round(rk.reduce(function(a,k){return a+(g.rubric[k]|0)},0)/4);
+    g.clb={lo:rm,hi:rm};g.clbNote='4항목 평균';
+  }
   var rec={date:TD,type:T.id,score:gain,ts:Date.now(),prompt:prompt,answer:String(answer||'').slice(0,4000),
     verdict:g.verdict||'',corrections:g.corrections.slice(0,8),next:g.next||'',
     errorsFound:g.errorsFound,errorsAvoided:g.errorsAvoided};
   if(metrics)rec.metrics=metrics;
+  if(g.clb)rec.clb=g.clb;
   S.runs.push(rec);save();
 
   var h='<div class="res"><div class="score"><span class="scn">'+score+'</span><span class="scx">/ 100'+(repeat?' · 오늘 두 번째라 절반 적립':'')+'</span></div>';
   if(g.verdict)h+='<p class="vd">'+esc(g.verdict)+'</p>';
+  if(g.rubric){
+    var RB=[['content','내용·전개'],['vocabulary','어휘'],['readability','가독성'],['task','과제 충족']];
+    var lo=RB.reduce(function(a,b){return (g.rubric[b[0]]|0)<(g.rubric[a[0]]|0)?b:a});
+    h+='<div class="rub">'+RB.map(function(r){
+      var v=Math.max(0,Math.min(12,g.rubric[r[0]]|0));
+      return '<div class="rb'+(r[0]===lo[0]?' low':'')+'"><div class="rbn">'+esc(r[1])+'</div>'+
+        '<div class="rbr"><i style="width:'+(v/12*100)+'%"></i></div><div class="rbv">'+v+'</div></div>';
+    }).join('')+'</div>';
+    h+='<p class="hd" style="margin-top:6px">CELPIP 공식 4항목 · 12점 만점 · 목표 7</p>';
+    if(g.rubricNote)h+='<p class="vd" style="margin-top:7px">'+esc(g.rubricNote)+'</p>';
+  }
+  if(g.clb)h+=bandHtml(g.clb,g.clbNote);
   if(g.corrections.length)h+='<div class="fixes">'+g.corrections.map(function(c){
     return '<div class="fix"><span class="w">'+esc(c.wrong)+'</span> → <span class="r">'+esc(c.right)+'</span>'+(c.why?'<span class="y">'+esc(c.why)+'</span>':'')+'</div>'}).join('')+'</div>';
+  if(bonus)h+='<p class="bonus">🏅 '+esc(g.bonusNote||'보너스')+' = +'+bonus+'</p>';
   h+='<p class="gain">+'+gain+' XP'+(g.errorsAvoided.length?' · 보스 '+g.errorsAvoided.length+'체 타격':'')+
      (killed.length?' · 🏆 '+killed.map(function(k){return(BOSSES.filter(function(b){return b.id===k})[0]||{}).n}).join(', ')+' 격파!':'')+'</p>';
   if(g.win)h+='<p class="vd" style="color:var(--good);margin-top:7px">⬆ '+esc(g.win)+'</p>';
   if(g.next)h+='<p class="vd" style="margin-top:4px">→ 다음엔: '+esc(g.next)+'</p>';
+  if(C&&C.kind==='speak')h+='<div id="rec-slot">'+(sp.url?'<div class="hlab">내 녹음 다시 듣기</div><audio class="rv" controls src="'+sp.url+'"></audio>':'')+'</div>';
   h+='</div>';
   $('c-res').insertAdjacentHTML('beforeend',h);
   act('<button class="btn" id="nx">다음 챌린지</button><button class="btn2" id="ag">같은 걸 한 번 더</button>');
@@ -1165,107 +1213,6 @@ $('exp').onclick=function(){
   var t='[셀핍 아레나 기록] Lv.'+(lvl(S.xp)+1)+' / '+S.xp+'XP\n\n'+s;
   if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){$('exp').textContent='✓ 복사됨';setTimeout(function(){$('exp').textContent='📋 전체 기록 복사'},1600)});
 };
-/* ============ 자동 백업 (GitHub Gist) ============
-   토큰(gist 권한만)을 한 번 넣으면 챌린지가 끝날 때마다 비밀 Gist에 기록이 올라간다.
-   새 폰에서는 토큰만 넣으면 기존 Gist를 찾아 복원한다. 서버 없음. */
-var GKEY='celpip_arena_gh',GID='celpip_arena_gist',BKEY='celpip_arena_lastbk',GFILE='celpip-arena.json';
-var cloud={tok:'',gist:'',timer:null,busy:false,dirty:false,last:0,err:''};
-try{cloud.tok=localStorage.getItem(GKEY)||'';cloud.gist=localStorage.getItem(GID)||'';cloud.last=+localStorage.getItem(BKEY)||0}catch(e){}
-function markBackup(){cloud.last=Date.now();try{localStorage.setItem(BKEY,String(cloud.last))}catch(e){};cloudUI()}
-function gh(method,path,body){
-  return fetch('https://api.github.com'+path,{method:method,headers:{'Authorization':'Bearer '+cloud.tok,'Accept':'application/vnd.github+json','Content-Type':'application/json'},body:body?JSON.stringify(body):undefined})
-    .then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.message||('HTTP '+r.status));return j})});
-}
-function cloudQueue(){
-  if(!cloud.tok)return; cloud.dirty=true;
-  clearTimeout(cloud.timer);cloud.timer=setTimeout(cloudPush,2500);
-}
-function cloudPush(){
-  if(!cloud.tok||cloud.busy||!cloud.dirty)return;
-  cloud.busy=true;cloud.dirty=false;cloud.err='';cloudUI('올리는 중…');
-  var files={};files[GFILE]={content:backupJSON()};
-  var p=cloud.gist?gh('PATCH','/gists/'+cloud.gist,{files:files}):gh('POST','/gists',{description:'셀핍 아레나 기록 (자동 백업)',public:false,files:files});
-  p.then(function(j){cloud.busy=false;if(j&&j.id&&!cloud.gist){cloud.gist=j.id;try{localStorage.setItem(GID,j.id)}catch(e){}}markBackup();if(cloud.dirty)cloudQueue()})
-   .catch(function(e){cloud.busy=false;cloud.dirty=true;cloud.err=e.message||'실패';
-     if(/Not Found/i.test(cloud.err)&&cloud.gist){cloud.gist='';try{localStorage.removeItem(GID)}catch(x){}}  /* 지운 gist면 다음에 새로 만든다 */
-     cloudUI()});
-}
-function cloudFind(){
-  /* 이 계정의 gist 중 우리 파일이 있는 것을 찾는다 */
-  return gh('GET','/gists?per_page=100').then(function(list){
-    var hit=(list||[]).filter(function(g){return g.files&&g.files[GFILE]})[0];
-    return hit?hit.id:'';
-  });
-}
-function cloudPull(){
-  if(!cloud.tok||!cloud.gist){alert('연결된 백업이 없어.');return}
-  cloudUI('가져오는 중…');
-  gh('GET','/gists/'+cloud.gist).then(function(j){
-    var f=j.files&&j.files[GFILE];
-    if(!f)throw new Error('백업 파일이 비어 있어');
-    var get=f.truncated?fetch(f.raw_url).then(function(r){return r.text()}):Promise.resolve(f.content);
-    return get;
-  }).then(function(txt){restore(txt);cloud.dirty=false;markBackup()})
-    .catch(function(e){cloud.err=e.message||'실패';cloudUI()});
-}
-function cloudUI(msg){
-  var st=$('gst'),ln=$('gln');if(!st)return;
-  if(!cloud.tok){st.textContent='꺼짐';st.className='pill';if(ln)ln.textContent='';return}
-  st.className='pill'+(cloud.err?'':' on');
-  st.textContent=msg||(cloud.err?'오류':'켜짐');
-  if(ln)ln.textContent=cloud.err?('마지막 시도 실패: '+cloud.err):(cloud.last?('마지막 백업 '+new Date(cloud.last).toLocaleString('ko-CA',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})):'아직 올린 적 없음');
-  var inp=$('gk');if(inp&&cloud.tok)inp.value='';
-}
-function backupNag(){
-  /* 자동 백업이 없고, 기록이 쌓였는데 7일 넘게 백업 안 했으면 카드 위에 한 줄 */
-  if(cloud.tok||S.runs.length<5)return '';
-  var days=cloud.last?Math.floor((Date.now()-cloud.last)/864e5):99;
-  if(days<7)return '';
-  return '<div class="warn" style="margin-top:0;margin-bottom:12px">기록 '+S.runs.length+'개가 이 폰에만 있어'+(cloud.last?' (백업 '+days+'일 전)':'')+'. 설정에서 <b>자동 백업</b>을 켜두면 다시 안 물어볼게.</div>';
-}
-$('gsave').onclick=function(){
-  var v=$('gk').value.trim();if(!v)return;
-  cloud.tok=v;try{localStorage.setItem(GKEY,v)}catch(e){}
-  cloudUI('확인 중…');
-  cloudFind().then(function(id){
-    if(id){cloud.gist=id;try{localStorage.setItem(GID,id)}catch(e){}
-      if(!S.runs.length&&confirm('이 계정에 이전 백업이 있어. 지금 가져올까?')){cloudPull();return}
-    }
-    cloud.dirty=true;cloudPush();
-  }).catch(function(e){cloud.err=e.message||'토큰이 안 맞아';cloudUI()});
-};
-$('gclear').onclick=function(){cloud.tok='';cloud.gist='';cloud.err='';try{localStorage.removeItem(GKEY);localStorage.removeItem(GID)}catch(e){};cloudUI()};
-$('gpull').onclick=cloudPull;
-$('gpush').onclick=function(){cloud.dirty=true;cloudPush()};
-function backupJSON(){return JSON.stringify({app:'celpip_arena',v:1,exported:new Date().toISOString(),xp:S.xp,bosses:S.bosses,runs:S.runs},null,1)}
-$('dl').onclick=function(){
-  var blob=new Blob([backupJSON()],{type:'application/json'}),a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);a.download='celpip-backup-'+TD+'.json';document.body.appendChild(a);a.click();
-  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1000);
-  markBackup();
-};
-$('dlc').onclick=function(){
-  if(navigator.clipboard)navigator.clipboard.writeText(backupJSON()).then(function(){$('dlc').textContent='✓ 복사됨';setTimeout(function(){$('dlc').textContent='📋 JSON 복사'},1600);markBackup()});
-};
-function restore(text){
-  var v;try{v=JSON.parse(text)}catch(e){alert('JSON이 아니야.');return}
-  var runs=Array.isArray(v)?v:(v&&v.runs);
-  if(!Array.isArray(runs)){alert('runs 배열이 없어. 백업 파일이 맞는지 확인해줘.');return}
-  runs=runs.filter(function(r){return r&&r.date&&r.type});
-  var full=v&&typeof v.xp==='number'&&v.bosses;
-  var mode=full&&S.runs.length?(confirm('현재 기록 '+S.runs.length+'개가 있어.\n확인 = 백업으로 전부 덮어쓰기\n취소 = 기록만 합치기(중복 제외, XP·보스 유지)')?'replace':'merge'):(full?'replace':'merge');
-  if(mode==='replace'){S.xp=v.xp;S.runs=runs;BOSSES.forEach(function(b){S.bosses[b.id]=(v.bosses[b.id]!=null)?v.bosses[b.id]:b.hp})}
-  else{var have={};S.runs.forEach(function(r){have[r.ts||(r.date+r.type+r.score)]=1});
-    var add=runs.filter(function(r){return !have[r.ts||(r.date+r.type+r.score)]});
-    S.runs=S.runs.concat(add).sort(function(a,b){return (a.ts||0)-(b.ts||0)});
-    if(!full)add.forEach(function(r){S.xp+=(r.score||0)});}
-  S.runs=S.runs.slice(-150);save();
-  renderHud();renderBosses();renderHist();renderNb();idle();
-  $('rst').textContent='✓ 복원됨 ('+S.runs.length+'개)';setTimeout(function(){$('rst').textContent='⬆ JSON 복원'},2500);
-}
-$('rst').onclick=function(){$('rf').click()};
-$('rf').onchange=function(){var f=this.files&&this.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){restore(rd.result)};rd.readAsText(f);this.value=''};
-$('rp2').onclick=function(){var t=prompt('백업 JSON을 붙여넣어');if(t)restore(t)};
 $('wipe').onclick=function(){
   if(!confirm('전투 기록·XP·보스 HP를 전부 지울까? 되돌릴 수 없어.'))return;
   S={xp:SEED,bosses:{},runs:[]};BOSSES.forEach(function(b){S.bosses[b.id]=b.hp});save();
@@ -1273,9 +1220,6 @@ $('wipe').onclick=function(){
 };
 
 /* ============ 부팅 ============ */
-if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js')}catch(e){}}
-load();keyUI();if(apiKey)loadModels();ttsLoad();cloudUI();
-window.addEventListener('online',function(){if(cloud.dirty)cloudQueue()});
-document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&cloud.dirty){clearTimeout(cloud.timer);cloudPush()}});
+load();keyUI();if(apiKey)loadModels();
 renderHud();renderBosses();renderHist();renderNb();renderTypes();idle();
 })();
